@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.HashMap;
 import java.util.List;
 
-@Mapper
 @Repository
 public class UserDao {
     private final SqlSession sqlSession;
@@ -23,6 +22,6 @@ public class UserDao {
     public UserDto selectUserInfo(String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
-        return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserList",userId);
+        return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserInfo",userId);
     }
 }
