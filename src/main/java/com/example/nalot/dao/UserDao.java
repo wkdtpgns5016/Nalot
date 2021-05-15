@@ -20,7 +20,7 @@ public class UserDao {
         return sqlSession.selectList("com.example.nalot.dao.UserDao.selectUserList");
     }
 
-    public List<UserDto> selectUserInfo(String userId) {
+    public UserDto selectUserInfo(String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
         return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserList",userId);
