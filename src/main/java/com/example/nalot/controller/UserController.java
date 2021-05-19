@@ -2,10 +2,7 @@ package com.example.nalot.controller;
 
 import com.example.nalot.model.UserDto;
 import com.example.nalot.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,4 +24,7 @@ public class UserController {
     public UserDto selectUserInfo(@PathVariable String userId){
         return userService.selectUserInfo(userId);
     }
+
+    @PostMapping("")
+    public int signUp(@RequestBody UserDto user) { return userService.insertUserInfo(user); }
 }
