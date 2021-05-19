@@ -7,5 +7,5 @@ import java.util.List;
 public interface UserService {
     public List<UserDto> selectUserList();
     public UserDto selectUserInfo(String userId);
-
+    public int insertUserInfo(UserDto user);
 }
