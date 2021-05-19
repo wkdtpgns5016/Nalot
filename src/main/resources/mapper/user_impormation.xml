@@ -12,4 +12,10 @@
         where id = #{userId}
     </select>
 
+    <insert id="insertUserInfo" parameterType="com.example.nalot.model.UserDto">
+        insert into user_information
+            (id, password, name, gender, zone_code, address_basic, address_detail)
+        values (#{user.id}, #{user.password}, #{user.name}, #{user.gender},
+                #{user.zoneCode}, #{user.addressBasic}, #{user.addressDetail})
+    </insert>
 </mapper>
