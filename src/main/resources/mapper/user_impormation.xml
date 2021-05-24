@@ -22,8 +22,8 @@
     <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
         update user_information
         set password=#{password}, name=#{name},
-            gender=#{gender}, zone_code=#{zone_code},
-            address_basic=#{address_basic}, address_detail=#{address_detail}
+            gender=#{gender}, zone_code=#{zoneCode},
+            address_basic=#{addressBasic}, address_detail=#{addressDetail}
         where id=#{id};
     </update>
 </mapper>
