@@ -39,4 +39,19 @@ public class UserController {
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
         }
     }
+  
+    @PutMapping("")
+    public ResponseEntity<ResponseMessage> modifyUserInfo(@RequestBody UserDto user) {
+        try{
+            int code = userService.updateUserInfo(user);
+            System.out.println(code);
+            ResponseMessage message = new ResponseMessage("Created", "회원정보 수정이 완료되었습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
