@@ -18,4 +18,12 @@
         values (#{id}, #{password}, #{name}, #{gender},
                 #{zoneCode}, #{addressBasic}, #{addressDetail})
     </insert>
+
+    <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
+        update user_information
+        set password=#{password}, name=#{name},
+            gender=#{gender}, zone_code=#{zone_code},
+            address_basic=#{address_basic}, address_detail=#{address_detail}
+        where id=#{id};
+    </update>
 </mapper>
