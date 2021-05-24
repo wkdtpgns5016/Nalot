@@ -9,4 +9,5 @@ public interface UserService {
     public UserDto selectUserInfo(String userId);
     public int insertUserInfo(UserDto user);
     public int updateUserInfo(UserDto user);
+    public int deleteUserInfo(String userId);
 }

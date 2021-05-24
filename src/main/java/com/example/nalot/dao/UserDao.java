@@ -36,4 +36,11 @@ public class UserDao {
         param.put("user", user);
         return sqlSession.update("com.example.nalot.dao.UserDao.updateUserInfo",user);
     }
+
+    public int deleteUserInfo(String userId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        System.out.println(userId);
+        return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserInfo",param);
+    }
 }

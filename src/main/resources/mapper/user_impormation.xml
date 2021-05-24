@@ -27,7 +27,7 @@
         where id=#{id};
     </update>
 
-    <delete id="deleteUserInfo" parameterType="com.example.nalot.model.UserDto">
-        delete user_information where id=#{id};
+    <delete id="deleteUserInfo" >
+        delete from user_information where id=#{userId};
     </delete>
 </mapper>
