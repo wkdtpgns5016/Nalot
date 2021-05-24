@@ -18,7 +18,7 @@
         values (#{id}, #{password}, #{name}, #{gender},
                 #{zoneCode}, #{addressBasic}, #{addressDetail})
     </insert>
-
+  
     <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
         update user_information
         set password=#{password}, name=#{name},

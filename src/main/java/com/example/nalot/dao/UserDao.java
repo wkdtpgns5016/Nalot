@@ -30,7 +30,7 @@ public class UserDao {
         param.put("user", user);
         return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserInfo",user);
     }
-
+  
     public int updateUserInfo(UserDto user) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("user", user);

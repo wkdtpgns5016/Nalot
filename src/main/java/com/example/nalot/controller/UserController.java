@@ -39,7 +39,7 @@ public class UserController {
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
         }
     }
-
+  
     @PutMapping("")
     public ResponseEntity<ResponseMessage> modifyUserInfo(@RequestBody UserDto user) {
         try{
