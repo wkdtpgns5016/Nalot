@@ -26,4 +26,8 @@
             address_basic=#{addressBasic}, address_detail=#{addressDetail}
         where id=#{id};
     </update>
+
+    <delete id="deleteUserInfo" parameterType="com.example.nalot.model.UserDto">
+        delete user_information where id=#{id};
+    </delete>
 </mapper>
