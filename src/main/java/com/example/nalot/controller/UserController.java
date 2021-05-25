@@ -30,7 +30,6 @@ public class UserController {
     public ResponseEntity<ResponseMessage> signUp(@RequestBody UserDto user) {
         try{
             int code = userService.insertUserInfo(user);
-            System.out.println(code);
             ResponseMessage message = new ResponseMessage("Created", "회원가입이 완료 되었습니다.", "", "");
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
 
@@ -40,11 +39,10 @@ public class UserController {
         }
     }
 
-    @PutMapping("")
-    public ResponseEntity<ResponseMessage> modifyUserInfo(@RequestBody UserDto user) {
+    @PutMapping("{userId}")
+    public ResponseEntity<ResponseMessage> modifyUserInfo(@PathVariable String userId, @RequestBody UserDto user) {
         try{
-            int code = userService.updateUserInfo(user);
-            System.out.println(code);
+            int code = userService.updateUserInfo(userId, user);
             ResponseMessage message = new ResponseMessage("Created", "회원정보 수정이 완료되었습니다.", "", "");
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
 
@@ -59,7 +57,6 @@ public class UserController {
     public ResponseEntity<ResponseMessage> deleteUserInfo(@PathVariable String userId) {
         try{
             int code = userService.deleteUserInfo(userId);
-            System.out.println(code);
             ResponseMessage message = new ResponseMessage("Created", "회원삭제가 완료되었습니다.", "", "");
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
 
