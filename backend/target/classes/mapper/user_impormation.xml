@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.nalot.dao.UserDao">
+    <select id="selectUserList" resultType="com.example.nalot.model.UserDto">
+        select * from user_information
+    </select>
+
+    <select id="selectUserInfo" resultType="com.example.nalot.model.UserDto">
+        select * from user_information
+        where id = #{userId}
+    </select>
+
+    <insert id="insertUserInfo" parameterType="com.example.nalot.model.UserDto">
+        insert into user_information
+            (id, password, name, gender, zone_code, address_basic, address_detail, address_ground_number, birth)
+        values (#{user.id}, #{user.password}, #{user.name}, #{user.gender},#{user.zoneCode},
+                #{user.addressBasic}, #{user.addressDetail}, #{user.addressGroundNumber}, #{user.birth})
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
+        update user_information
+        set password=#{user.password}, name=#{user.name},
+            gender=#{user.gender}, zone_code=#{user.zoneCode},
+            address_basic=#{user.addressBasic}, address_detail=#{user.addressDetail},
+            address_ground_number=#{user.addressGroundNumber}, birth=#{user.birth}
+        where id=#{userId};
+    </update>
+
+    <delete id="deleteUserInfo" >
+        delete from user_information where id=#{userId};
+    </delete>
+</mapper>
