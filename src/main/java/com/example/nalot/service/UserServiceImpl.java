@@ -22,4 +22,13 @@ public class UserServiceImpl implements UserService {
     public UserDto selectUserInfo(String userId) {
         return userDao.selectUserInfo(userId);
     }
+
+    @Override
+    public int insertUserInfo(UserDto user) { return userDao.insertUserInfo(user); }
+
+    @Override
+    public int updateUserInfo(UserDto user) { return userDao.updateUserInfo(user); }
+
+    @Override
+    public int deleteUserInfo(String userId) { return userDao.deleteUserInfo(userId); }
 }

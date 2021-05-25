@@ -12,4 +12,22 @@
         where id = #{userId}
     </select>
 
+    <insert id="insertUserInfo" parameterType="com.example.nalot.model.UserDto">
+        insert into user_information
+            (id, password, name, gender, zone_code, address_basic, address_detail)
+        values (#{id}, #{password}, #{name}, #{gender},
+                #{zoneCode}, #{addressBasic}, #{addressDetail})
+    </insert>
+
+    <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
+        update user_information
+        set password=#{password}, name=#{name},
+            gender=#{gender}, zone_code=#{zoneCode},
+            address_basic=#{addressBasic}, address_detail=#{addressDetail}
+        where id=#{id};
+    </update>
+
+    <delete id="deleteUserInfo" >
+        delete from user_information where id=#{userId};
+    </delete>
 </mapper>

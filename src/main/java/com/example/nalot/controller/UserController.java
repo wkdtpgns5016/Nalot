@@ -1,11 +1,11 @@
 package com.example.nalot.controller;
 
+import com.example.nalot.model.ResponseMessage;
 import com.example.nalot.model.UserDto;
 import com.example.nalot.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,12 +19,54 @@ public class UserController {
     }
 
     @GetMapping("")
-    public List<UserDto> selectUserList(){
-        return userService.selectUserList();
-    }
+    public List<UserDto> selectUserList(){ return userService.selectUserList(); }
 
     @GetMapping("{userId}")
     public UserDto selectUserInfo(@PathVariable String userId){
         return userService.selectUserInfo(userId);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<ResponseMessage> signUp(@RequestBody UserDto user) {
+        try{
+            int code = userService.insertUserInfo(user);
+            System.out.println(code);
+            ResponseMessage message = new ResponseMessage("Created", "회원가입이 완료 되었습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("")
+    public ResponseEntity<ResponseMessage> modifyUserInfo(@RequestBody UserDto user) {
+        try{
+            int code = userService.updateUserInfo(user);
+            System.out.println(code);
+            ResponseMessage message = new ResponseMessage("Created", "회원정보 수정이 완료되었습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("{userId}")
+    public ResponseEntity<ResponseMessage> deleteUserInfo(@PathVariable String userId) {
+        try{
+            int code = userService.deleteUserInfo(userId);
+            System.out.println(code);
+            ResponseMessage message = new ResponseMessage("Created", "회원삭제가 완료되었습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
     }
 }
