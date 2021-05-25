@@ -14,18 +14,18 @@
 
     <insert id="insertUserInfo" parameterType="com.example.nalot.model.UserDto">
         insert into user_information
-            (id, password, name, gender, zone_code, address_basic, address_detail)
-        values (#{id}, #{password}, #{name}, #{gender},#{zoneCode},
-                #{addressBasic}, #{addressDetail}, #{addressGroundNumber}, #{birth})
+            (id, password, name, gender, zone_code, address_basic, address_detail, address_ground_number, birth)
+        values (#{user.id}, #{user.password}, #{user.name}, #{user.gender},#{user.zoneCode},
+                #{user.addressBasic}, #{user.addressDetail}, #{user.addressGroundNumber}, #{user.birth})
     </insert>
 
     <update id="updateUserInfo" parameterType="com.example.nalot.model.UserDto">
         update user_information
-        set password=#{password}, name=#{name},
-            gender=#{gender}, zone_code=#{zoneCode},
-            address_basic=#{addressBasic}, address_detail=#{addressDetail},
-            address_ground_number=#{addressGroundNumber}, birth=#{birth}
-        where id=#{id};
+        set password=#{user.password}, name=#{user.name},
+            gender=#{user.gender}, zone_code=#{user.zoneCode},
+            address_basic=#{user.addressBasic}, address_detail=#{user.addressDetail},
+            address_ground_number=#{user.addressGroundNumber}, birth=#{user.birth}
+        where id=#{userId};
     </update>
 
     <delete id="deleteUserInfo" >

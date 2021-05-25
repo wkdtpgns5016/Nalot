@@ -8,6 +8,6 @@ public interface UserService {
     public List<UserDto> selectUserList();
     public UserDto selectUserInfo(String userId);
     public int insertUserInfo(UserDto user);
-    public int updateUserInfo(UserDto user);
+    public int updateUserInfo(String userId, UserDto user);
     public int deleteUserInfo(String userId);
 }

@@ -22,19 +22,20 @@ public class UserDao {
     public UserDto selectUserInfo(String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
-        return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserInfo",userId);
+        return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserInfo",param);
     }
 
     public int insertUserInfo(UserDto user) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("user", user);
-        return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserInfo",user);
+        return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserInfo",param);
     }
 
-    public int updateUserInfo(UserDto user) {
+    public int updateUserInfo(String userId, UserDto user) {
         HashMap<String, Object> param = new HashMap<>();
+        param.put("userId",userId);
         param.put("user", user);
-        return sqlSession.update("com.example.nalot.dao.UserDao.updateUserInfo",user);
+        return sqlSession.update("com.example.nalot.dao.UserDao.updateUserInfo",param);
     }
 
     public int deleteUserInfo(String userId) {
