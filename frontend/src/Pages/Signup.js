@@ -9,10 +9,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom"
-
+import axios from 'axios'
 import DaumPostcode from 'react-daum-postcode'
 import PropTypes from 'prop-types'
 import Modal from "@material-ui/core/Modal";
+import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
 const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -87,7 +88,25 @@ function SignUp() {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     const [selectedValue, setSelectedValue] = React.useState(0);
+    const [Password, setPassword] = useState("")
+    const [confirmPassword, setconfirmPassword] = useState("")
+    const [Gender, setGender] = useState("")
 
+    const onPasswordHandler = (event)=>{
+        setPassword(event.currentTarget.value)
+    }
+    
+    const onconfirmPasswordHandler = (event)=>{
+        setconfirmPassword(event.currentTarget.value)
+    }
+
+    const hasNotSameError = passWordEntered =>
+        Password!==confirmPassword ? true : false
+
+    const handleRadioChange = (event) =>{
+        setGender(event.currentTarget.value)
+    }
+    
     const handleClickOpen = () =>{
         setOpen(true)
     }
@@ -96,15 +115,32 @@ function SignUp() {
         setSelectedValue(value);
     }
     const buttonClick=()=>{
-        console.log(document.getElementById('fname').value)
-        console.log(document.getElementById('lname').value)
-        console.log(document.getElementById('date').value)
-        console.log(document.getElementById('postcode').value)
-        console.log(document.getElementById('address1').value)
-        console.log(document.getElementById('address2').value)
-        console.log(document.getElementById('address3').value)
-        console.log(document.getElementById('email').value)
-        console.log(document.getElementById('password').value)
+        if(Password === confirmPassword){
+            let fname = (document.getElementById('fname').value)
+            let lname = (document.getElementById('lname').value)
+            let date = (document.getElementById('date').value)
+            let postcode = (document.getElementById('postcode').value)
+            let address1 = (document.getElementById('address1').value)
+            let address2 = (document.getElementById('address2').value)
+            let address3 = (document.getElementById('address3').value)
+            let email = (document.getElementById('email').value)
+            let password = (document.getElementById('password').value)
+            //let arr = [fname, lname, date, postcode, address1, address2, address3, email, password]
+            let obj = {"name":lname+fname, "date": date, "zoneCode": postcode, "addressBasic": address1,
+            "addressGroundNumber":address2, "addressDetail":address3, "email":email, "password":password, "gender":Gender}
+            console.log(obj)
+            axios.post('/users', obj, {
+                'content-Type': 'application/json',
+                'Accept': 'application/json',
+            }).then(r =>{
+                console.log(r)
+            })
+         }
+        else{
+            return alert('비밀번호를 확인하세요')
+
+        }
+
     }
 
     return (
@@ -142,6 +178,27 @@ function SignUp() {
                                 inputProps={{maxLength:3}}
                             />
                         </Grid>
+                        <RadioGroup>
+                            <Grid item xs = {12} sm = {6}>
+                                <FormControlLabel
+
+                                    value="M"
+                                    control={<Radio color="primary"/>}
+                                    label="남"
+                                    labelPlacement="Start"
+                                    onChange={handleRadioChange}
+                                />
+                            </Grid>
+                            <Grid item xs = {12} sm = {6}>
+                                <FormControlLabel
+                                    value="F"
+                                    control={<Radio color="primary"/>}
+                                    label="여"
+                                    labelPlacement="Start"
+                                    onChange={handleRadioChange}
+                                />
+                            </Grid>
+                        </RadioGroup>
                         <Grid item xs={12} sm ={6}>
                             <TextField
                                 id="date"
@@ -163,7 +220,6 @@ function SignUp() {
                                 id="postcode"
                                 label="우편번호"
                                 name="postcode"
-                                autoComplete="postcode"
                                 inputProps={{maxLength: 5}}
                             />
                         </Grid>
@@ -184,6 +240,7 @@ function SignUp() {
                                 id="address1"
                                 label="기본주소"
                                 name="address1"
+                                inputProps={{maxLength: 49}}
                             />
                         </Grid>
                         <Grid item xs = {12}>
@@ -194,6 +251,7 @@ function SignUp() {
                                 id="address2"
                                 label="지번주소"
                                 name="address2"
+                                inputProps={{maxLength: 49}}
                                 />
                         </Grid>
                         <Grid item xs={12}>
@@ -204,6 +262,7 @@ function SignUp() {
                                 id="address3"
                                 label="상세주소"
                                 name="address3"
+                                inputProps={{maxLength: 49}}
                             />
                         </Grid>
                         
@@ -215,7 +274,7 @@ function SignUp() {
                                 id="email"
                                 label="이메일 주소"
                                 name="email"
-                                autoComplete="email"
+                                inputProps={{maxLength: 44}}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -227,11 +286,18 @@ function SignUp() {
                                 label="비밀번호"
                                 type="password"
                                 id="password"
-                                autoComplete="current-password"
+                                onChange = {onPasswordHandler}
+                                value = {Password}
+                                inputProps={{maxLength: 49}}
+
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                error = {hasNotSameError('password2')}
+                                helperText={
+                                    hasNotSameError('password2') ? "입력한 비밀번호와 일치하지 않습니다" : null
+                                }
                                 variant="outlined"
                                 required
                                 fullWidth
@@ -239,12 +305,13 @@ function SignUp() {
                                 label="비밀번호 확인"
                                 type="password"
                                 id="password2"
-                                autoComplete="current-password"
+                                onChange = {onconfirmPasswordHandler}
+                                value = {confirmPassword}
+                                inputProps={{maxLength: 49}}
                             />
                         </Grid>
                     </Grid>
                     <Button
-                        //type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
