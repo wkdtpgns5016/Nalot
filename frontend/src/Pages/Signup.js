@@ -126,19 +126,28 @@ function SignUp() {
             let email = (document.getElementById('email').value)
             let password = (document.getElementById('password').value)
             //let arr = [fname, lname, date, postcode, address1, address2, address3, email, password]
-            let obj = {"name":lname+fname, "date": date, "zoneCode": postcode, "addressBasic": address1,
-            "addressGroundNumber":address2, "addressDetail":address3, "email":email, "password":password, "gender":Gender}
+            let obj = {"name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
+            "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender}
             console.log(obj)
-            axios.post('/users', obj, {
-                'content-Type': 'application/json',
-                'Accept': 'application/json',
-            }).then(r =>{
-                console.log(r)
-            })
+            axios.post('http://localhost:8080/users', {
+                "name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
+                "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender
+            },{
+                headers:{
+                 'Content-Type':'application/json'
+                }
+                })
+                .then(response=>{
+                    console.log(response)
+                })
+                .catch(error=>{
+                    console.trace()
+                    console.log(error)
+                })
+
          }
         else{
             return alert('비밀번호를 확인하세요')
-
         }
 
     }
