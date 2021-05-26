@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
@@ -35,7 +36,9 @@ public class UserController {
 
         }catch (Exception exception){
             ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+
         }
     }
 
