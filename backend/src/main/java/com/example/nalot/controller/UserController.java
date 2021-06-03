@@ -1,10 +1,20 @@
 package com.example.nalot.controller;
 
+import com.example.nalot.config.JwtTokenUtil;
+import com.example.nalot.model.JwtRequest;
+import com.example.nalot.model.JwtResponse;
 import com.example.nalot.model.ResponseMessage;
 import com.example.nalot.model.UserDto;
+import com.example.nalot.service.UserDetailsServiceImpl;
 import com.example.nalot.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +24,17 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthenticationManager authenticationManager, JwtTokenUtil jwtTokenUtil, UserDetailsServiceImpl userDetailsService) {
         this.userService = userService;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
+
 
     @GetMapping("")
     public List<UserDto> selectUserList(){ return userService.selectUserList(); }
@@ -69,4 +86,28 @@ public class UserController {
             return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<ResponseMessage> logIn(@RequestBody JwtRequest authenticationRequest) throws Exception {
+        String username = authenticationRequest.getUsername();
+        String password = authenticationRequest.getPassword();
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+
+        } catch (DisabledException e) {
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "계정이 비활성화 상태 입니다.");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        } catch (BadCredentialsException e) {
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "정보가 일치하지 않습니다.");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getUsername());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        ResponseMessage message = new ResponseMessage("OK", token, "", "");
+        return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
+    }
+
 }
