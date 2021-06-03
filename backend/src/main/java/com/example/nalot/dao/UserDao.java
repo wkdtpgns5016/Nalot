@@ -28,8 +28,6 @@ public class UserDao {
     public int insertUserInfo(UserDto user) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("user", user);
-        //user.getAddressBasic();
-        System.out.println(user.getAddressBasic());
         return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserInfo",param);
     }
 
@@ -43,7 +41,6 @@ public class UserDao {
     public int deleteUserInfo(String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
-        System.out.println(userId);
         return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserInfo",param);
     }
 }
