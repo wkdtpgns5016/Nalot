@@ -7,7 +7,7 @@ import Signup  from "./Signup";
 function Nalot({match}){
     return(
         <div>
-            <Route exact path = {match.path} component = {Signin}/>
+            <Route exact path = {`${match.path}`} component = {Signin}/>
             <Route path = {`${match.path}/Signup`} component={Signup}/>
         </div>
     )
