@@ -144,6 +144,8 @@ function SignUp() {
                     console.trace()
                     console.log(error)
                 })
+            history.push('/Nalot');
+            return alert('회원가입 성공')
 
          }
         else{
