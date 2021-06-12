@@ -14,6 +14,7 @@ import DaumPostcode from 'react-daum-postcode'
 import PropTypes from 'prop-types'
 import Modal from "@material-ui/core/Modal";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -114,8 +115,9 @@ function SignUp() {
         setOpen(false)
         setSelectedValue(value);
     }
+
     const buttonClick=()=>{
-        if(Password === confirmPassword){
+        if(Password === confirmPassword && typeof Password !== 'undefined'){
             let fname = (document.getElementById('fname').value)
             let lname = (document.getElementById('lname').value)
             let date = (document.getElementById('date').value)
@@ -138,11 +140,11 @@ function SignUp() {
                 }
                 })
                 .then(response=>{
-                    console.log(response)
+                    //console.log(response)
                 })
                 .catch(error=>{
-                    console.trace()
-                    console.log(error)
+                    //console.trace()
+                   // console.log(error)
                 })
             history.push('/Nalot');
             return alert('회원가입 성공')
@@ -153,7 +155,7 @@ function SignUp() {
         }
 
     }
-
+    const history = useHistory();
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
