@@ -7,6 +7,7 @@ import com.example.nalot.model.WeatherForecast;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,8 +18,11 @@ import java.net.URLEncoder;
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
-    private final String BASE_URL = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst";
-    private final String serviceKey = "UjMjQb3kWN4PqhujkHx6%2FUj65fmqEp0sqHviiS1Ddw63JE9EJCxC4%2B4TIWr4PcWKyRm6vZUlVjfmc0aSGm%2BvYg%3D%3D"; /*공공데이터포털에서 받은 인증키*/
+    @Value("${weatherApi.url}")
+    private String BASE_URL;
+
+    @Value("${weatherApi.serviceKey}")
+    private String serviceKey;
 
     @Override
     public WeatherApiResponse.Items getWeatherForecast(String date, String time, String nx, String ny) {
