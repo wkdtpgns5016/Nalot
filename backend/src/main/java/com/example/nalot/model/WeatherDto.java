@@ -10,7 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WeatherDto {
-    float TemperatureMin;
-    float TemperatureMax;
-    float TemperatureCurrent;
+    int weatherId;
+    float temperatureMin;
+    float temperatureMax;
+    float temperatureCurrent;
 }

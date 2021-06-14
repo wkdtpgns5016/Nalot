@@ -8,7 +8,7 @@
         where id = #{weatherId}
     </select>
 
-    <select id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
+    <insert id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
         INSERT INTO weather_information
             (temperature_min,
              temperature_max,
@@ -16,5 +16,10 @@
         VALUES(#{weatherDto.temperatureMin},
                #{weatherDto.temperatureMax},
                #{weatherDto.temperatureCurrent});
-    </select>
+    </insert>
+
+    <delete id="deleteWeatherInfo">
+        DELETE FROM nalotdb.weather_information
+        WHERE id=#{weatherId};
+    </delete>
 </mapper>

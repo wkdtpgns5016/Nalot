@@ -55,7 +55,7 @@ public class WeatherServiceTest {
     @Test
     public void selectWeatherInfoTest(){
         //given
-        String weatherId = "1";
+        int weatherId = 1;
         float temperatureMin = 24.0F;
 
         //when
@@ -69,7 +69,10 @@ public class WeatherServiceTest {
     @Test
     public void insertWeatherInfoTest(){
         //given
-        WeatherDto weatherDto = new WeatherDto(24.0F, 30.5F,27.5F);
+        WeatherDto weatherDto = new WeatherDto();
+        weatherDto.setTemperatureMin(24F);
+        weatherDto.setTemperatureMax(28.2F);
+        weatherDto.setTemperatureCurrent(25.1F);
 
         //when
         int result = weatherService.insertWeatherInfo(weatherDto);
@@ -82,12 +85,13 @@ public class WeatherServiceTest {
     @Test
     public void deleteWeatherInfoTest(){
         //given
-        String weatherId = "2";
-        int result = 1;
+        int weatherId = 1;
 
         //when
+        int result = weatherService.deleteWeatherInfo(weatherId);
 
         //then
+        assertThat(result).isOne();
 
     }
 }
