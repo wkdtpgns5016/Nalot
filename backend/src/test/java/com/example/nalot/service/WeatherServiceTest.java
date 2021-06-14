@@ -70,11 +70,12 @@ public class WeatherServiceTest {
     public void insertWeatherInfoTest(){
         //given
         WeatherDto weatherDto = new WeatherDto(24.0F, 30.5F,27.5F);
-        int result = 1;
 
         //when
+        int result = weatherService.insertWeatherInfo(weatherDto);
 
         //then
+        assertThat(result).isOne();
 
     }
 

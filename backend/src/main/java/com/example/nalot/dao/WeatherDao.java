@@ -15,4 +15,10 @@ public class WeatherDao {
         param.put("weatherId",weatherId);
         return sqlSession.selectOne("com.example.nalot.dao.WeatherDao.selectWeatherInfo", param);
     }
+
+    public int insertWeatherInfo(WeatherDto weatherDto) {
+        HashMap<String,Object> param = new HashMap<>();
+        param.put("weatherDto",weatherDto);
+        return sqlSession.insert("com.example.nalot.dao.WeatherDao.insertWeatherInfo", param);
+    }
 }

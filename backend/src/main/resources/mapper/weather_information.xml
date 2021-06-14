@@ -7,4 +7,14 @@
         select * from weather_information
         where id = #{weatherId}
     </select>
+
+    <select id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
+        INSERT INTO weather_information
+            (temperature_min,
+             temperature_max,
+             temperature_current)
+        VALUES(#{weatherDto.temperatureMin},
+               #{weatherDto.temperatureMax},
+               #{weatherDto.temperatureCurrent});
+    </select>
 </mapper>
