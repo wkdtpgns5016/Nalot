@@ -90,6 +90,11 @@ public class WeatherServiceImpl implements WeatherService {
         return weatherDao.selectWeatherInfo(weatherId);
     }
 
+    @Override
+    public int insertWeatherInfo(WeatherDto weatherDto) {
+        return weatherDao.insertWeatherInfo(weatherDto);
+    }
+
     private WeatherApiResponse.Items getWeatherApiItems(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
