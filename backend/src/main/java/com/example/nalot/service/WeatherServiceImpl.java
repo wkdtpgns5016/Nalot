@@ -86,13 +86,18 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public WeatherDto selectWeatherInfo(String weatherId) {
+    public WeatherDto selectWeatherInfo(int weatherId) {
         return weatherDao.selectWeatherInfo(weatherId);
     }
 
     @Override
     public int insertWeatherInfo(WeatherDto weatherDto) {
         return weatherDao.insertWeatherInfo(weatherDto);
+    }
+
+    @Override
+    public int deleteWeatherInfo(int weatherId) {
+        return weatherDao.deleteWeatherInfo(weatherId);
     }
 
     private WeatherApiResponse.Items getWeatherApiItems(String json) {
