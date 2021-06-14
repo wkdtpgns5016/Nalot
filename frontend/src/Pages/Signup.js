@@ -131,28 +131,31 @@ function SignUp() {
             let obj = {"name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
             "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender}
             console.log(obj)
+            //테스트 이기 때문에 localhost url 사용
             axios.post('http://localhost:8080/users', {
                 "name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
                 "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender
+
             },{
                 headers:{
                  'Content-Type':'application/json'
                 }
                 })
                 .then(response=>{
-                    //console.log(response)
+                    console.log(response.data.message)
+                    if(response.status == 201) {
+                        //history.push('/Nalot');
+                        alert(response.data.message)
+                    }
                 })
-                .catch(error=>{
-                    //console.trace()
-                   // console.log(error)
+                .catch(error =>{
+                    alert(error.response.data.errorMessage)
                 })
-            history.push('/Nalot');
-            return alert('회원가입 성공')
-
          }
         else{
             return alert('비밀번호를 확인하세요')
         }
+
 
     }
     const history = useHistory();
