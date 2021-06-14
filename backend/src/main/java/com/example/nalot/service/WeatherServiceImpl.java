@@ -1,5 +1,6 @@
 package com.example.nalot.service;
 
+import com.example.nalot.dao.WeatherDao;
 import com.example.nalot.model.WeatherApi;
 import com.example.nalot.model.WeatherApiResponse;
 import com.example.nalot.model.WeatherDto;
@@ -23,6 +24,9 @@ public class WeatherServiceImpl implements WeatherService {
 
     @Value("${weatherApi.serviceKey}")
     private String serviceKey;
+
+    private final WeatherDao weatherDao;
+    public WeatherServiceImpl(WeatherDao weatherDao) { this.weatherDao = weatherDao; }
 
     @Override
     public WeatherApiResponse.Items getWeatherForecast(String date, String time, String nx, String ny) {
@@ -79,6 +83,11 @@ public class WeatherServiceImpl implements WeatherService {
             }
         }
         return weather;
+    }
+
+    @Override
+    public WeatherDto selectWeatherInfo(String weatherId) {
+        return weatherDao.selectWeatherInfo(weatherId);
     }
 
     private WeatherApiResponse.Items getWeatherApiItems(String json) {
