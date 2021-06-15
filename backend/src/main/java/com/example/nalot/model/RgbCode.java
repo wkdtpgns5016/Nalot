@@ -15,15 +15,15 @@ public class RgbCode {
     int blue;
 
     public RgbCode(String hexCode){
-        this.red = Integer.decode(hexCode.substring(1,3));
-        this.green = Integer.decode(hexCode.substring(2,5));
-        this.blue = Integer.decode(hexCode.substring(5));
+        this.red = Integer.parseInt(hexCode.substring(1,3),16);
+        this.green = Integer.parseInt(hexCode.substring(3,5),16);
+        this.blue = Integer.parseInt(hexCode.substring(5),16);
     }
 
     public HslCode convertHsl(){
-        double redDelta = this.red / 255;
-        double greenDelta = this.green / 255;
-        double blueDelta = this.blue / 255;
+        double redDelta = (double)this.red / 255;
+        double greenDelta = (double)this.green / 255;
+        double blueDelta = (double)this.blue / 255;
 
         double cMax = Math.max(Math.max(redDelta, greenDelta), blueDelta);
         double cMin = Math.min(Math.min(redDelta, greenDelta), blueDelta);
@@ -32,13 +32,15 @@ public class RgbCode {
         int hue;
         if(delta == 0) hue = 0;
         else if(cMax == redDelta) {
-            hue = 60 * (int)(((greenDelta-blueDelta)/delta)%6);
+            double num = (greenDelta-blueDelta)/delta%6+6;
+            if(num < 0) num += 6;
+            hue = (int)(60 * num);
         }
         else if(cMax == greenDelta) {
-            hue = 60 * (int)(((blueDelta-redDelta)/delta)+2);
+            hue = (int)(60 * (((blueDelta-redDelta)/delta)+2));
         }
         else {
-            hue = 60 * (int)(((redDelta-greenDelta)/delta)+4);
+            hue = (int)(60 * (((redDelta-greenDelta)/delta)+4));
         }
 
         double lightness = (cMax+cMin) / 2;

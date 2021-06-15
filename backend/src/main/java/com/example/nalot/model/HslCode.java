@@ -16,7 +16,7 @@ public class HslCode {
 
     public RgbCode convertRgb(){
         double c = (1 - Math.abs(2 * lightness - 1)) * saturation;
-        double x = c * (1 - Math.abs(((hue / 60) % 2) - 1));
+        double x = c * (1 - Math.abs((double)hue / 60 % 2 - 1));
         double m = lightness - (c / 2);
 
         double redDelta;
