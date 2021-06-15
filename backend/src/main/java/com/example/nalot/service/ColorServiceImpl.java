@@ -2,10 +2,12 @@ package com.example.nalot.service;
 
 import com.example.nalot.model.HslCode;
 import com.example.nalot.model.RgbCode;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ColorServiceImpl implements ColorService {
 
     @Override
