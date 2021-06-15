@@ -28,4 +28,17 @@ public class ColorServiceTest {
         assertThat(toneList.size()).isEqualTo(12);
 
     }
+
+    @Test
+    public void getToneOnToneListTest(){
+        //given
+        String hexCode = "#9752e0";
+
+        //when
+        List<RgbCode> toneList = colorService.getToneOnToneList(hexCode);
+
+        //then
+        assertThat(toneList.size()).isEqualTo(12);
+
+    }
 }
