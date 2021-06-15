@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface ColorService {
     public List<RgbCode> getToneInToneList(String hexCode);
+    public List<RgbCode> getToneOnToneList(String hexCode);
 }

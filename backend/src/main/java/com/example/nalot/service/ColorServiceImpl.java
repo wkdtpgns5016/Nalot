@@ -24,4 +24,19 @@ public class ColorServiceImpl implements ColorService {
 
         return toneList;
     }
+
+    @Override
+    public List<RgbCode> getToneOnToneList(String hexCode) {
+        List<RgbCode> toneList = new ArrayList<>();
+        RgbCode rgbCode = new RgbCode(hexCode);
+        HslCode hslCode = rgbCode.convertHsl();
+
+        for(int i=11; i>=0; i--){
+            hslCode.setLightness((i * 7) + 17);
+            RgbCode tone = hslCode.convertRgb();
+            toneList.add(tone);
+        }
+
+        return toneList;
+    }
 }
