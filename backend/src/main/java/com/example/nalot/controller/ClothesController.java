@@ -19,6 +19,6 @@ public class ClothesController {
     @PostMapping("/recommendations")
     public List<ClothesDto> recommendClothesByTemperature(@RequestBody WeatherDto weatherDto){
         String category = clothesService.sortCategoryByTemperature(weatherDto);
-        return clothesService.selectWeatherListByCategory(category);
+        return clothesService.selectClothesListByCategory(category);
     }
 }

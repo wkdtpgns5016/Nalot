@@ -13,9 +13,15 @@ public class ClothesDao {
         this.sqlSession = sqlSession;
     }
 
-    public List<ClothesDto> selectWeatherListByCategory(String category) {
+    public List<ClothesDto> selectClothesListByCategory(String category) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("category",category);
-        return sqlSession.selectList("com.example.nalot.dao.ClothesDao.selectWeatherListByCategory",param);
+        return sqlSession.selectList("com.example.nalot.dao.ClothesDao.selectClothesListByCategory",param);
+    }
+
+    public ClothesDto selectClothesInfo(int clothesId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("clothesId",clothesId);
+        return sqlSession.selectOne("com.example.nalot.dao.ClothesDao.selectClothesInfo",clothesId);
     }
 }

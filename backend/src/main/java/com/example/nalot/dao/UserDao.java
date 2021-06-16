@@ -1,5 +1,6 @@
 package com.example.nalot.dao;
 
+import com.example.nalot.model.UserClothesDto;
 import com.example.nalot.model.UserDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
@@ -42,5 +43,11 @@ public class UserDao {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
         return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserInfo",param);
+    }
+
+    public UserClothesDto selectUserClothesInfo(int userClothesId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userClothesId", userClothesId);
+        return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserClothesInfo",param);
     }
 }
