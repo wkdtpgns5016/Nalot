@@ -143,7 +143,7 @@ function SignUp() {
                 })
                 .then(response=>{
                     console.log(response.data.message)
-                    if(response.status == 201) {
+                    if(response.status === 201) {
                         history.push('/Nalot');
                         alert(response.data.message)
                     }
