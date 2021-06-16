@@ -17,8 +17,13 @@ public class ClothesServiceImpl implements ClothesService {
     }
 
     @Override
-    public List<ClothesDto> selectWeatherListByCategory(String category) {
-        return clothesDao.selectWeatherListByCategory(category);
+    public List<ClothesDto> selectClothesListByCategory(String category) {
+        return clothesDao.selectClothesListByCategory(category);
+    }
+
+    @Override
+    public ClothesDto selectClothesInfo(int clothesId) {
+        return clothesDao.selectClothesInfo(clothesId);
     }
 
     @Override
