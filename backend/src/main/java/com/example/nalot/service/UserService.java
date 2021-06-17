@@ -1,8 +1,6 @@
 package com.example.nalot.service;
 
-import com.example.nalot.model.UserClothesDto;
-import com.example.nalot.model.UserClothesResponse;
-import com.example.nalot.model.UserDto;
+import com.example.nalot.model.*;
 
 import java.util.List;
 
@@ -16,4 +14,6 @@ public interface UserService {
     public UserClothesResponse getUserClothesResponseById(int userClothesId);
     public int insertUserClothesInfo(UserClothesDto userClothes);
     public int deleteUserClothesInfo(int userClothesId);
+    public List<UserHistoryDto> selectUserHistoryListByUserId(String userId);
+    public List<UserHistoryResponse> getUserHistoryResponseByUserId(String userId);
 }

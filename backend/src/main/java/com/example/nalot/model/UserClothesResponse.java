@@ -5,12 +5,8 @@ import lombok.Data;
 @Data
 public class UserClothesResponse {
     int id;
-    Clothes clothes;
+    ClothesDto clothes;
     String color;
     String colorMix;
 
-    @Data
-    public static class Clothes {
-        ClothesDto clothesDto;
-    }
 }
