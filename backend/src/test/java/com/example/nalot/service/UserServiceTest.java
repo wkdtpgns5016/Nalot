@@ -1,6 +1,7 @@
 package com.example.nalot.service;
 
 import com.example.nalot.NalotApplication;
+import com.example.nalot.model.UserClothesDto;
 import com.example.nalot.model.UserClothesResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,5 +27,32 @@ public class UserServiceTest {
 
         //then
         assertThat(response.getId()).isOne();
+    }
+
+    @Test
+    public void insertUserClothesInfo() {
+        //given
+        UserClothesDto userClothes = new UserClothesDto();
+        userClothes.setClothesId(1);
+        userClothes.setColor("#FFFFFF");
+        userClothes.setColorMix("#FFFFFF");
+
+        //when
+        int result = userService.insertUserClothesInfo(userClothes);
+
+        //then
+        assertThat(result).isOne();
+    }
+
+    @Test
+    public void deleteUserClothesInfo() {
+        //given
+        int userClothesId = 1;
+
+        //when
+        int result = userService.deleteUserClothesInfo(userClothesId);
+
+        //then
+        assertThat(result).isOne();
     }
 }
