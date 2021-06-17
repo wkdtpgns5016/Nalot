@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public int insertUserClothesInfo(UserClothesDto userClothes) {
+        return userDao.insertUserClothesInfo(userClothes);
+    }
+
 }
