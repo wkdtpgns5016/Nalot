@@ -15,4 +15,5 @@ public interface UserService {
     public UserClothesDto selectUserClothesInfo(int userClothesId);
     public UserClothesResponse getUserClothesResponseById(int userClothesId);
     public int insertUserClothesInfo(UserClothesDto userClothes);
+    public int deleteUserClothesInfo(int userClothesId);
 }
