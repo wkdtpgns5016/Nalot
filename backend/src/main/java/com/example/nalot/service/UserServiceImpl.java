@@ -72,4 +72,9 @@ public class UserServiceImpl implements UserService {
         return userDao.insertUserClothesInfo(userClothes);
     }
 
+    @Override
+    public int deleteUserClothesInfo(int userClothesId) {
+        return userDao.deleteUserClothesInfo(userClothesId);
+    }
+
 }

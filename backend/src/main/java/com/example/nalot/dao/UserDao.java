@@ -56,4 +56,10 @@ public class UserDao {
         param.put("userClothes", userClothes);
         return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserClothesInfo",param);
     }
+
+    public int deleteUserClothesInfo(int userClothesId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userClothesId", userClothesId);
+        return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserClothesInfo",param);
+    }
 }

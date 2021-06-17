@@ -19,7 +19,7 @@
     </insert>
 
     <delete id="deleteWeatherInfo">
-        DELETE FROM nalotdb.weather_information
+        DELETE FROM weather_information
         WHERE id=#{weatherId};
     </delete>
 </mapper>

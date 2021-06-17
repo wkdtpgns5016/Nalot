@@ -13,4 +13,9 @@
             (clothes_id, color, color_mix)
         VALUES(userClothes.clothesId, userClothes.color, userClothes.colorMix);
     </insert>
+
+    <delete id="deleteUserClothesInfo">
+        DELETE FROM user_clothes
+        WHERE id=#{userClothesId};
+    </delete>
 </mapper>
