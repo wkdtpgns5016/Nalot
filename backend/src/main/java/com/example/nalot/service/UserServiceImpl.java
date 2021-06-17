@@ -1,12 +1,16 @@
 package com.example.nalot.service;
 
+import com.example.nalot.dao.ClothesDao;
 import com.example.nalot.dao.UserDao;
+import com.example.nalot.dao.WeatherDao;
 import com.example.nalot.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -46,12 +50,12 @@ public class UserServiceImpl implements UserService {
     public int deleteUserInfo(String userId) { return userDao.deleteUserInfo(userId); }
 
     @Override
-    public UserClothesDto selectUserClothesInfo(int userClothesId) {
+    public UserClothesDto selectUserClothesInfo(String userClothesId) {
         return userDao.selectUserClothesInfo(userClothesId);
     }
 
     @Override
-    public UserClothesResponse getUserClothesResponseById(int userClothesId) {
+    public UserClothesResponse getUserClothesResponseById(String userClothesId) {
         UserClothesDto userClothesDto = selectUserClothesInfo(userClothesId);
 
         ClothesDto clothes = clothesService.selectClothesInfo(userClothesDto.getClothesId());
@@ -71,7 +75,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteUserClothesInfo(int userClothesId) {
+    public int deleteUserClothesInfo(String userClothesId) {
         return userDao.deleteUserClothesInfo(userClothesId);
     }
 
@@ -100,6 +104,35 @@ public class UserServiceImpl implements UserService {
         }
 
         return responseList;
+    }
+
+    @Override
+    public int insertUserHistoryInfo(UserHistoryRequest request) {
+        SimpleDateFormat format = new SimpleDateFormat ( "yyyyMMddHHmmss");
+        Date time = new Date();
+        String date = format.format(time);
+        String id = date + request.getUserId();
+
+        WeatherDto weatherDto = new WeatherDto();
+        weatherDto.setId(id);
+        weatherDto.setTemperatureMin(request.getTemperatureMin());
+        weatherDto.setTemperatureMax(request.getTemperatureMax());
+        weatherDto.setTemperatureCurrent(request.getTemperatureCurrent());
+        weatherService.insertWeatherInfo(weatherDto);
+
+        UserClothesDto userClothesDto = new UserClothesDto();
+        userClothesDto.setId(id);
+        userClothesDto.setClothesId(request.getClothesId());
+        userClothesDto.setColor(request.getColor());
+        userClothesDto.setColorMix(request.getColorMix());
+        this.insertUserClothesInfo(userClothesDto);
+
+        UserHistoryDto userHistory = new UserHistoryDto();
+        userHistory.setUserId(request.getUserId());
+        userHistory.setWeatherId(id);
+        userHistory.setUserClothesId(id);
+
+        return userDao.insertUserHistoryInfo(userHistory);
     }
 
 }

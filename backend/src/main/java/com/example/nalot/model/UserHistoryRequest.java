@@ -9,9 +9,12 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherDto {
-    String id;
+public class UserHistoryRequest {
+    String userId;
     float temperatureMin;
     float temperatureMax;
     float temperatureCurrent;
+    int clothesId;
+    String color;
+    String colorMix;
 }

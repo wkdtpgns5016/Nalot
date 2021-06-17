@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserClothesDto {
-    int id;
+    String id;
     int clothesId;
     String color;
     String colorMix;

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserClothesResponse {
-    int id;
+    String id;
     ClothesDto clothes;
     String color;
     String colorMix;

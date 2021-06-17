@@ -10,7 +10,7 @@ public class WeatherDao {
     private final SqlSession sqlSession;
     public WeatherDao(SqlSession sqlSession) { this.sqlSession = sqlSession; }
 
-    public WeatherDto selectWeatherInfo(int weatherId) {
+    public WeatherDto selectWeatherInfo(String weatherId) {
         HashMap<String,Object> param = new HashMap<>();
         param.put("weatherId",weatherId);
         return sqlSession.selectOne("com.example.nalot.dao.WeatherDao.selectWeatherInfo", param);
@@ -22,7 +22,7 @@ public class WeatherDao {
         return sqlSession.insert("com.example.nalot.dao.WeatherDao.insertWeatherInfo", param);
     }
 
-    public int deleteWeatherInfo(int weatherId) {
+    public int deleteWeatherInfo(String weatherId) {
         HashMap<String,Object> param = new HashMap<>();
         param.put("weatherId",weatherId);
         return sqlSession.delete("com.example.nalot.dao.WeatherDao.deleteWeatherInfo", param);

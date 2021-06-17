@@ -24,13 +24,13 @@ public class UserServiceTest {
     @Test
     public void getUserClothesResponseByIdTest() {
         //given
-        int userClothesId = 1;
+        String userClothesId = "1";
 
         //when
         UserClothesResponse response = userService.getUserClothesResponseById(userClothesId);
 
         //then
-        assertThat(response.getId()).isOne();
+        assertThat(response.getId()).isEqualTo("1");
     }
 
     @Test
@@ -51,13 +51,13 @@ public class UserServiceTest {
     @Test
     public void deleteUserClothesInfo() {
         //given
-        int userClothesId = 1;
+        String userClothesId = "1";
 
         //when
         int result = userService.deleteUserClothesInfo(userClothesId);
 
         //then
-        assertThat(result).isOne();
+        assertThat(result).isEqualTo("1");
     }
 
     @Test

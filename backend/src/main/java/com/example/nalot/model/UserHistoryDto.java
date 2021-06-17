@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 public class UserHistoryDto {
     int id;
     String userId;
-    int weatherId;
-    int userClothesId;
+    String weatherId;
+    String userClothesId;
     Timestamp historyDate;
 }

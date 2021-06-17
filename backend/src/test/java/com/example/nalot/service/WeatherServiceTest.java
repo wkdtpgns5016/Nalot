@@ -55,7 +55,7 @@ public class WeatherServiceTest {
     @Test
     public void selectWeatherInfoTest(){
         //given
-        int weatherId = 1;
+        String weatherId = "1";
         float temperatureMin = 24.0F;
 
         //when
@@ -85,7 +85,7 @@ public class WeatherServiceTest {
     @Test
     public void deleteWeatherInfoTest(){
         //given
-        int weatherId = 1;
+        String weatherId = "1";
 
         //when
         int result = weatherService.deleteWeatherInfo(weatherId);
