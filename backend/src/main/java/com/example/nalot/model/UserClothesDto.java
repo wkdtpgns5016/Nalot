@@ -10,4 +10,5 @@ public class UserClothesDto {
     int clothesId;
     String color;
     String colorMix;
+    String userId;
 }

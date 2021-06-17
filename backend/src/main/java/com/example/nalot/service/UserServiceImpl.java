@@ -80,8 +80,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int deleteUserClothesListByUserId(String userId) {
+        return userDao.deleteUserClothesListByUserId(userId);
+    }
+
+    @Override
     public List<UserHistoryDto> selectUserHistoryListByUserId(String userId) {
         return userDao.selectUserHistoryListByUserId(userId);
+    }
+
+    @Override
+    public UserHistoryDto selectUserHistoryInfo(String userHistoryId, String userId) {
+        return userDao.selectUserHistoryInfo(userHistoryId,userId);
     }
 
     @Override
@@ -118,6 +128,7 @@ public class UserServiceImpl implements UserService {
         weatherDto.setTemperatureMin(request.getTemperatureMin());
         weatherDto.setTemperatureMax(request.getTemperatureMax());
         weatherDto.setTemperatureCurrent(request.getTemperatureCurrent());
+        weatherDto.setUserId(request.getUserId());
         weatherService.insertWeatherInfo(weatherDto);
 
         UserClothesDto userClothesDto = new UserClothesDto();
@@ -125,6 +136,7 @@ public class UserServiceImpl implements UserService {
         userClothesDto.setClothesId(request.getClothesId());
         userClothesDto.setColor(request.getColor());
         userClothesDto.setColorMix(request.getColorMix());
+        userClothesDto.setUserId(request.getUserId());
         this.insertUserClothesInfo(userClothesDto);
 
         UserHistoryDto userHistory = new UserHistoryDto();
@@ -133,6 +145,22 @@ public class UserServiceImpl implements UserService {
         userHistory.setUserClothesId(id);
 
         return userDao.insertUserHistoryInfo(userHistory);
+    }
+
+    @Override
+    public int deleteUserHistoryInfo(String userHistoryId, String userId) {
+        UserHistoryDto userHistoryDto = this.selectUserHistoryInfo(userHistoryId,userId);
+
+        weatherService.deleteWeatherInfo(userHistoryDto.getWeatherId());
+        this.deleteUserClothesInfo(userHistoryDto.getUserClothesId());
+        return userDao.deleteUserHistoryInfo(userHistoryId,userId);
+    }
+
+    @Override
+    public int deleteUserHistoryListByUserId(String userId) {
+        weatherService.deleteWeatherListByUserId(userId);
+        this.deleteUserClothesListByUserId(userId);
+        return userDao.deleteUserHistoryListByUserId(userId);
     }
 
 }

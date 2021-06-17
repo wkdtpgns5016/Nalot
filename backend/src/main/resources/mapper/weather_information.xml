@@ -10,15 +10,21 @@
 
     <insert id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
         INSERT INTO weather_information
-            (id, temperature_min, temperature_max, temperature_current)
+            (id, temperature_min, temperature_max, temperature_current, user_id)
         VALUES(#{weatherDto.id},
                #{weatherDto.temperatureMin},
                #{weatherDto.temperatureMax},
-               #{weatherDto.temperatureCurrent});
+               #{weatherDto.temperatureCurrent},
+               #{weatherDto.userId});
     </insert>
 
     <delete id="deleteWeatherInfo">
         DELETE FROM weather_information
         WHERE id=#{weatherId};
+    </delete>
+
+    <delete id="deleteWeatherListByUserId">
+        DELETE FROM weather_information
+        WHERE user_id=#{userId};
     </delete>
 </mapper>

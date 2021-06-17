@@ -125,4 +125,30 @@ public class UserController {
         }
     }
 
+    @DeleteMapping("/histories/{userId}/{userHistoryId}")
+    public ResponseEntity<ResponseMessage> removeUserHistory(@PathVariable String userId, @PathVariable String userHistoryId){
+        try{
+            userService.deleteUserHistoryInfo(userHistoryId,userId);
+            ResponseMessage message = new ResponseMessage("Created", "삭제하였습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/histories/{userId}")
+    public ResponseEntity<ResponseMessage> removeUserHistoryByUserId(@PathVariable String userId){
+        try{
+            userService.deleteUserHistoryListByUserId(userId);
+            ResponseMessage message = new ResponseMessage("Created", "삭제하였습니다.", "", "");
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.CREATED);
+        }catch (Exception exception){
+            ResponseMessage message = new ResponseMessage("Bad Request", "", "-1", "에러발생, 다시 시도해 주십시오.");
+            exception.printStackTrace();
+            return new ResponseEntity<ResponseMessage>(message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

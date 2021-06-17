@@ -100,6 +100,11 @@ public class WeatherServiceImpl implements WeatherService {
         return weatherDao.deleteWeatherInfo(weatherId);
     }
 
+    @Override
+    public int deleteWeatherListByUserId(String userId) {
+        return weatherDao.deleteWeatherListByUserId(userId);
+    }
+
     private WeatherApiResponse.Items getWeatherApiItems(String json) {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
