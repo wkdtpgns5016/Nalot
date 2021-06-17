@@ -14,7 +14,11 @@ public interface UserService {
     public UserClothesResponse getUserClothesResponseById(String userClothesId);
     public int insertUserClothesInfo(UserClothesDto userClothes);
     public int deleteUserClothesInfo(String userClothesId);
+    public int deleteUserClothesListByUserId(String userId);
     public List<UserHistoryDto> selectUserHistoryListByUserId(String userId);
+    public UserHistoryDto selectUserHistoryInfo(String userHistoryId, String userId);
     public List<UserHistoryResponse> getUserHistoryResponseByUserId(String userId);
     public int insertUserHistoryInfo(UserHistoryRequest request);
+    public int deleteUserHistoryInfo(String userHistoryId, String userId);
+    public int deleteUserHistoryListByUserId(String userId);
 }

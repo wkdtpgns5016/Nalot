@@ -27,4 +27,10 @@ public class WeatherDao {
         param.put("weatherId",weatherId);
         return sqlSession.delete("com.example.nalot.dao.WeatherDao.deleteWeatherInfo", param);
     }
+
+    public int deleteWeatherListByUserId(String userId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        return sqlSession.delete("com.example.nalot.dao.WeatherDao.deleteWeatherListByUserId",param);
+    }
 }

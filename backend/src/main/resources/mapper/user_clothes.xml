@@ -10,12 +10,21 @@
 
     <insert id="insertUserClothesInfo" parameterType="com.example.nalot.model.UserClothesDto">
         INSERT INTO user_clothes
-            (id, clothes_id, color, color_mix)
-        VALUES(#{userClothes.id}, #{userClothes.clothesId}, #{userClothes.color}, #{userClothes.colorMix});
+            (id, clothes_id, color, color_mix, user_id)
+        VALUES(#{userClothes.id},
+               #{userClothes.clothesId},
+               #{userClothes.color},
+               #{userClothes.colorMix},
+               #{userClothes.userId});
     </insert>
 
     <delete id="deleteUserClothesInfo">
         DELETE FROM user_clothes
         WHERE id=#{userClothesId};
+    </delete>
+
+    <delete id="deleteUserClothesListByUserId">
+        DELETE FROM user_clothes
+        WHERE user_id=#{userId};
     </delete>
 </mapper>

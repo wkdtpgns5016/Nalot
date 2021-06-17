@@ -9,4 +9,5 @@ public interface WeatherService {
     public WeatherDto selectWeatherInfo(String weatherId);
     public int insertWeatherInfo(WeatherDto weatherDto);
     public int deleteWeatherInfo(String weatherId);
+    public int deleteWeatherListByUserId(String userId);
 }

@@ -14,4 +14,5 @@ public class WeatherDto {
     float temperatureMin;
     float temperatureMax;
     float temperatureCurrent;
+    String userId;
 }
