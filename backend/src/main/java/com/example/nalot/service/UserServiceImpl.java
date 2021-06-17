@@ -1,14 +1,12 @@
 package com.example.nalot.service;
 
 import com.example.nalot.dao.UserDao;
-import com.example.nalot.model.ClothesDto;
-import com.example.nalot.model.UserClothesDto;
-import com.example.nalot.model.UserClothesResponse;
-import com.example.nalot.model.UserDto;
+import com.example.nalot.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,10 +14,12 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
     private final ClothesService clothesService;
-    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, ClothesService clothesService) {
+    private final WeatherService weatherService;
+    public UserServiceImpl(UserDao userDao, PasswordEncoder passwordEncoder, ClothesService clothesService, WeatherService weatherService) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.clothesService = clothesService;
+        this.weatherService = weatherService;
     }
 
     @Override
@@ -54,9 +54,7 @@ public class UserServiceImpl implements UserService {
     public UserClothesResponse getUserClothesResponseById(int userClothesId) {
         UserClothesDto userClothesDto = selectUserClothesInfo(userClothesId);
 
-        ClothesDto clothesDto = clothesService.selectClothesInfo(userClothesDto.getClothesId());
-        UserClothesResponse.Clothes clothes = new UserClothesResponse.Clothes();
-        clothes.setClothesDto(clothesDto);
+        ClothesDto clothes = clothesService.selectClothesInfo(userClothesDto.getClothesId());
 
         UserClothesResponse response = new UserClothesResponse();
         response.setId(userClothesDto.getId());
@@ -75,6 +73,33 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteUserClothesInfo(int userClothesId) {
         return userDao.deleteUserClothesInfo(userClothesId);
+    }
+
+    @Override
+    public List<UserHistoryDto> selectUserHistoryListByUserId(String userId) {
+        return userDao.selectUserHistoryListByUserId(userId);
+    }
+
+    @Override
+    public List<UserHistoryResponse> getUserHistoryResponseByUserId(String userId) {
+        List<UserHistoryDto> list = selectUserHistoryListByUserId(userId);
+        List<UserHistoryResponse> responseList = new ArrayList<>();
+
+        for(UserHistoryDto userHistoryDto : list){
+            WeatherDto weather = weatherService.selectWeatherInfo(userHistoryDto.getWeatherId());
+            UserClothesResponse userClothes = getUserClothesResponseById(userHistoryDto.getUserClothesId());
+
+            UserHistoryResponse response = new UserHistoryResponse();
+            response.setId(userHistoryDto.getId());
+            response.setUserId(userHistoryDto.getUserId());
+            response.setWeather(weather);
+            response.setUserClothes(userClothes);
+            response.setHistoryDate(userHistoryDto.getHistoryDate());
+
+            responseList.add(response);
+        }
+
+        return responseList;
     }
 
 }

@@ -1,10 +1,7 @@
 package com.example.nalot.controller;
 
 import com.example.nalot.config.JwtTokenUtil;
-import com.example.nalot.model.JwtRequest;
-import com.example.nalot.model.JwtResponse;
-import com.example.nalot.model.ResponseMessage;
-import com.example.nalot.model.UserDto;
+import com.example.nalot.model.*;
 import com.example.nalot.service.UserDetailsServiceImpl;
 import com.example.nalot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +105,11 @@ public class UserController {
 
         ResponseMessage message = new ResponseMessage("OK", token, "", "");
         return new ResponseEntity<ResponseMessage>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/histories/{userId}")
+    public List<UserHistoryResponse> getUserHistoryResponseByUserId(@PathVariable String userId) {
+        return userService.getUserHistoryResponseByUserId(userId);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.nalot.dao;
 
 import com.example.nalot.model.UserClothesDto;
 import com.example.nalot.model.UserDto;
+import com.example.nalot.model.UserHistoryDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -62,4 +63,11 @@ public class UserDao {
         param.put("userClothesId", userClothesId);
         return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserClothesInfo",param);
     }
+
+    public List<UserHistoryDto> selectUserHistoryListByUserId(String userId) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userId", userId);
+        return sqlSession.selectList("com.example.nalot.dao.UserDao.selectUserHistoryListByUserId",param);
+    }
+
 }
