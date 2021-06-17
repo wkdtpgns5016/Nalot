@@ -8,4 +8,9 @@
         where id = #{userClothesId}
     </select>
 
+    <insert id="insertUserClothesInfo" parameterType="com.example.nalot.model.UserClothesDto">
+        INSERT INTO user_clothes
+            (clothes_id, color, color_mix)
+        VALUES(userClothes.clothesId, userClothes.color, userClothes.colorMix);
+    </insert>
 </mapper>

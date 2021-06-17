@@ -50,4 +50,10 @@ public class UserDao {
         param.put("userClothesId", userClothesId);
         return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserClothesInfo",param);
     }
+
+    public int insertUserClothesInfo(UserClothesDto userClothes) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userClothes", userClothes);
+        return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserClothesInfo",param);
+    }
 }
