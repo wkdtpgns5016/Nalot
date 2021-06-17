@@ -86,7 +86,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public WeatherDto selectWeatherInfo(int weatherId) {
+    public WeatherDto selectWeatherInfo(String weatherId) {
         return weatherDao.selectWeatherInfo(weatherId);
     }
 
@@ -96,7 +96,7 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public int deleteWeatherInfo(int weatherId) {
+    public int deleteWeatherInfo(String weatherId) {
         return weatherDao.deleteWeatherInfo(weatherId);
     }
 

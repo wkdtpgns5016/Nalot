@@ -10,10 +10,9 @@
 
     <insert id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
         INSERT INTO weather_information
-            (temperature_min,
-             temperature_max,
-             temperature_current)
-        VALUES(#{weatherDto.temperatureMin},
+            (id, temperature_min, temperature_max, temperature_current)
+        VALUES(#{weatherDto.id},
+               #{weatherDto.temperatureMin},
                #{weatherDto.temperatureMax},
                #{weatherDto.temperatureCurrent});
     </insert>

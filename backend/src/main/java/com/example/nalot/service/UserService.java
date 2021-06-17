@@ -10,10 +10,11 @@ public interface UserService {
     public int insertUserInfo(UserDto user);
     public int updateUserInfo(String userId, UserDto user);
     public int deleteUserInfo(String userId);
-    public UserClothesDto selectUserClothesInfo(int userClothesId);
-    public UserClothesResponse getUserClothesResponseById(int userClothesId);
+    public UserClothesDto selectUserClothesInfo(String userClothesId);
+    public UserClothesResponse getUserClothesResponseById(String userClothesId);
     public int insertUserClothesInfo(UserClothesDto userClothes);
-    public int deleteUserClothesInfo(int userClothesId);
+    public int deleteUserClothesInfo(String userClothesId);
     public List<UserHistoryDto> selectUserHistoryListByUserId(String userId);
     public List<UserHistoryResponse> getUserHistoryResponseByUserId(String userId);
+    public int insertUserHistoryInfo(UserHistoryRequest request);
 }

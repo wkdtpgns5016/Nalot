@@ -46,7 +46,7 @@ public class UserDao {
         return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserInfo",param);
     }
 
-    public UserClothesDto selectUserClothesInfo(int userClothesId) {
+    public UserClothesDto selectUserClothesInfo(String userClothesId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userClothesId", userClothesId);
         return sqlSession.selectOne("com.example.nalot.dao.UserDao.selectUserClothesInfo",param);
@@ -58,7 +58,7 @@ public class UserDao {
         return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserClothesInfo",param);
     }
 
-    public int deleteUserClothesInfo(int userClothesId) {
+    public int deleteUserClothesInfo(String userClothesId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userClothesId", userClothesId);
         return sqlSession.delete("com.example.nalot.dao.UserDao.deleteUserClothesInfo",param);
@@ -68,6 +68,12 @@ public class UserDao {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userId", userId);
         return sqlSession.selectList("com.example.nalot.dao.UserDao.selectUserHistoryListByUserId",param);
+    }
+
+    public int insertUserHistoryInfo(UserHistoryDto userHistory) {
+        HashMap<String, Object> param = new HashMap<>();
+        param.put("userHistory", userHistory);
+        return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserHistoryInfo",param);
     }
 
 }

@@ -7,4 +7,10 @@
         select * from user_history
         where user_id = #{userId}
     </select>
+
+    <insert id="insertUserHistoryInfo" parameterType="com.example.nalot.model.UserHistoryDto">
+        INSERT INTO user_history
+            (user_id, weather_id, user_clothes_id, history_date)
+        VALUES(#{userHistory.userId}, #{userHistory.weatherId}, #{userHistory.userClothesId}, NOW());
+    </insert>
 </mapper>
