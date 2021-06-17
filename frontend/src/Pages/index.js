@@ -3,6 +3,7 @@ import {Route} from "react-router-dom"
 import Signin from './Signin'
 import Signup  from "./Signup";
 import Main from "./Main"
+import myInformation from"./myInformation"
 
 function Nalot({match}){
     return(
@@ -10,6 +11,7 @@ function Nalot({match}){
             <Route exact path = {`${match.path}`} component = {Signin}/>
             <Route path = {`${match.path}/signup`} component={Signup}/>
             <Route path = {`${match.path}/main`} component={Main}/>
+            <Route path = {`${match.path}/myinfo`} component = {myInformation}/>
         </div>
     )
 }

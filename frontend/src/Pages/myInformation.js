@@ -89,12 +89,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Main() {
+function myInformation() {
     const classes = useStyles();
     const theme = useTheme();
-    const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const [info, setInfo] = React.useState('info')
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -111,7 +111,6 @@ function Main() {
     const myRecord = () =>{
         console.log('myRecord')
     }
-
 
     const recommendation = () =>{
         console.log('recommend')
@@ -147,7 +146,7 @@ function Main() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6">
+                    <Typography variant="h6" noWrap>
                         Nalot
                     </Typography>
                     <Button color="inherit">님</Button>
@@ -173,10 +172,10 @@ function Main() {
                 </div>
                 <Divider />
                 <List>
-                        <ListItem button onClick={myInformation}>
-                            <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
-                            <ListItemText primary={'내정보'} />
-                        </ListItem>
+                    <ListItem button onClick={myInformation}>
+                        <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
+                        <ListItemText primary={'내정보'} />
+                    </ListItem>
                     <ListItem button onClick={myRecord}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary={'내 기록'} />
@@ -202,7 +201,7 @@ function Main() {
                 <div className={classes.toolbar} />
                 {
                     info === 'info' ?
-                        <myInformation/>:{
+                    <myInformation/>:{
 
                         }
 
@@ -212,4 +211,4 @@ function Main() {
     );
 }
 
-export default Main;
+export default myInformation;
