@@ -1,6 +1,6 @@
 package com.example.nalot.config;
 
-import com.example.nalot.service.UserDetailsServiceImpl;
+import com.example.nalot.service.authentication.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

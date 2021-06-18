@@ -3,17 +3,17 @@
 
 
 <mapper namespace="com.example.nalot.dao.UserDao">
-    <select id="selectUserHistoryListByUserId" resultType="com.example.nalot.model.UserHistoryDto">
+    <select id="selectUserHistoryListByUserId" resultType="com.example.nalot.model.user.UserHistoryDto">
         select * from user_history
         where user_id = #{userId}
     </select>
 
-    <select id="selectUserHistoryInfo" resultType="com.example.nalot.model.UserHistoryDto">
+    <select id="selectUserHistoryInfo" resultType="com.example.nalot.model.user.UserHistoryDto">
         select * from user_history
         where id = #{userHistoryId}
     </select>
 
-    <insert id="insertUserHistoryInfo" parameterType="com.example.nalot.model.UserHistoryDto">
+    <insert id="insertUserHistoryInfo" parameterType="com.example.nalot.model.user.UserHistoryDto">
         INSERT INTO user_history
             (user_id, weather_id, user_clothes_id, history_date)
         VALUES(#{userHistory.userId}, #{userHistory.weatherId}, #{userHistory.userClothesId}, NOW());

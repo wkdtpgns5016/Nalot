@@ -1,7 +1,8 @@
 package com.example.nalot.service;
 
 import com.example.nalot.NalotApplication;
-import com.example.nalot.model.RgbCode;
+import com.example.nalot.model.color.RgbCode;
+import com.example.nalot.service.color.ColorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

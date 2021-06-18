@@ -1,16 +1,16 @@
 package com.example.nalot.service;
 
 import com.example.nalot.NalotApplication;
-import com.example.nalot.model.UserClothesDto;
-import com.example.nalot.model.UserClothesResponse;
-import com.example.nalot.model.UserHistoryResponse;
+import com.example.nalot.model.user.UserClothesDto;
+import com.example.nalot.model.user.UserClothesResponse;
+import com.example.nalot.model.user.UserHistoryResponse;
+import com.example.nalot.service.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;

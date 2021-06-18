@@ -3,12 +3,12 @@
 
 
 <mapper namespace="com.example.nalot.dao.UserDao">
-    <select id="selectUserClothesInfo" resultType="com.example.nalot.model.UserClothesDto">
+    <select id="selectUserClothesInfo" resultType="com.example.nalot.model.user.UserClothesDto">
         select * from user_clothes
         where id = #{userClothesId}
     </select>
 
-    <insert id="insertUserClothesInfo" parameterType="com.example.nalot.model.UserClothesDto">
+    <insert id="insertUserClothesInfo" parameterType="com.example.nalot.model.user.UserClothesDto">
         INSERT INTO user_clothes
             (id, clothes_id, color, color_mix, user_id)
         VALUES(#{userClothes.id},

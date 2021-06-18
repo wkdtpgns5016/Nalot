@@ -1,9 +1,10 @@
 package com.example.nalot.service;
 
 import com.example.nalot.NalotApplication;
-import com.example.nalot.model.WeatherApiResponse;
-import com.example.nalot.model.WeatherDto;
-import com.example.nalot.model.WeatherForecast;
+import com.example.nalot.model.weather.WeatherApiResponse;
+import com.example.nalot.model.weather.WeatherDto;
+import com.example.nalot.model.weather.WeatherForecast;
+import com.example.nalot.service.weather.WeatherService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

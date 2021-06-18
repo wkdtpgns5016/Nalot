@@ -1,8 +1,8 @@
 package com.example.nalot.controller;
 
-import com.example.nalot.model.ClothesDto;
-import com.example.nalot.model.WeatherDto;
-import com.example.nalot.service.ClothesService;
+import com.example.nalot.model.clothes.ClothesDto;
+import com.example.nalot.model.weather.WeatherDto;
+import com.example.nalot.service.clothes.ClothesService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
