@@ -34,6 +34,6 @@ public class WeatherController {
                 weatherApiRequest.getNx(),
                 weatherApiRequest.getNy());
 
-        return weatherService.setWeatherDto(items);
+        return weatherService.setWeatherDto(items,weatherApiRequest.getDate(),weatherApiRequest.getTime());
     }
 }

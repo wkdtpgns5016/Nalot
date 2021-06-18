@@ -66,8 +66,10 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public WeatherDto setWeatherDto(WeatherApiResponse.Items items) {
+    public WeatherDto setWeatherDto(WeatherApiResponse.Items items, String date, String time) {
         WeatherDto weather = new WeatherDto();
+        weather.setBaseDate(date);
+        weather.setBaseTime(time);
         for (WeatherForecast item : items.getItem()) {
             if (item.getCategory() == WeatherForecast.CategoryType.T3H) {
                 String fcstTime = getFcstTimeByBaseTime(item.getBaseTime());
@@ -75,7 +77,7 @@ public class WeatherServiceImpl implements WeatherService {
                     weather.setTemperatureCurrent(item.getFcstValue());
                 }
             }
-            if (item.getCategory() == WeatherForecast.CategoryType.TMN) {
+            else if (item.getCategory() == WeatherForecast.CategoryType.TMN) {
                 weather.setTemperatureMin(item.getFcstValue());
             }
             else if (item.getCategory() == WeatherForecast.CategoryType.TMX) {

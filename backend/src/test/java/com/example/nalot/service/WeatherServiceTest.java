@@ -45,7 +45,7 @@ public class WeatherServiceTest {
         WeatherApiResponse.Items items = weatherService.getWeatherForecast(date, time, nx, ny);
 
         //when
-        WeatherDto weatherDto = weatherService.setWeatherDto(items);
+        WeatherDto weatherDto = weatherService.setWeatherDto(items, date, time);
 
         //then
         assertThat(weatherDto).isNotNull();
@@ -73,6 +73,8 @@ public class WeatherServiceTest {
         weatherDto.setTemperatureMin(24F);
         weatherDto.setTemperatureMax(28.2F);
         weatherDto.setTemperatureCurrent(25.1F);
+        weatherDto.setBaseDate("20210618");
+        weatherDto.setBaseTime("0500");
 
         //when
         int result = weatherService.insertWeatherInfo(weatherDto);

@@ -15,4 +15,6 @@ public class WeatherDto {
     float temperatureMax;
     float temperatureCurrent;
     String userId;
+    String baseDate;
+    String baseTime;
 }
