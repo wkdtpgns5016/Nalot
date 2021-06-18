@@ -1,10 +1,13 @@
 package com.example.nalot.controller;
 
 import com.example.nalot.config.JwtTokenUtil;
-import com.example.nalot.model.*;
-import com.example.nalot.service.UserDetailsServiceImpl;
-import com.example.nalot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.nalot.model.authentication.JwtRequest;
+import com.example.nalot.model.response.ResponseMessage;
+import com.example.nalot.model.user.UserDto;
+import com.example.nalot.model.user.UserHistoryRequest;
+import com.example.nalot.model.user.UserHistoryResponse;
+import com.example.nalot.service.authentication.UserDetailsServiceImpl;
+import com.example.nalot.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

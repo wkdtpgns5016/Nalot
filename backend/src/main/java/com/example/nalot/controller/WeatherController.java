@@ -1,9 +1,9 @@
 package com.example.nalot.controller;
 
-import com.example.nalot.model.WeatherApiRequest;
-import com.example.nalot.model.WeatherApiResponse;
-import com.example.nalot.model.WeatherDto;
-import com.example.nalot.service.WeatherService;
+import com.example.nalot.model.weather.WeatherApiRequest;
+import com.example.nalot.model.weather.WeatherApiResponse;
+import com.example.nalot.model.weather.WeatherDto;
+import com.example.nalot.service.weather.WeatherService;
 import org.springframework.web.bind.annotation.*;
 
 

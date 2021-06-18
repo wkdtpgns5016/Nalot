@@ -1,9 +1,8 @@
 package com.example.nalot.dao;
 
-import com.example.nalot.model.UserClothesDto;
-import com.example.nalot.model.UserDto;
-import com.example.nalot.model.UserHistoryDto;
-import org.apache.ibatis.annotations.Mapper;
+import com.example.nalot.model.user.UserClothesDto;
+import com.example.nalot.model.user.UserDto;
+import com.example.nalot.model.user.UserHistoryDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 

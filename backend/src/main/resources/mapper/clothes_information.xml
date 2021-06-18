@@ -3,12 +3,12 @@
 
 
 <mapper namespace="com.example.nalot.dao.ClothesDao">
-    <select id="selectClothesListByCategory" resultType="com.example.nalot.model.ClothesDto">
+    <select id="selectClothesListByCategory" resultType="com.example.nalot.model.clothes.ClothesDto">
         select * from clothes_information
         where category = #{category}
     </select>
 
-    <select id="selectClothesInfo" resultType="com.example.nalot.model.ClothesDto">
+    <select id="selectClothesInfo" resultType="com.example.nalot.model.clothes.ClothesDto">
         select * from clothes_information
         where id = #{clothesId}
     </select>

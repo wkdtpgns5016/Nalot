@@ -1,6 +1,6 @@
 package com.example.nalot.dao;
 
-import com.example.nalot.model.WeatherDto;
+import com.example.nalot.model.weather.WeatherDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;

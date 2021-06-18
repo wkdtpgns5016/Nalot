@@ -1,6 +1,6 @@
 package com.example.nalot.config;
 
-import com.example.nalot.service.UserDetailsServiceImpl;
+import com.example.nalot.service.authentication.UserDetailsServiceImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

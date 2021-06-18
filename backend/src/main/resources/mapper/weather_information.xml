@@ -3,12 +3,12 @@
 
 
 <mapper namespace="com.example.nalot.dao.WeatherDao">
-    <select id="selectWeatherInfo" resultType="com.example.nalot.model.WeatherDto">
+    <select id="selectWeatherInfo" resultType="com.example.nalot.model.weather.WeatherDto">
         select * from weather_information
         where id = #{weatherId}
     </select>
 
-    <insert id="insertWeatherInfo" parameterType="com.example.nalot.model.WeatherDto">
+    <insert id="insertWeatherInfo" parameterType="com.example.nalot.model.weather.WeatherDto">
         INSERT INTO weather_information
             (id, temperature_min, temperature_max, temperature_current, user_id, base_date, base_time)
         VALUES(#{weatherDto.id},
