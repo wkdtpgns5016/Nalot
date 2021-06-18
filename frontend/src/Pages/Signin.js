@@ -52,7 +52,7 @@ function Signin() {
             .then(response=>{
                 console.log(response.data.message)
                 history.push('/nalot/main',
-                    key = response.data.message
+                    key = 'Bearer ' + response.data.message
                     )
 
             })
@@ -114,7 +114,7 @@ function Signin() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to ={`Nalot/Signup`} variant="body2">
+                            <Link to ={`nalot/signup`} variant="body2">
                                 {"회원가입"}
                             </Link>
                         </Grid>
