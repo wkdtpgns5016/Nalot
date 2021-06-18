@@ -10,8 +10,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios'
 
-import {Link} from "react-router-dom"
+import {Link, useHistory} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -35,6 +36,30 @@ const useStyles = makeStyles((theme) => ({
 
 function Signin() {
     const classes = useStyles();
+    const history = useHistory();
+    let key
+    const submitClicked = () =>{
+        let email = (document.getElementById('email').value)
+        let password = (document.getElementById('password').value)
+        //로컬머신 테스트로 localhost
+        axios.post('http://localhost:8080/users/login',{
+            "username": email, "password": password
+        },{
+            headers:{
+                'Content-Type':'application/json'
+            }
+            })
+            .then(response=>{
+                console.log(response.data.message)
+                history.push('/nalot/main',
+                    key = response.data.message
+                    )
+
+            })
+            .catch(error =>{
+                console.log(error)
+            })
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -44,7 +69,7 @@ function Signin() {
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Nalot
                 </Typography>
                 <form className={classes.form} noValidate>
                     <TextField
@@ -53,7 +78,7 @@ function Signin() {
                         required
                         fullWidth
                         id="email"
-                        label="Email Address"
+                        label="이메일 주소"
                         name="email"
                         autoComplete="email"
                         autoFocus
@@ -64,7 +89,7 @@ function Signin() {
                         required
                         fullWidth
                         name="password"
-                        label="Password"
+                        label="비밀번호"
                         type="password"
                         id="password"
                         autoComplete="current-password"
@@ -74,13 +99,13 @@ function Signin() {
                         label="Remember me"
                     />
                     <Button
-                        type="submit"
                         fullWidth
                         variant="contained"
                         color="primary"
+                        onClick = {submitClicked}
                         className={classes.submit}
                     >
-                        Sign In
+                        로그인
                     </Button>
                     <Grid container>
                         <Grid item xs>

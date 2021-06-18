@@ -22,7 +22,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 
 const drawerWidth = 240;
@@ -95,6 +95,10 @@ function Main() {
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
     const [info, setInfo] = React.useState('info')
+    const location = useLocation();
+
+    //let key = location.state
+    console.log(location.state)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -112,7 +116,6 @@ function Main() {
         console.log('myRecord')
     }
 
-
     const recommendation = () =>{
         console.log('recommend')
     }
@@ -124,6 +127,8 @@ function Main() {
     const logOut = () =>{
         console.log('logOut')
     }
+
+
 
 
     return (
