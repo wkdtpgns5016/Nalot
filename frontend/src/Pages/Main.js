@@ -15,15 +15,13 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-
 import { useHistory, useLocation } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import axios from'axios'
 
 const drawerWidth = 240;
 
@@ -98,7 +96,9 @@ function Main() {
     const location = useLocation();
 
     //let key = location.state
-    console.log(location.state)
+    console.log(location.state.key)
+    console.log(location.state.name)
+
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -155,7 +155,7 @@ function Main() {
                     <Typography variant="h6">
                         Nalot
                     </Typography>
-                    <Button color="inherit">님</Button>
+                    <Typography variant = "h6" color="inherit">{location.state.name}님</Typography>
                 </Toolbar>
             </AppBar>
             <Drawer

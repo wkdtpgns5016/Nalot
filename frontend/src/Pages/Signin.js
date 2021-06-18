@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 function Signin() {
     const classes = useStyles();
     const history = useHistory();
-    let key
     const submitClicked = () =>{
         let email = (document.getElementById('email').value)
         let password = (document.getElementById('password').value)
@@ -51,9 +50,18 @@ function Signin() {
             })
             .then(response=>{
                 console.log(response.data.message)
-                history.push('/nalot/main',
-                    key = 'Bearer ' + response.data.message
-                    )
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.message}`
+                axios.get('http://localhost:8080/users/'+email)
+                    .then(res=>{
+                        console.log(res.data.name)
+                        history.push('/nalot/main',
+                            {
+                                "key" : 'Bearer ' + response.data.message,
+                                "name" : res.data.name,
+                            }
+
+                        )
+                    })
 
             })
             .catch(error =>{
