@@ -71,7 +71,7 @@ public class UserController {
     }
 
     @DeleteMapping("{userId}")
-    public ResponseEntity<ResponseMessage> deleteUserInfo(@PathVariable String userId) {
+    public ResponseEntity<ResponseMessage> removeUser(@PathVariable String userId) {
         try{
             int code = userService.deleteUserInfo(userId);
             ResponseMessage message = new ResponseMessage("Created", "회원삭제가 완료되었습니다.", "", "");

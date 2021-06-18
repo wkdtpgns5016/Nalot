@@ -47,7 +47,10 @@ public class UserServiceImpl implements UserService {
     public int updateUserInfo(String userId, UserDto user) { return userDao.updateUserInfo(userId, user); }
 
     @Override
-    public int deleteUserInfo(String userId) { return userDao.deleteUserInfo(userId); }
+    public int deleteUserInfo(String userId) {
+        this.deleteUserHistoryListByUserId(userId);
+        return userDao.deleteUserInfo(userId);
+    }
 
     @Override
     public UserClothesDto selectUserClothesInfo(String userClothesId) {
