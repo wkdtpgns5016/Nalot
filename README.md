@@ -49,28 +49,28 @@
 > ...
 
 #### 3-3.ERD
-> ![ERD](./img/Nalot_ERD_20210619_39_45.png)
+> ![ERD](./img/Nalot_ERD_20210619_39_45.png) <br/>
 
 ### 4. 주요 기능 구현
 #### 4-1.동네예보 API를 이용한 실시간 날씨 정보 수집 기능
-> ![clothes_table](./img/동네예보API.PNG)
+> ![동네예보API](./img/동네예보API.PNG) <br/>
 > serviceKey를 이용하여 동네예보 API에 대한 URL에 접근
 > 
 #### 4-2.날씨 별 의류 추천
 > **날씨별 의류 추천 테이블** <br/>
-> ![clothes_table](./img/clothes_table.png)
+> ![clothes_table](./img/clothes_table.PNG) <br/>
 > 해당 테이블의 기온 별 level를 참고하여 데이터베이스에 조회
 >
 #### 4-3.RGB-HSL 변환
-> **RGB-HSL 변환 식** <br/>
-> ![RGB-HSL](./img/rgb-hsl.png)
+> ***RGB-HSL 변환 식** <br/> <br/>
+> ![RGB-HSL](./img/rgb-hsl.PNG) <br/>
 > 
-> **HSL-RGB 변환 식** <br/>
-> ![HSL-RGB](./img/hsl-rgb.png)
+> ***HSL-RGB 변환 식** <br/> <br/>
+> ![HSL-RGB](./img/hsl-rgb.PNG) <br/>
 #### 4-4.톤인톤/톤인톤 배합 알고리즘
 > **톤인톤 배합** <br/>
-> ![HSL-RGB](./img/tone_in_tone.PNG) <br/>
+> ![tone_in_tone](./img/tone_in_tone.PNG) <br/>
 > HSL 색상 모델에서 Hue(색상) 값을 변경 <br/> <br/>
 > **톤온톤 배합** <br/>
-> ![HSL-RGB](./img/tone_on_tone.PNG) <br/>
+> ![tone_on_tone](./img/tone_on_tone.PNG) <br/>
 > HSL 색상 모델에서 Lightness(밝기) 값을 변경
