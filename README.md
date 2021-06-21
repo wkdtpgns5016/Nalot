@@ -46,11 +46,19 @@
 > 
 
 #### 3-2.유스케이스
-> ...
+> ![유스케이스](./img/usecase.PNG) <br/>
+> > 1. 사용자 액터는 로그인을 하여 다른 유스케이스에 접근 가능
+> > 2. 기상청 외부 액터로부터 동네예보 API 유스케이스에 접근
 
 #### 3-3.ERD
-> ![ERD](./img/Nalot_ERD_20210619_39_45.png) <br/>
-
+> ![ERD](./img/Nalot_ERD_20210619_39_45.png) <br/><br/>
+> **테이블 정보**
+> > 1. user_information : 유저정보 테이블
+> > 2. weather_information : 날씨정보 테이블
+> > 3. clothes_information : 의류정보 테이블
+> > 4. user_clothes : 유저 선택의류 테이블
+> > 5. user_history : 유저 기록 테이블
+> 
 ### 4. 주요 기능 구현
 #### 4-1.동네예보 API를 이용한 실시간 날씨 정보 수집 기능
 > ![동네예보API](./img/동네예보API.PNG) <br/>
