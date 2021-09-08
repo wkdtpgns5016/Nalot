@@ -92,10 +92,8 @@ function Main() {
     const theme = useTheme();
     const history = useHistory();
     const [open, setOpen] = React.useState(false);
-    const [info, setInfo] = React.useState('info')
     const location = useLocation();
 
-    //let key = location.state
     console.log(location.state.key)
     console.log(location.state.name)
 
@@ -109,7 +107,12 @@ function Main() {
     };
 
     const myInformation = () =>{
-        setInfo('info')
+        history.push('/nalot/myinformation',{
+            "key": location.state.key,
+            "name": location.state.name
+        })
+
+
     }
 
     const myRecord = () =>{

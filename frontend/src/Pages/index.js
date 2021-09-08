@@ -11,7 +11,7 @@ function Nalot({match}){
             <Route exact path = {`${match.path}`} component = {Signin}/>
             <Route path = {`${match.path}/signup`} component={Signup}/>
             <Route path = {`${match.path}/main`} component={Main}/>
-            <Route path = {`${match.path}/myinfo`} component = {myInformation}/>
+            <Route path = {`${match.path}/myinformation`} component = {myInformation}/>
         </div>
     )
 }

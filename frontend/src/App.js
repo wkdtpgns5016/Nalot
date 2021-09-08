@@ -12,7 +12,7 @@ function App () {
             <Route exact path ="/nalot" component = {Nalot}/>
             <Route path = "/nalot/signup" component = {Signup}/>
             <Route path = "/nalot/main" component = {Main}/>
-            <Route path = "/main/myinfo" component = {myInformation}/>
+            <Route path = "/nalot/myinformation" component = {myInformation}/>
 
 
           </Router>
