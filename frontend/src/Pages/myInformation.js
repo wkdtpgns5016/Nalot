@@ -15,15 +15,14 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import WbSunnyIcon from '@material-ui/icons/WbSunny';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-
-import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { useHistory, useLocation } from "react-router-dom";
+import axios from'axios'
+import TextField from "@material-ui/core/TextField";
 
 const drawerWidth = 240;
 
@@ -92,8 +91,12 @@ const useStyles = makeStyles((theme) => ({
 function myInformation() {
     const classes = useStyles();
     const theme = useTheme();
+    const history = useHistory();
     const [open, setOpen] = React.useState(false);
-    const [info, setInfo] = React.useState('info')
+    const location = useLocation();
+
+    console.log(location.state.key)
+    console.log(location.state.name)
 
 
     const handleDrawerOpen = () => {
@@ -105,7 +108,12 @@ function myInformation() {
     };
 
     const myInformation = () =>{
-        setInfo('info')
+        history.push('/nalot/myinformation',{
+            "key": location.state.key,
+            "name": location.state.name
+        })
+
+
     }
 
     const myRecord = () =>{
@@ -123,6 +131,8 @@ function myInformation() {
     const logOut = () =>{
         console.log('logOut')
     }
+
+
 
 
     return (
@@ -146,10 +156,10 @@ function myInformation() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap>
+                    <Typography variant="h6">
                         Nalot
                     </Typography>
-                    <Button color="inherit">님</Button>
+                    <Typography variant = "h6" color="inherit">{location.state.name}님</Typography>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -199,13 +209,20 @@ function myInformation() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {
-                    info === 'info' ?
-                    <myInformation/>:{
-
-                        }
-
-                }
+                이름
+                <form noValidate>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="이메일 주소"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                </form>
             </main>
         </div>
     );
