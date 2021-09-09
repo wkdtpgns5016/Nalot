@@ -94,6 +94,7 @@ function Main() {
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
+
     console.log(location.state)
 
     const handleDrawerOpen = () => {
@@ -107,6 +108,7 @@ function Main() {
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
+
             "name": location.state.name,
             "id": location.state.id,
             "gender": location.state.gender,
