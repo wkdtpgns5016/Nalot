@@ -94,9 +94,8 @@ function Main() {
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
-    console.log(location.state.key)
-    console.log(location.state.name)
 
+    console.log(location.state)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -109,7 +108,16 @@ function Main() {
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
-            "name": location.state.name
+
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+
         })
 
 
@@ -130,9 +138,6 @@ function Main() {
     const logOut = () =>{
         console.log('logOut')
     }
-
-
-
 
     return (
         <div className={classes.root}>
