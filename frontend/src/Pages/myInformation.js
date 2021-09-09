@@ -95,9 +95,8 @@ function myInformation() {
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
-    console.log(location.state.key)
-    console.log(location.state.name)
-
+    //console.log(location.state.key)
+    //console.log(location.state.name)
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -131,9 +130,6 @@ function myInformation() {
     const logOut = () =>{
         console.log('logOut')
     }
-
-
-
 
     return (
         <div className={classes.root}>
@@ -209,20 +205,29 @@ function myInformation() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                이름
-                <form noValidate>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="이메일 주소"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                    />
-                </form>
+                이름 {location.state.name}
+                <div>
+                    이메일 {location.state.id}
+                </div>
+                <div>
+                    성별 {location.state.gender}
+                </div>
+                <div>
+                    zone_code {location.state.zone_code}
+                </div>
+                <div>
+                    address_basic {location.state.address_basic}
+                </div>
+                <div>
+                    address_detail {location.state.address_detail}
+                </div>
+                <div>
+                    address_ground_number {location.state.address_ground_number}
+                </div>
+                <div>
+                    birth {location.state.birth}
+                </div>
+
             </main>
         </div>
     );
