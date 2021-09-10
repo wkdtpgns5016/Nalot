@@ -127,6 +127,7 @@ function Main() {
 
     const recommendation = () =>{
         console.log('recommend')
+        history.push('/nalot/recommendation')
     }
 
     const weatherNow = () =>{
