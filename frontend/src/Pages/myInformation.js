@@ -131,7 +131,6 @@ function myInformation() {
         console.log('logOut')
     }
 
-
     return (
         <div className={classes.root}>
             <CssBaseline />
@@ -206,8 +205,7 @@ function myInformation() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-
-                  이름 {location.state.name}
+                이름 {location.state.name}
                 <div>
                     이메일 {location.state.id}
                 </div>

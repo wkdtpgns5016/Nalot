@@ -95,8 +95,6 @@ function Main() {
     const location = useLocation();
 
 
-    console.log(location.state)
-
     const handleDrawerOpen = () => {
         setOpen(true);
     };
@@ -108,7 +106,6 @@ function Main() {
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
-
             "name": location.state.name,
             "id": location.state.id,
             "gender": location.state.gender,
@@ -129,6 +126,7 @@ function Main() {
 
     const recommendation = () =>{
         console.log('recommend')
+        history.push('/nalot/recommendation')
     }
 
     const weatherNow = () =>{
