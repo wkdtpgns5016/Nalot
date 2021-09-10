@@ -104,6 +104,7 @@ function Main() {
     };
 
     const myInformation = () =>{
+
         history.push('/nalot/myinformation',{
             "key": location.state.key,
             "name": location.state.name,
@@ -126,7 +127,31 @@ function Main() {
 
     const recommendation = () =>{
         console.log('recommend')
-        history.push('/nalot/recommendation')
+        axios.post('http://localhost:8080/weathers/forecasts',{
+            "date":"20210910", "time":"0500","nx":"60", "ny":"127"
+
+        }, {
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`Bearer ${location.state.key}`
+
+            }
+        })
+            .then(response=>{
+                console.log(response.data)
+            })
+
+        /*history.push('/nalot/recommendation',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+        })*/
     }
 
     const weatherNow = () =>{
@@ -211,13 +236,6 @@ function Main() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {
-                    info === 'info' ?
-                        <myInformation/>:{
-
-                        }
-
-                }
             </main>
         </div>
     );
