@@ -94,7 +94,6 @@ function Main() {
     const [open, setOpen] = React.useState(false);
     const location = useLocation();
 
-    console.log(location.state)
 
     const handleDrawerOpen = () => {
         setOpen(true);

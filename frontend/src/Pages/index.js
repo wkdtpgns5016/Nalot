@@ -14,6 +14,7 @@ function Nalot({match}){
             <Route path = {`${match.path}/main`} component={Main}/>
             <Route path = {`${match.path}/myinformation`} component = {myInformation}/>
             <Route path = {`${match.path}/recommendation`} compoenet = {recommendation}/>
+
         </div>
     )
 }
