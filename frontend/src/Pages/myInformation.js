@@ -109,7 +109,14 @@ function myInformation() {
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
-            "name": location.state.name
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
         })
 
 
@@ -121,6 +128,17 @@ function myInformation() {
 
     const recommendation = () =>{
         console.log('recommend')
+        history.push('/nalot/recommendation',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+        })
     }
 
     const weatherNow = () =>{
