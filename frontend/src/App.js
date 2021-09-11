@@ -5,6 +5,8 @@ import Signup from './Pages/Signup'
 import Main from './Pages/Main'
 import myInformation from './Pages/myInformation'
 import recommendation from './Pages/recommendation'
+import recommendation2 from './Pages/recommendation2'
+import recommendation3 from "./Pages/recommendation3";
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 function App () {
   return (
@@ -15,6 +17,8 @@ function App () {
             <Route path = "/nalot/main" component = {Main}/>
             <Route path = "/nalot/myinformation" component = {myInformation}/>
             <Route path = "/nalot/recommendation" component = {recommendation}/>
+            <Route path = "/nalot/recommendation2" component = {recommendation2}/>
+            <Route path = "/nalot/recommendation3" component = {recommendation3}/>
 
 
           </Router>

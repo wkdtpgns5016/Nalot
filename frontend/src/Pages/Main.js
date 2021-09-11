@@ -124,34 +124,51 @@ function Main() {
     const myRecord = () =>{
         console.log('myRecord')
     }
+    const dateNow = () =>{
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = ("0" + (1 + date.getMonth())).slice(-2);
+        let day = ("0" + date.getDate()).slice(-2);
+
+        return year + month + day;
+    }
 
     const recommendation = () =>{
-        console.log('recommend')
+        //console.log('recommend')
+
         axios.post('http://localhost:8080/weathers/forecasts',{
-            "date":"20210910", "time":"0500","nx":"60", "ny":"127"
+            "date":dateNow(), "time":"0500","nx":"60", "ny":"127"
 
         }, {
             headers:{
                 'Content-Type':'application/json',
-                'Authorization':`Bearer ${location.state.key}`
+                'Authorization':`${location.state.key}`
 
             }
         })
             .then(response=>{
                 console.log(response.data)
-            })
+                console.log(response.data.temperatureCurrent)
+                console.log(response.data.temperatureMax)
+                console.log(response.data.temperatureMin)
 
-        /*history.push('/nalot/recommendation',{
-            "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
-        })*/
+                history.push('/nalot/recommendation',{
+                    "key": location.state.key,
+                    "name": location.state.name,
+                    "id": location.state.id,
+                    "gender": location.state.gender,
+                    "zone_code": location.state.zone_code,
+                    "address_basic": location.state.address_basic,
+                    "address_detail": location.state.address_detail,
+                    "address_ground_number": location.state.address_ground_number,
+                    "birth": location.state.birth,
+
+                    "current":response.data.temperatureCurrent,
+                    "max":response.data.temperatureMax,
+                    "min":response.data.temperatureMin,
+
+                })
+            })
     }
 
     const weatherNow = () =>{

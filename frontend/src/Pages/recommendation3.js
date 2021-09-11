@@ -86,8 +86,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-function recommendation(){
+function recommendation3(){
     const classes = useStyles();
     const theme = useTheme();
     const history = useHistory();
@@ -124,8 +123,22 @@ function recommendation(){
     }
 
     const recommendation = () =>{
-        //console.log('recommend')
-        //history.push('/nalot/recommendation')
+        console.log('recommend')
+        history.push('/nalot/recommendation',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+
+            "current":location.state.current,
+            "max":location.state.max,
+            "min":location.state.min,
+        })
     }
 
     const weatherNow = () =>{
@@ -136,29 +149,42 @@ function recommendation(){
         console.log('logOut')
     }
 
-    const nextClicked = () =>{
-        history.push('/nalot/recommendation2',
-            {
-                "key": location.state.key,
-                "name": location.state.name,
-                "id": location.state.id,
-                "gender": location.state.gender,
-                "zone_code": location.state.zone_code,
-                "address_basic": location.state.address_basic,
-                "address_detail": location.state.address_detail,
-                "address_ground_number": location.state.address_ground_number,
-                "birth": location.state.birth,
+    const submitClicked = () =>{
+        history.push('/nalot/recommendation',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
 
-                "current":location.state.current,
-                "max":location.state.max,
-                "min":location.state.min,
-            })
+            "current":location.state.current,
+            "max":location.state.max,
+            "min":location.state.min,
+        })
+    }
+    const prevClicked = () =>{
+        history.push('/nalot/recommendation2',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+
+            "current":location.state.current,
+            "max":location.state.max,
+            "min":location.state.min,
+        })
     }
 
-
-
     return(
-
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
@@ -233,50 +259,24 @@ function recommendation(){
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div>
-                    현재 서울 종로구의 기온의 날씨는 최고 {location.state.max}도 최저 {location.state.min}도 현재 {location.state.current}도입니다.
+                    선택한 의상
+                    의상 색상
+                    추천색상배치
                 </div>
                 <div>
-                    추천 의상은 아래와 같습니다
-                    <div>
-                        <label>
-                            <input
-                                type="radio"
-                                name="react-tips"
-                                value="option1"
-                                checked={true}
-                                className="form-check-input"
-                            />
-                            Option 1
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="react-tips"
-                                value="option2"
-                                className="form-check-input"
-                            />
-                            Option 2
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="react-tips"
-                                value="option3"
-                                className="form-check-input"
-                            />
-                            Option 3
-                        </label>
-                    </div>
+                    <button
+                        onClick={prevClicked}
+                    >이전</button>
+                    <button
+                        onClick={submitClicked}
+                    >
+                        저장
+                    </button>
                 </div>
-                <button
-                    onClick={nextClicked}
-                >다음</button>
             </main>
 
         </div>
-
-
-    );
+    )
 }
 
-export default recommendation;
+export default recommendation3;
