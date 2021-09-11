@@ -137,7 +137,6 @@ function recommendation(){
     }
 
     const recommendation = () =>{
-
         history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,

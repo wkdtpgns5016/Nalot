@@ -183,61 +183,6 @@ function Main() {
         console.log('logOut')
     }
 
-    const submitLocation = () =>{
-        let s = document.getElementById("location")
-        let v = s.options[s.selectedIndex].value
-        console.log(v)
-        if (v === "seoul"){
-            nx = "60"
-            ny = "127"
-            loc = "서울특별시"
-        }else if (v === "busan"){
-            nx = "98"
-            ny = "76"
-            loc = "부산광역시"
-        }else if (v === "daegu"){
-            nx = "89"
-            ny = "90"
-            loc = "대구광역시"
-        }else{
-            nx = "60"
-            ny = "127"
-            loc = "서울특별시"
-        }
-
-        axios.post('http://localhost:8080/weathers/forecasts',{
-            "date":dateNow(), "time":"0500","nx":nx , "ny": ny
-
-        }, {
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':`${location.state.key}`
-
-            }
-        }).then(response=>{
-            history.push('/nalot/recommendation',{
-                "key": location.state.key,
-                "name": location.state.name,
-                "id": location.state.id,
-                "gender": location.state.gender,
-                "zone_code": location.state.zone_code,
-                "address_basic": location.state.address_basic,
-                "address_detail": location.state.address_detail,
-                "address_ground_number": location.state.address_ground_number,
-                "birth": location.state.birth,
-
-                "current":response.data.temperatureCurrent,
-                "max":response.data.temperatureMax,
-                "min":response.data.temperatureMin,
-
-                "nx" : nx,
-                "ny" : ny,
-                "loc" : loc
-
-            })
-        })
-    }
-
     return (
         <div className={classes.root}>
             <CssBaseline />
