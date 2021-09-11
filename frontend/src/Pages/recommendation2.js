@@ -21,6 +21,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { useHistory, useLocation } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
 
 const drawerWidth = 240;
 
@@ -101,6 +102,20 @@ function recommendation2(){
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const home = () =>{
+        history.push('/nalot/main',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+        })
+    }
 
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
@@ -211,7 +226,7 @@ function recommendation2(){
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6">
-                        Nalot
+                        Nalot&nbsp;&nbsp;&nbsp;
                     </Typography>
                     <Typography variant = "h6" color="inherit">{location.state.name}님</Typography>
                 </Toolbar>
@@ -236,6 +251,10 @@ function recommendation2(){
                 </div>
                 <Divider />
                 <List>
+                    <ListItem button onClick={home}>
+                        <ListItemIcon><HomeIcon/></ListItemIcon>
+                        <ListItemText primary={'홈'}/>
+                    </ListItem>
                     <ListItem button onClick={myInformation}>
                         <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
                         <ListItemText primary={'내정보'} />
@@ -263,13 +282,35 @@ function recommendation2(){
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <div>선택한 의상
-
-                톤온톤 매치
+                <div>
+                    <span>선택한 의상</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <span>톤온톤 매치</span>
                 </div>
-                <div>선택 색상
-
-                톤인톤 매치
+                <br></br>
+                <div>
+                    <button>선택한 의상</button>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button>톤온톤 매치</button>
+                </div>
+                <br></br>
+                <div>
+                    <span>선택한 색상</span>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <span>톤인톤 매치</span>
+                </div>
+                <div>
+                    <button>선택한 색상</button>
+                    &nbsp;
+                    &nbsp;
+                    &nbsp;
+                    <button>톤인톤 매치</button>
                 </div>
                 <div>
                 <button
