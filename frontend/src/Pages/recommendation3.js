@@ -115,7 +115,6 @@ function recommendation3(){
             "birth": location.state.birth,
         })
     }
-
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,

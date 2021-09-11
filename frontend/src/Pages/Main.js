@@ -149,6 +149,7 @@ function Main() {
 
         return year + month + day;
     }
+
     const hoursNow = () =>{
         let date = new Date();
 
@@ -163,6 +164,7 @@ function Main() {
         //console.log('recommend')
 
         axios.post('http://localhost:8080/weathers/forecasts',{
+
             "date":dateNow(), "time":"0500","nx":nx , "ny": ny
 
         }, {
