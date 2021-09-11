@@ -57,13 +57,13 @@ public class WeatherServiceTest {
     public void selectWeatherInfoTest(){
         //given
         String weatherId = "1";
-        float temperatureMin = 24.0F;
+        float temperature = 24.0F;
 
         //when
         WeatherDto weatherDto = weatherService.selectWeatherInfo(weatherId);
 
         //then
-        assertThat(weatherDto.getTemperatureMin()).isEqualTo(temperatureMin);
+        assertThat(weatherDto.getTemperature()).isEqualTo(temperature);
 
     }
 
@@ -71,9 +71,7 @@ public class WeatherServiceTest {
     public void insertWeatherInfoTest(){
         //given
         WeatherDto weatherDto = new WeatherDto();
-        weatherDto.setTemperatureMin(24F);
-        weatherDto.setTemperatureMax(28.2F);
-        weatherDto.setTemperatureCurrent(25.1F);
+        weatherDto.setTemperature(24F);
         weatherDto.setBaseDate("20210618");
         weatherDto.setBaseTime("0500");
 

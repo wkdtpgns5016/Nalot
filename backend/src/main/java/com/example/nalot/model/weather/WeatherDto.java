@@ -11,9 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class WeatherDto {
     String id;
-    float temperatureMin;
-    float temperatureMax;
-    float temperatureCurrent;
+    float temperature;
     String userId;
     String baseDate;
     String baseTime;

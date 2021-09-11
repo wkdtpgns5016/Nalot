@@ -129,9 +129,7 @@ public class UserServiceImpl implements UserService {
 
         WeatherDto weatherDto = new WeatherDto();
         weatherDto.setId(id);
-        weatherDto.setTemperatureMin(request.getTemperatureMin());
-        weatherDto.setTemperatureMax(request.getTemperatureMax());
-        weatherDto.setTemperatureCurrent(request.getTemperatureCurrent());
+        weatherDto.setTemperature(request.getTemperature());
         weatherDto.setUserId(request.getUserId());
         weatherService.insertWeatherInfo(weatherDto);
 
