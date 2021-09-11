@@ -143,7 +143,7 @@ function myInformation() {
 
     const recommendation = () =>{
         console.log('recommend')
-        history.push('/nalot/recommendation',{
+        history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
             "id": location.state.id,
