@@ -180,7 +180,7 @@ function Main() {
                 console.log(response.data.temperatureMax)
                 console.log(response.data.temperatureMin)
 
-                history.push('/nalot/recommendation',{
+                history.push('/nalot/recommendation_location',{
                     "key": location.state.key,
                     "name": location.state.name,
                     "id": location.state.id,
@@ -322,10 +322,11 @@ function Main() {
                         <ListItemIcon><HomeIcon/></ListItemIcon>
                         <ListItemText primary={'홈'}/>
                     </ListItem>
-                        <ListItem button onClick={myInformation}>
-                            <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
-                            <ListItemText primary={'내정보'} />
-                        </ListItem>
+
+                    <ListItem button onClick={myInformation}>
+                        <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
+                        <ListItemText primary={'내정보'} />
+                    </ListItem>
                     <ListItem button onClick={myRecord}>
                         <ListItemIcon><InboxIcon /></ListItemIcon>
                         <ListItemText primary={'내 기록'} />

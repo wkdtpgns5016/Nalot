@@ -137,8 +137,18 @@ function recommendation(){
     }
 
     const recommendation = () =>{
-        //console.log('recommend')
-        //history.push('/nalot/recommendation')
+
+        history.push('/nalot/recommendation_location',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+        })
     }
 
     const weatherNow = () =>{
@@ -163,8 +173,6 @@ function recommendation(){
                 "birth": location.state.birth,
 
                 "current":location.state.current,
-                "max":location.state.max,
-                "min":location.state.min,
             })
     }
 
@@ -250,7 +258,7 @@ function recommendation(){
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div>
-                    현재 {location.state.loc}의 기온의 날씨는 최고 {location.state.max}도 최저 {location.state.min}도 현재 {location.state.current}도입니다.
+                    현재 {location.state.loc}의 기온의 날씨는 {location.state.current}도입니다.
                 </div>
                 <div>
                     추천 의상은 아래와 같습니다

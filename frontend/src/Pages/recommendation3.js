@@ -138,7 +138,8 @@ function recommendation3(){
 
     const recommendation = () =>{
         console.log('recommend')
-        history.push('/nalot/recommendation',{
+
+        history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
             "id": location.state.id,
@@ -149,9 +150,6 @@ function recommendation3(){
             "address_ground_number": location.state.address_ground_number,
             "birth": location.state.birth,
 
-            "current":location.state.current,
-            "max":location.state.max,
-            "min":location.state.min,
         })
     }
 
@@ -164,7 +162,8 @@ function recommendation3(){
     }
 
     const submitClicked = () =>{
-        history.push('/nalot/recommendation',{
+
+        history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
             "id": location.state.id,
@@ -175,9 +174,6 @@ function recommendation3(){
             "address_ground_number": location.state.address_ground_number,
             "birth": location.state.birth,
 
-            "current":location.state.current,
-            "max":location.state.max,
-            "min":location.state.min,
         })
     }
     const prevClicked = () =>{
@@ -193,8 +189,6 @@ function recommendation3(){
             "birth": location.state.birth,
 
             "current":location.state.current,
-            "max":location.state.max,
-            "min":location.state.min,
         })
     }
 
