@@ -161,41 +161,17 @@ function recommendation_location(){
     }
 
     const recommendation = () =>{
-
-        axios.post('http://localhost:8080/weathers/forecasts',{
-
-            "date":dateNow(), "time":"0500","nx":nx , "ny": ny
-
-        }, {
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':`${location.state.key}`
-
-            }
+        history.push('/nalot/recommendation_location',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
         })
-            .then(response=>{
-                console.log(response.data)
-                console.log(response.data.temperatureCurrent)
-
-                history.push('/nalot/recommendation_location',{
-                    "key": location.state.key,
-                    "name": location.state.name,
-                    "id": location.state.id,
-                    "gender": location.state.gender,
-                    "zone_code": location.state.zone_code,
-                    "address_basic": location.state.address_basic,
-                    "address_detail": location.state.address_detail,
-                    "address_ground_number": location.state.address_ground_number,
-                    "birth": location.state.birth,
-
-                    "current":response.data.temperatureCurrent,
-
-                    "nx" : nx,
-                    "ny" : ny,
-                    "loc" : loc
-
-                })
-            })
     }
 
     const weatherNow = () =>{
@@ -249,7 +225,7 @@ function recommendation_location(){
                 "address_ground_number": location.state.address_ground_number,
                 "birth": location.state.birth,
 
-                "current":response.data.temperatureCurrent,
+                "current":response.data.temperature,
 
                 "nx" : nx,
                 "ny" : ny,
