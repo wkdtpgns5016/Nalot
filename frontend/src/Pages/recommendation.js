@@ -21,6 +21,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { useHistory, useLocation } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
 
 const drawerWidth = 240;
 
@@ -102,6 +103,20 @@ function recommendation(){
         setOpen(false);
     };
 
+    const home = () =>{
+        history.push('/nalot/main',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
+        })
+    }
+
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
@@ -115,8 +130,6 @@ function recommendation(){
             "birth": location.state.birth,
 
         })
-
-
     }
 
     const myRecord = () =>{
@@ -180,7 +193,7 @@ function recommendation(){
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6">
-                        Nalot
+                        Nalot&nbsp;&nbsp;&nbsp;
                     </Typography>
                     <Typography variant = "h6" color="inherit">{location.state.name}님</Typography>
                 </Toolbar>
@@ -205,6 +218,10 @@ function recommendation(){
                 </div>
                 <Divider />
                 <List>
+                    <ListItem button onClick={home}>
+                        <ListItemIcon><HomeIcon/></ListItemIcon>
+                        <ListItemText primary={'홈'}/>
+                    </ListItem>
                     <ListItem button onClick={myInformation}>
                         <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
                         <ListItemText primary={'내정보'} />
@@ -233,7 +250,7 @@ function recommendation(){
             <main className={classes.content}>
                 <div className={classes.toolbar} />
                 <div>
-                    현재 서울 종로구의 기온의 날씨는 최고 {location.state.max}도 최저 {location.state.min}도 현재 {location.state.current}도입니다.
+                    현재 {location.state.loc}의 기온의 날씨는 최고 {location.state.max}도 최저 {location.state.min}도 현재 {location.state.current}도입니다.
                 </div>
                 <div>
                     추천 의상은 아래와 같습니다
@@ -243,7 +260,7 @@ function recommendation(){
                                 type="radio"
                                 name="react-tips"
                                 value="option1"
-                                checked={true}
+                                defaultChecked={true}
                                 className="form-check-input"
                             />
                             Option 1
