@@ -29,7 +29,7 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public String sortCategoryByTemperature(WeatherDto weatherDto) {
         String category;
-        float temperature = weatherDto.getTemperatureCurrent();
+        float temperature = weatherDto.getTemperature();
 
         if(temperature <= 4) category = "1";
         else if(temperature >= 5 && temperature <= 8) category = "2";

@@ -11,9 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class UserHistoryRequest {
     String userId;
-    float temperatureMin;
-    float temperatureMax;
-    float temperatureCurrent;
+    float temperature;
     int clothesId;
     String color;
     String colorMix;

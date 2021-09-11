@@ -11,17 +11,11 @@ public class WeatherForecast {
     /** 발표시각 */
     private String baseTime;
 
-    /** 예보일자 */
-    private String fcstDate;
-
-    /** 예보시각 */
-    private String fcstTime;
-
     /** 자료구분문자 */
     private CategoryType category;
 
-    /** 예보 값 */
-    private float fcstValue;
+    /** 실황 값 */
+    private float obsrValue;
 
     /** 예보지점 X 좌표 */
     private float nx;

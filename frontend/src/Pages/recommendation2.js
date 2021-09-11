@@ -130,6 +130,7 @@ function recommendation2(){
             "birth": location.state.birth,
 
         })
+
     }
 
     const myRecord = () =>{
@@ -138,6 +139,7 @@ function recommendation2(){
 
     const recommendation = () =>{
         console.log('recommend')
+
         history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
@@ -148,6 +150,7 @@ function recommendation2(){
             "address_detail": location.state.address_detail,
             "address_ground_number": location.state.address_ground_number,
             "birth": location.state.birth,
+
         })
     }
 
@@ -188,9 +191,9 @@ function recommendation2(){
             "birth": location.state.birth,
 
             "current":location.state.current,
+
         })
     }
-
     return(
 
         <div className={classes.root}>

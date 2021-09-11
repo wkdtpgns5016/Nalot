@@ -71,17 +71,8 @@ public class WeatherServiceImpl implements WeatherService {
         weather.setBaseDate(date);
         weather.setBaseTime(time);
         for (WeatherForecast item : items.getItem()) {
-            if (item.getCategory() == WeatherForecast.CategoryType.T3H) {
-                String fcstTime = getFcstTimeByBaseTime(item.getBaseTime());
-                if (item.getFcstTime().equals(fcstTime)){
-                    weather.setTemperatureCurrent(item.getFcstValue());
-                }
-            }
-            else if (item.getCategory() == WeatherForecast.CategoryType.TMN) {
-                weather.setTemperatureMin(item.getFcstValue());
-            }
-            else if (item.getCategory() == WeatherForecast.CategoryType.TMX) {
-                weather.setTemperatureMax(item.getFcstValue());
+            if (item.getCategory() == WeatherForecast.CategoryType.T1H) {
+                weather.setTemperature(item.getObsrValue());
             }
         }
         return weather;

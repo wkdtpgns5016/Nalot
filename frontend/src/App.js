@@ -8,7 +8,6 @@ import recommendation from './Pages/recommendation'
 import recommendation2 from './Pages/recommendation2'
 import recommendation3 from "./Pages/recommendation3";
 import recommendation_location from "./Pages/recommendation_location";
-
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 function App () {
   return (

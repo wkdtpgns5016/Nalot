@@ -115,7 +115,6 @@ function recommendation3(){
             "birth": location.state.birth,
         })
     }
-
     const myInformation = () =>{
         history.push('/nalot/myinformation',{
             "key": location.state.key,
@@ -139,6 +138,7 @@ function recommendation3(){
 
     const recommendation = () =>{
         console.log('recommend')
+
         history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
@@ -162,6 +162,7 @@ function recommendation3(){
     }
 
     const submitClicked = () =>{
+
         history.push('/nalot/recommendation_location',{
             "key": location.state.key,
             "name": location.state.name,
