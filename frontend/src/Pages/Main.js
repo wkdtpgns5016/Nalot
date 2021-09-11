@@ -161,46 +161,18 @@ function Main() {
     }
 
     const recommendation = () =>{
-        //console.log('recommend')
 
-        axios.post('http://localhost:8080/weathers/forecasts',{
-
-            "date":dateNow(), "time":"0500","nx":nx , "ny": ny
-
-        }, {
-            headers:{
-                'Content-Type':'application/json',
-                'Authorization':`${location.state.key}`
-
-            }
+        history.push('/nalot/recommendation_location',{
+            "key": location.state.key,
+            "name": location.state.name,
+            "id": location.state.id,
+            "gender": location.state.gender,
+            "zone_code": location.state.zone_code,
+            "address_basic": location.state.address_basic,
+            "address_detail": location.state.address_detail,
+            "address_ground_number": location.state.address_ground_number,
+            "birth": location.state.birth,
         })
-            .then(response=>{
-                console.log(response.data)
-                console.log(response.data.temperatureCurrent)
-                console.log(response.data.temperatureMax)
-                console.log(response.data.temperatureMin)
-
-                history.push('/nalot/recommendation_location',{
-                    "key": location.state.key,
-                    "name": location.state.name,
-                    "id": location.state.id,
-                    "gender": location.state.gender,
-                    "zone_code": location.state.zone_code,
-                    "address_basic": location.state.address_basic,
-                    "address_detail": location.state.address_detail,
-                    "address_ground_number": location.state.address_ground_number,
-                    "birth": location.state.birth,
-
-                    "current":response.data.temperatureCurrent,
-                    "max":response.data.temperatureMax,
-                    "min":response.data.temperatureMin,
-
-                    "nx" : nx,
-                    "ny" : ny,
-                    "loc" : loc
-
-                })
-            })
     }
 
     const weatherNow = () =>{
@@ -264,11 +236,6 @@ function Main() {
 
             })
         })
-    }
-
-    const valueChanged = () =>{
-        let s = document.getElementById("location")
-        let v  = s.options[s.selectedIndex].value
     }
 
     return (
@@ -350,21 +317,6 @@ function Main() {
             </Drawer>
             <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <div>
-                    지역 설정
-                </div>
-                <div>
-                    <select id="location" onChange={valueChanged}>
-                        <option value="seoul" defaultValue={true}>서울특별시</option>
-                        <option value="busan">부산광역시</option>
-                        <option value="daegu">대구광역시</option>
-                    </select>
-                </div>
-                <div>
-                    <button
-                        onClick={submitLocation}
-                    >옷 추천받기</button>
-                </div>
             </main>
         </div>
     );

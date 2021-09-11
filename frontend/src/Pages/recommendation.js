@@ -176,8 +176,6 @@ function recommendation(){
             })
     }
 
-
-
     return(
 
         <div className={classes.root}>
