@@ -6,6 +6,8 @@ import com.example.nalot.model.weather.WeatherDto;
 import com.example.nalot.service.weather.WeatherService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -19,18 +21,20 @@ public class WeatherController {
 
     @PostMapping("")
     public WeatherApiResponse.Items getWeatherForecast(@RequestBody WeatherApiRequest weatherApiRequest){
+        ArrayList<String> dateNow = weatherService.setDateNow();
         return weatherService.getWeatherForecast(
-                weatherApiRequest.getDate(),
-                weatherApiRequest.getTime(),
+                dateNow.get(0),
+                dateNow.get(1),
                 weatherApiRequest.getNx(),
                 weatherApiRequest.getNy());
     }
 
     @PostMapping("/forecasts")
     public WeatherDto getWeatherDto(@RequestBody WeatherApiRequest weatherApiRequest){
+        ArrayList<String> dateNow = weatherService.setDateNow();
         WeatherApiResponse.Items items = weatherService.getWeatherForecast(
-                weatherApiRequest.getDate(),
-                weatherApiRequest.getTime(),
+                dateNow.get(0),
+                dateNow.get(1),
                 weatherApiRequest.getNx(),
                 weatherApiRequest.getNy());
 

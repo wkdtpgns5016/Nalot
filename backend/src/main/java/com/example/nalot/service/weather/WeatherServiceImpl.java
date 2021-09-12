@@ -15,6 +15,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -27,6 +31,28 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherDao weatherDao;
     public WeatherServiceImpl(WeatherDao weatherDao) { this.weatherDao = weatherDao; }
+
+    @Override
+    public ArrayList<String> setDateNow() {
+        ArrayList<String> dateNow = new ArrayList<>();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH");
+        SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
+
+        Date now = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+
+        int minute = Integer.parseInt(minuteFormat.format(now));
+        if (minute < 30) {
+            cal.add(Calendar.HOUR_OF_DAY,-1);
+        }
+        dateNow.add(dateFormat.format(cal.getTime()));
+        dateNow.add(hourFormat.format(cal.getTime())+"00");
+
+        return dateNow;
+    }
 
     @Override
     public WeatherApiResponse.Items getWeatherForecast(String date, String time, String nx, String ny) {

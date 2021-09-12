@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -21,10 +23,28 @@ public class WeatherServiceTest {
     WeatherService weatherService;
 
     @Test
+    public void setDateNowTest(){
+        //given
+        ArrayList<String> dateNow = new ArrayList<>();
+
+        //when
+        dateNow = weatherService.setDateNow();
+
+        //then
+        System.out.println(dateNow.get(0));
+        System.out.println(dateNow.get(1));
+
+        assertThat(dateNow.size()).isNotZero();
+    }
+
+    @Test
     public void getWeatherForecastTest(){
         //given
-        String date = "20210614";
-        String time = "0500";
+        ArrayList<String> dateNow = new ArrayList<>();
+        dateNow = weatherService.setDateNow();
+
+        String date = dateNow.get(0);
+        String time = dateNow.get(1);
         String nx = "60";
         String ny = "127";
 
@@ -39,8 +59,11 @@ public class WeatherServiceTest {
     @Test
     public void setWeatherDtoTest(){
         //given
-        String date = "20210614";
-        String time = "0500";
+        ArrayList<String> dateNow = new ArrayList<>();
+        dateNow = weatherService.setDateNow();
+
+        String date = dateNow.get(0);
+        String time = dateNow.get(1);
         String nx = "60";
         String ny = "127";
         WeatherApiResponse.Items items = weatherService.getWeatherForecast(date, time, nx, ny);
