@@ -11,6 +11,8 @@ import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
+import Styles from "./Styles.css"
+
 const Menu = () =>{
     const history = useHistory();
     const location = useLocation();
@@ -71,28 +73,29 @@ const Menu = () =>{
         console.log('logOut')
     }
     return(
-        <List>
-            <ListItem button onClick={home}>
-                <ListItemIcon><HomeIcon/></ListItemIcon>
-                <ListItemText primary={'홈'}/>
+
+        <List className="List">
+            <ListItem className="ListItem" button onClick={home}>
+                <ListItemIcon ><HomeIcon/></ListItemIcon>
+                <ListItemText className="ItemText" primary={'홈'}/>
             </ListItem>
-            <ListItem button onClick={myInformation}>
+            <ListItem className="ListItem" button onClick={myInformation}>
                 <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
                 <ListItemText primary={'내정보'} />
             </ListItem>
-            <ListItem button onClick={myRecord}>
+            <ListItem className="ListItem" button onClick={myRecord}>
                 <ListItemIcon><InboxIcon /></ListItemIcon>
                 <ListItemText primary={'내 기록'} />
             </ListItem>
-            <ListItem button onClick={recommendation}>
+            <ListItem className="ListItem" button onClick={recommendation}>
                 <ListItemIcon><AccessibilityIcon /></ListItemIcon>
                 <ListItemText primary={'의상 추천'} />
             </ListItem>
-            <ListItem button onClick={weatherNow}>
+            <ListItem className="ListItem" button onClick={weatherNow}>
                 <ListItemIcon><WbSunnyIcon /></ListItemIcon>
                 <ListItemText primary={'현재 날씨'} />
             </ListItem>
-            <ListItem button onClick={logOut}>
+            <ListItem className="ListItem" button onClick={logOut}>
                 <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                 <ListItemText primary={'로그아웃'} />
             </ListItem>

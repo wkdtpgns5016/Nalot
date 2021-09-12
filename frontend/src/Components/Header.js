@@ -1,9 +1,9 @@
 import React from 'react'
-import Styles from "./Styles"
+import Styles from "./Styles.css"
 
 const Header = () =>{
     return(
-        <div>
+        <div className="header">
             Nalot
         </div>
     )

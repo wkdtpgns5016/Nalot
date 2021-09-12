@@ -1,0 +1,15 @@
+.List{
+    display:inline-block;
+    float:left
+}
+.ListItem{
+    display:inline-block;
+}
+.ItemText{
+
+}
+.header{
+    padding: 20px;
+    background-color: #61dafb;
+
+}
