@@ -13,25 +13,6 @@ function recommendation_location(){
     ny = "127"
     loc = "서울특별시"
 
-    const dateNow = () =>{
-        let date = new Date();
-        let year = date.getFullYear();
-        let month = ("0" + (1 + date.getMonth())).slice(-2);
-        let day = ("0" + date.getDate()).slice(-2);
-
-        return year + month + day;
-    }
-
-    const hoursNow = () =>{
-        let date = new Date();
-
-        let hours = date.getHours();
-        console.log((hours-1+'00'))
-        //조건문 사용해서 02일 00시 -> 01시 23시로 바꿀것
-        //매시 30분 마다 업뎃 -> getMinutes사용해서 30분ㅇ ㅣ후면 아워리턴 이전이면 아ㅜ어 -1 리턴
-        return (hours-1) +'00';
-    }
-
     const submitLocation = () =>{
         let s = document.getElementById("location")
         let v = s.options[s.selectedIndex].value
@@ -55,7 +36,7 @@ function recommendation_location(){
         }
 
         axios.post('http://localhost:8080/weathers/forecasts',{
-            "date":dateNow(), "time":"0500","nx":nx , "ny": ny
+            "date":"", "time":"","nx":nx , "ny": ny
 
         }, {
             headers:{
