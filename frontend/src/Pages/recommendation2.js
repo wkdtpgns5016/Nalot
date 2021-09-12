@@ -12,32 +12,19 @@ function recommendation2(){
     const prevClicked = () =>{
         history.push('/nalot/recommendation',{
             "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
 
             "current":location.state.current,
+            "data":location.state.data
         })
     }
 
     const nextClicked = () =>{
         history.push('/nalot/recommendation3',{
             "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
+            "email": location.state.email,
 
             "current":location.state.current,
+            "data":location.state.data
 
         })
     }

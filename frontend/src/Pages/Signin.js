@@ -49,25 +49,22 @@ function Signin() {
             }
             })
             .then(response=>{
-                console.log(response.data.message)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.message}`
                 axios.get('http://localhost:8080/users/'+email)
                     .then(res=>{
-                        console.log(res.data.name)
-                        console.log(res.data.id)
-                        console.log(res.data)
+                        //console.log(res.data)
                         history.push('/nalot/main',
                             {
                                 "key" : 'Bearer ' + response.data.message,
-                                "name" : res.data.name,
-                                "id" : res.data.id,
-                                "gender" : res.data.gender,
-                                "zone_code" : res.data.zoneCode,
-                                "address_basic" : res.data.addressBasic,
-                                "address_detail" : res.data.addressDetail,
-                                "address_ground_number" : res.data.addressGroundNumber,
-                                "birth" : res.data.birth
-
+                                "email" : email,
+                                "name": res.data.name,
+                                "id": email,
+                                "gender": res.data.gender,
+                                "zone_code": res.data.zoneCode,
+                                "address_basic": res.data.addressBasic,
+                                "address_detail": res.data.addressDetail,
+                                "address_ground_number": res.data.addressGroundNumber,
+                                "birth": res.data.birth,
                             }
 
                         )
