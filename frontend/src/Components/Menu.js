@@ -10,6 +10,7 @@ import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import axios from 'axios'
 
 import Styles from "./Styles.css"
 
@@ -20,31 +21,29 @@ const Menu = () =>{
     const home = () =>{
         history.push('/nalot/main',{
             "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
+            "email" : location.state.email
         })
     }
 
     const myInformation = () =>{
+        console.log(location.state)
+        //axios.defaults.headers.common['Authorization'] = location.state.key
+        axios.get('http://localhost:8080/users/' + location.state.email)
+            .then(res=>{
+                history.push('/nalot/myinformation',{
+                    "key": location.state.key,
+                    "name": res.data.name,
+                    "id": location.state.email,
+                    "gender": res.data.gender,
+                    "zone_code": res.data.zoneCode,
+                    "address_basic": res.data.addressBasic,
+                    "address_detail": res.data.addressDetail,
+                    "address_ground_number": res.data.addressGroundNumber,
+                    "birth": res.data.birth,
 
-        history.push('/nalot/myinformation',{
-            "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
+                })
+            })
 
-        })
     }
 
     const myRecord = () =>{
@@ -52,16 +51,10 @@ const Menu = () =>{
     }
 
     const recommendation = () =>{
+        //console.log(location.state.data)
         history.push('/nalot/recommendation_location',{
             "key": location.state.key,
-            "name": location.state.name,
-            "id": location.state.id,
-            "gender": location.state.gender,
-            "zone_code": location.state.zone_code,
-            "address_basic": location.state.address_basic,
-            "address_detail": location.state.address_detail,
-            "address_ground_number": location.state.address_ground_number,
-            "birth": location.state.birth,
+            "email" : location.state.email
         })
     }
 

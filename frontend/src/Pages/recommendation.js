@@ -1,29 +1,50 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
+import axios from "axios";
 
 function recommendation(){
     const history = useHistory();
     const location = useLocation();
 
+    let arr = [];
+
     const nextClicked = () =>{
         history.push('/nalot/recommendation2',
             {
                 "key": location.state.key,
-                "name": location.state.name,
-                "id": location.state.id,
-                "gender": location.state.gender,
-                "zone_code": location.state.zone_code,
-                "address_basic": location.state.address_basic,
-                "address_detail": location.state.address_detail,
-                "address_ground_number": location.state.address_ground_number,
-                "birth": location.state.birth,
+                "email": location.state.email,
 
                 "current":location.state.current,
+
+                "data" : location.state.data
             })
     }
+
+
+    function renderData(){
+        arr = location.state.data
+        return arr.map(({name})=>{
+            return(
+                <label>
+                    <input
+                        type="radio"
+                        name="react-tips"
+                        value="option1"
+                        defaultChecked={true}
+                        className="form-check-input"
+                    />
+                    {name}
+                </label>
+            )
+        })
+
+    }
+
+    console.log(location.state.data)
+
 
     return(
 
@@ -36,34 +57,7 @@ function recommendation(){
             <div>
                 추천 의상은 아래와 같습니다
                 <div>
-                    <label>
-                        <input
-                            type="radio"
-                            name="react-tips"
-                            value="option1"
-                            defaultChecked={true}
-                            className="form-check-input"
-                        />
-                        Option 1
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="react-tips"
-                            value="option2"
-                            className="form-check-input"
-                        />
-                        Option 2
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="react-tips"
-                            value="option3"
-                            className="form-check-input"
-                        />
-                        Option 3
-                    </label>
+                    {renderData()}
                 </div>
             </div>
             <button

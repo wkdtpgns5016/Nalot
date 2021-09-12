@@ -7,11 +7,15 @@ import Menu from "../Components/Menu";
 function recommendation_location(){
     const history = useHistory();
     const location = useLocation();
-    let nx, ny, loc;
+    let nx, ny, loc, data;
 
     nx = "60"
     ny = "127"
     loc = "서울특별시"
+
+    console.log(location.state.data)
+
+
 
     const submitLocation = () =>{
         let s = document.getElementById("location")
@@ -45,24 +49,34 @@ function recommendation_location(){
 
             }
         }).then(response=>{
-            history.push('/nalot/recommendation',{
-                "key": location.state.key,
-                "name": location.state.name,
-                "id": location.state.id,
-                "gender": location.state.gender,
-                "zone_code": location.state.zone_code,
-                "address_basic": location.state.address_basic,
-                "address_detail": location.state.address_detail,
-                "address_ground_number": location.state.address_ground_number,
-                "birth": location.state.birth,
+            axios.post('http://localhost:8080/clothes/recommendations',{
+                "id":null, "temperature":response.data.temperature, "userId":null,
+                "baseDate":null, "baseTime":null
+            },{
+                headers:{
+                    'Content-Type':'application/json',
+                    'Authorization':`${location.state.key}`
+                }
+            }).then(res=>{
 
-                "current":response.data.temperature,
+                data = res.data
+                console.log(response.data)
 
-                "nx" : nx,
-                "ny" : ny,
-                "loc" : loc
+                history.push('/nalot/recommendation',{
+                    "key": location.state.key,
+                    "email":location.state.email,
 
+                    "current":response.data.temperature,
+
+                    "nx" : nx,
+                    "ny" : ny,
+                    "loc" : loc,
+
+                    "data" : data
+
+                })
             })
+
         })
     }
 
