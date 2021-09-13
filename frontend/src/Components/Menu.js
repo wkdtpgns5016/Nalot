@@ -12,8 +12,6 @@ import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import axios from 'axios'
 
-import Styles from "./Styles.css"
-
 const Menu = () =>{
     const history = useHistory();
     const location = useLocation();
@@ -66,7 +64,7 @@ const Menu = () =>{
         console.log('logOut')
     }
     return(
-
+    <div>
         <List className="List">
             <ListItem className="ListItem" button onClick={home}>
                 <ListItemIcon ><HomeIcon/></ListItemIcon>
@@ -93,6 +91,7 @@ const Menu = () =>{
                 <ListItemText primary={'로그아웃'} />
             </ListItem>
         </List>
+    </div>
     )
 }
 
