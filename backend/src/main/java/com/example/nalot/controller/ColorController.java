@@ -14,12 +14,12 @@ public class ColorController {
     private final ColorService colorService;
     public ColorController(ColorService colorService) { this.colorService = colorService; }
 
-    @PostMapping("/toneOnToneMixes")
+    @PostMapping("/tone-on-tone-mixes")
     public List<RgbCode> getToneOnToneMixes(@RequestBody ColorRequest colorRequest){
         return colorService.getToneOnToneList(colorRequest.getHexCode()); }
 
-    @PostMapping("/toneInToneMixes")
+    @PostMapping("/tone-in-tone-mixes")
     public List<RgbCode> getToneInToneMixes(@RequestBody ColorRequest colorRequest){
-        return colorService.getToneOnToneList(colorRequest.getHexCode()); }
+        return colorService.getToneInToneList(colorRequest.getHexCode()); }
 
 }
