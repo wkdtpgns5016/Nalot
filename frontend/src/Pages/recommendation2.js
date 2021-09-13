@@ -47,7 +47,7 @@ function recommendation2(){
     const closeClicked = () =>{
         setdisplayColorPicker(false)
         console.log(hex)
-        axios.post('http://localhost:8080/colors/toneOnToneMixes',{
+        axios.post('http://localhost:8080/colors/tone-on-tone-mixes',{
             "hexCode" : hex
         },{
             headers:{
@@ -56,7 +56,7 @@ function recommendation2(){
             }
         }).then(response=>{
             console.log(response.data)
-            axios.post('http://localhost:8080/colors/toneInToneMixes',{
+            axios.post('http://localhost:8080/colors/tone-in-tone-mixes',{
                 "hexCode":hex
             },{
                 headers:{
