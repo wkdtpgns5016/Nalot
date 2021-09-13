@@ -32,7 +32,8 @@ public class ColorServiceImpl implements ColorService {
         HslCode hslCode = rgbCode.convertHsl();
 
         for(int i=11; i>=0; i--){
-            hslCode.setLightness((i * 7) + 17);
+            double lightness = ((i * 7) + 17) * 0.01;
+            hslCode.setLightness(lightness);
             RgbCode tone = hslCode.convertRgb();
             toneList.add(tone);
         }
