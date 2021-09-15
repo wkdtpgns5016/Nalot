@@ -36,9 +36,28 @@ function recommendation3(){
             <Header/>
             <Menu/>
             <div>
-                선택한 의상
-                의상 색상
-                추천색상배치
+                선택한 의상 : {location.state.clothes}
+            </div>
+            <div>
+                선택한 색상
+                <button name = "button1" style={
+                    {
+                        background: location.state.color
+                    }
+                }>
+                    {location.state.color}
+                </button>
+
+            </div>
+            <div>
+                추천 색상
+                <button name = "button" style={
+                    {
+                        background: location.state.selectedColor
+                    }
+                }>
+                    {location.state.selectedColor}
+                </button>
             </div>
             <div>
                 <button
