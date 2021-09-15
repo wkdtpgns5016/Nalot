@@ -15,8 +15,6 @@ function recommendation_location(){
 
     console.log(location.state.data)
 
-
-
     const submitLocation = () =>{
         let s = document.getElementById("location")
         let v = s.options[s.selectedIndex].value
@@ -40,7 +38,7 @@ function recommendation_location(){
         }
 
         axios.post('http://localhost:8080/weathers/forecasts',{
-            "date":"", "time":"","nx":nx , "ny": ny
+            "nx":nx , "ny": ny
 
         }, {
             headers:{
