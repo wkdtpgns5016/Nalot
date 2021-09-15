@@ -23,9 +23,13 @@ function recommendation3(){
             "email": location.state.email,
             "key": location.state.key,
             "current":location.state.current,
-            "data":location.state.data
+            "data":location.state.data,
+            "clothes":location.state.clothes,
+            "toneintone" : location.state.toneintone,
+            "toneontone" : location.state.toneontone
         })
     }
+    console.log(location.state.color)
 
     return(
         <div>

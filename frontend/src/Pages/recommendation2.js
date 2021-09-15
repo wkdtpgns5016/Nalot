@@ -18,7 +18,20 @@ function recommendation2(){
             a : '1'
         }
     )
+
     const [hex, sethex] = React.useState('#f17013')
+
+    const[toneintone, settoneintone] = React.useState(location.state.toneintone)
+    const[toneontone, settoneontone] = React.useState(location.state.toneontone)
+
+    let arr=[]
+    let arr2=[]
+
+    let red = 253
+    let green =226
+    let blue = 237
+
+    let selectedColor
 
     const prevClicked = () =>{
         history.push('/nalot/recommendation',{
@@ -30,14 +43,30 @@ function recommendation2(){
     }
 
     const nextClicked = () =>{
-        history.push('/nalot/recommendation3',{
-            "key": location.state.key,
-            "email": location.state.email,
+        let count = document.getElementsByName("radio").length
+        for (let i =0; i<count; i++){
+            if(document.getElementsByName("radio")[i].checked===true){
+                selectedColor = (document.getElementsByName("radio")[i].value)
+            }
+        }
+        if(selectedColor === undefined){
 
-            "current":location.state.current,
-            "data":location.state.data
+        }else{
+            history.push('/nalot/recommendation3',{
+                "key": location.state.key,
+                "email": location.state.email,
 
-        })
+                "current":location.state.current,
+                "data":location.state.data,
+                "clothes" : location.state.clothes,
+                "toneintone" : toneintone,
+                "toneontone" : toneontone,
+                "color" : selectedColor
+
+
+            })
+        }
+
     }
 
     const openClicked = () =>{
@@ -46,7 +75,7 @@ function recommendation2(){
 
     const closeClicked = () =>{
         setdisplayColorPicker(false)
-        console.log(hex)
+
         axios.post('http://localhost:8080/colors/tone-on-tone-mixes',{
             "hexCode" : hex
         },{
@@ -55,7 +84,8 @@ function recommendation2(){
                 'Authorization':`${location.state.key}`
             }
         }).then(response=>{
-            console.log(response.data)
+            settoneintone(response.data)
+
             axios.post('http://localhost:8080/colors/tone-in-tone-mixes',{
                 "hexCode":hex
             },{
@@ -64,17 +94,90 @@ function recommendation2(){
                     'Authorization':`${location.state.key}`
                 }
             }).then(res=>{
-                console.log(res.data)
+                settoneontone(res.data)
+
             })
         })
     }
 
     const handleChange = (color) =>{
         setcolor(color.rgb)
-        //console.log(color.hex)
         sethex(color.hex)
     }
 
+    function componentToHex(c) {
+        let hex = c.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+    }
+
+    function rgbToHex(r, g, b) {
+        return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+
+    function renderToneInTone(){
+        arr = toneintone
+
+        return arr.map(({red,green,blue})=>{
+
+            styles.button.background=rgbToHex(red,green,blue)
+
+            return(
+                    <button name="button" style={
+                        {
+                            background: `${rgbToHex(red,green,blue)}`
+                        }
+                    }>
+                        {rgbToHex(red,green,blue)}
+                    </button>
+
+            )
+        })
+    }
+
+    function renderToneOnTone(){
+        arr2 = toneontone
+        return arr2.map(({red,green,blue})=>{
+            return(
+                    <button name="button" style={
+                        {
+                            background: `${rgbToHex(red,green,blue)}`
+                        }
+                    }>
+                        {rgbToHex(red,green,blue)}
+                    </button>
+
+            )
+        })
+    }
+
+    function renderRadio(){
+        arr = toneintone
+        return arr.map(({red,green,blue})=>{
+            return(
+                <label>
+                    <input
+                        type="radio"
+                        name="radio"
+                        value={`${rgbToHex(red,green,blue)}`}
+                        />
+                </label>
+            )
+        })
+    }
+    function renderRadio2(){
+        arr2 = toneontone
+        return arr2.map(({red,green,blue})=>{
+            return(
+                <label>
+                    <input
+                        type="radio"
+                        name="radio"
+                        value={`${rgbToHex(red,green,blue)}`}
+                    />
+                </label>
+            )
+        })
+    }
 
     const styles = reactCSS({
         'default': {
@@ -103,6 +206,12 @@ function recommendation2(){
                 bottom: '0px',
                 left: '0px',
             },
+            button:{
+                background: `${rgbToHex(red,green,blue)}`
+            },
+            button2:{
+                background:`${rgbToHex(red,green,blue)}`
+            }
         },
     });
     return(
@@ -118,7 +227,23 @@ function recommendation2(){
                     <div style={ styles.cover } onClick={closeClicked}/>
                     <SketchPicker color={ color } onChange={ handleChange } />
                 </div> : null }
-
+            </div>
+            <div>
+                선택한 의상 : {location.state.clothes}
+            </div>
+            <div>
+                톤인톤매치
+                {renderToneInTone()}
+                <div>
+                    {renderRadio()}
+                </div>
+            </div>
+            <div>
+                톤온톤매치
+                {renderToneOnTone()}
+                <div>
+                    {renderRadio2()}
+                </div>
             </div>
             <div>
                 <button
