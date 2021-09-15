@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.nalot.dao.LocationDao">
+    <select id="selectLocationByLevel1" resultType="com.example.nalot.model.weather.LocationDto">
+        select grid_x, grid_y from location_information
+        where location_level1 = #{location}
+    </select>
+
+</mapper>
