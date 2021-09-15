@@ -38,6 +38,6 @@ public class WeatherController {
                 weatherApiRequest.getNx(),
                 weatherApiRequest.getNy());
 
-        return weatherService.setWeatherDto(items,weatherApiRequest.getDate(),weatherApiRequest.getTime());
+        return weatherService.setWeatherDto(items,dateNow.get(0),dateNow.get(1));
     }
 }

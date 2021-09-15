@@ -131,6 +131,8 @@ public class UserServiceImpl implements UserService {
         weatherDto.setId(id);
         weatherDto.setTemperature(request.getTemperature());
         weatherDto.setUserId(request.getUserId());
+        weatherDto.setBaseDate(request.getBaseDate());
+        weatherDto.setBaseTime(request.getBaseTime());
         weatherService.insertWeatherInfo(weatherDto);
 
         UserClothesDto userClothesDto = new UserClothesDto();
