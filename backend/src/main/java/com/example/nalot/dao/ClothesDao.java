@@ -22,6 +22,6 @@ public class ClothesDao {
     public ClothesDto selectClothesInfo(int clothesId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("clothesId",clothesId);
-        return sqlSession.selectOne("com.example.nalot.dao.ClothesDao.selectClothesInfo",clothesId);
+        return sqlSession.selectOne("com.example.nalot.dao.ClothesDao.selectClothesInfo",param);
     }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherApiRequest {
-    String location;
+public class LocationDto {
+    String gridX;
+    String gridY;
 }
