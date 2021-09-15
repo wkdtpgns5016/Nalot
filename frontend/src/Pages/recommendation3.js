@@ -4,6 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 
+import axios from 'axios'
+
 
 function recommendation3(){
 
@@ -12,10 +14,23 @@ function recommendation3(){
 
     const submitClicked = () =>{
 
-        history.push('/nalot/recommendation_location',{
-            "key": location.state.key,
-            "email": location.state.email,
-
+        axios.post('http://localhost:8080/users/histories',{
+            "userId" : location.state.email,
+            "temperature" : location.state.current,
+            "clothesId" : location.state.clothes_number,
+            "color" : location.state.color,
+            "colorMix" : location.state.selectedColor,
+        },{
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':`${location.state.key}`
+            }
+        }).then(res=>{
+            console.log(res.data)
+            history.push('/nalot/recommendation_location',{
+                "key": location.state.key,
+                "email": location.state.email,
+            })
         })
     }
     const prevClicked = () =>{
@@ -25,6 +40,7 @@ function recommendation3(){
             "current":location.state.current,
             "data":location.state.data,
             "clothes":location.state.clothes,
+            "clothes_number":location.state.clothes_number,
             "toneintone" : location.state.toneintone,
             "toneontone" : location.state.toneontone
         })

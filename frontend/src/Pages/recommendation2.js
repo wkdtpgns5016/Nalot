@@ -60,9 +60,12 @@ function recommendation2(){
                 "current":location.state.current,
                 "data":location.state.data,
                 "clothes" : location.state.clothes,
+                "clothes_number" : location.state.clothes_number,
                 "toneintone" : toneintone,
                 "toneontone" : toneontone,
+                //추천 색
                 "selectedColor" : selectedColor,
+                //사용자 선택 색
                 "color":hex
 
 
