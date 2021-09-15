@@ -10,8 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WeatherApiRequest {
-    String date;
-    String time;
     String nx;
     String ny;
 }

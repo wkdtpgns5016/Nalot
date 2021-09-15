@@ -12,6 +12,8 @@ import lombok.Setter;
 public class UserHistoryRequest {
     String userId;
     float temperature;
+    String baseDate;
+    String baseTime;
     int clothesId;
     String color;
     String colorMix;
