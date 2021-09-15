@@ -60,7 +60,7 @@ function recommendation_location(){
             }).then(res=>{
 
                 data = res.data
-                console.log(response.data)
+                console.log(res.data)
 
                 history.push('/nalot/recommendation',{
                     "key": location.state.key,

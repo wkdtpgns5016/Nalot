@@ -14,6 +14,8 @@ function recommendation(){
     let hex = '#f17013'
     let toneintone
     let toneontone
+    let clothes_number = null;
+
 
     const nextClicked = () =>{
         let count = document.getElementsByName("radio-button").length
@@ -22,9 +24,10 @@ function recommendation(){
             if(document.getElementsByName("radio-button")[i].checked === true){
 
                 clothes = (document.getElementsByName("radio-button")[i].value)
+                clothes_number = (document.getElementsByName("radio-button")[i].id)
             }
         }
-        console.log(clothes)
+        console.log(clothes_number)
         if(clothes === null){
 
         }else {
@@ -57,6 +60,7 @@ function recommendation(){
 
                             "data" : location.state.data,
                             "clothes" : clothes,
+                            "clothes_number" : clothes_number,
                             "toneintone" : toneintone,
                             "toneontone" : toneontone
                         })
@@ -68,14 +72,15 @@ function recommendation(){
 
     function renderData(){
         arr = location.state.data
-        return arr.map(({name})=>{
+
+        return arr.map(({name, id})=>{
             return(
                 <label>
                     <input
                         type="radio"
                         name="radio-button"
                         value={name}
-                        //defaultChecked={true}
+                        id = {id}
                     />
                     {name}
                 </label>
@@ -83,9 +88,6 @@ function recommendation(){
         })
 
     }
-
-    //console.log(location.state.data)
-
 
     return(
 
