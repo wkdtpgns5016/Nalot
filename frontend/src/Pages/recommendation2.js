@@ -52,6 +52,7 @@ function recommendation2(){
         if(selectedColor === undefined){
 
         }else{
+
             history.push('/nalot/recommendation3',{
                 "key": location.state.key,
                 "email": location.state.email,
@@ -61,7 +62,8 @@ function recommendation2(){
                 "clothes" : location.state.clothes,
                 "toneintone" : toneintone,
                 "toneontone" : toneontone,
-                "color" : selectedColor
+                "selectedColor" : selectedColor,
+                "color":hex
 
 
             })
