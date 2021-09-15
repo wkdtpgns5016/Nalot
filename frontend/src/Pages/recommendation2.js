@@ -66,7 +66,10 @@ function recommendation2(){
                 //추천 색
                 "selectedColor" : selectedColor,
                 //사용자 선택 색
-                "color":hex
+                "color":hex,
+
+                "baseDate" : location.state.baseDate,
+                "baseTime" : location.state.baseTime,
 
 
             })
