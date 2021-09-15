@@ -13,6 +13,13 @@ function recommendation3(){
     const location = useLocation();
 
     const submitClicked = () =>{
+        /*console.log(location.state.email)
+        console.log(location.state.current)
+        console.log(location.state.clothes_number)
+        console.log(location.state.color)
+        console.log(location.state.selectedColor)
+        console.log(location.state.baseDate)
+        console.log(location.state.baseDate)*/
 
         axios.post('http://localhost:8080/users/histories',{
             "userId" : location.state.email,
@@ -20,8 +27,8 @@ function recommendation3(){
             "clothesId" : location.state.clothes_number,
             "color" : location.state.color,
             "colorMix" : location.state.selectedColor,
-            "baseDate" : "20210915",
-            "baseTime" : "2200"
+            "baseDate" : location.state.baseDate,
+            "baseTime" : location.state.baseTime,
         },{
             headers:{
                 'Content-Type':'application/json',

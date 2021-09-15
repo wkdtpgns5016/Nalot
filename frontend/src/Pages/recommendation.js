@@ -51,6 +51,7 @@ function recommendation(){
                 }).then(res=>{
                     toneontone = res.data
                     //console.log(toneontone)
+                    //console.log(location.state.baseDate, location.state.baseTime)
                     history.push('/nalot/recommendation2',
                         {
                             "key": location.state.key,
@@ -62,7 +63,10 @@ function recommendation(){
                             "clothes" : clothes,
                             "clothes_number" : clothes_number,
                             "toneintone" : toneintone,
-                            "toneontone" : toneontone
+                            "toneontone" : toneontone,
+
+                            "baseDate" : location.state.baseDate,
+                            "baseTime" : location.state.baseTime,
                         })
                 })
             })

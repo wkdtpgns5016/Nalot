@@ -53,6 +53,7 @@ function Signin() {
                 axios.get('http://localhost:8080/users/'+email)
                     .then(res=>{
                         //console.log(res.data)
+                        console.log(email)
                         history.push('/nalot/main',
                             {
                                 "key" : 'Bearer ' + response.data.message,
