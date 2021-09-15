@@ -20,6 +20,8 @@ function recommendation3(){
             "clothesId" : location.state.clothes_number,
             "color" : location.state.color,
             "colorMix" : location.state.selectedColor,
+            "baseDate" : "20210915",
+            "baseTime" : "2200"
         },{
             headers:{
                 'Content-Type':'application/json',
