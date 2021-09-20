@@ -8,6 +8,7 @@ import recommendation from './Pages/recommendation'
 import recommendation2 from './Pages/recommendation2'
 import recommendation3 from "./Pages/recommendation3";
 import recommendation_location from "./Pages/recommendation_location";
+import myRecord from "./Pages/myRecord";
 import {Route, BrowserRouter as Router} from 'react-router-dom'
 function App () {
   return (
@@ -21,7 +22,7 @@ function App () {
             <Route path = "/nalot/recommendation2" component = {recommendation2}/>
             <Route path = "/nalot/recommendation3" component = {recommendation3}/>
             <Route path = "/nalot/recommendation_location" component = {recommendation_location}/>
-
+            <Route path ="/nalot/myrecord" component = {myRecord}/>
 
           </Router>
       </div>
