@@ -1,20 +1,31 @@
 import React from 'react'
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
+import axios from'axios'
 
 import {useLocation} from "react-router-dom";
 
 function myRecord() {
     let arr =[]
+    let data;
     const location = useLocation()
+
+    function clicked(e) {
+        console.log(e.target.value)
+        axios.post('http://localhost:8080/users/'+location.state.email+'/'+e.target.value)
+            .then(res=>{
+                console.log(res.data)
+            })
+    }
+
     function renderData(){
         arr = location.state.data
         return arr.map(({userClothes, weather })=>{
-            console.log(userClothes, weather)
+            data = (userClothes.id).substring(0,8)
             return(
                 <tr>
-                    <td key = {userClothes.id}>
-                        {userClothes.id}
+                    <td>
+                        {data}
                     </td>
                     <td key={weather.temperature}>
                         {weather.temperature}
@@ -29,7 +40,11 @@ function myRecord() {
                         {userClothes.colorMix}
                     </td>
                     <td>
-                        <button>상세보기</button>
+                        <button
+                            id="button"
+                            value={userClothes.id}
+                            onClick={e=>clicked(e,"value")}
+                        >상세보기</button>
                     </td>
                 </tr>
             )
