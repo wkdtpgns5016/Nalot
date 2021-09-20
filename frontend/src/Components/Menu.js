@@ -38,6 +38,7 @@ const Menu = () =>{
                     "address_detail": res.data.addressDetail,
                     "address_ground_number": res.data.addressGroundNumber,
                     "birth": res.data.birth,
+                    "email": location.state.email
 
                 })
             })
@@ -45,7 +46,17 @@ const Menu = () =>{
     }
 
     const myRecord = () =>{
-        console.log('myRecord')
+        axios.get('http://localhost:8080/users/histories/'+location.state.email)
+            .then(res=>{
+                console.log(res.data)
+                history.push('/nalot/myrecord',{
+                    "key": location.state.key,
+                    "email": location.state.email,
+                    "data":res.data
+
+                })
+            })
+
     }
 
     const recommendation = () =>{

@@ -7,11 +7,8 @@ import Menu from "../Components/Menu";
 function recommendation_location(){
     const history = useHistory();
     const location = useLocation();
-    let nx, ny, loc, data;
+    let data;
 
-    nx = "60"
-    ny = "127"
-    loc = "서울특별시"
 
     console.log(location.state.data)
 
@@ -51,9 +48,7 @@ function recommendation_location(){
 
                     "current":response.data.temperature,
 
-                    "nx" : nx,
-                    "ny" : ny,
-                    "loc" : loc,
+                    "loc" : v,
 
                     "data" : data,
 
