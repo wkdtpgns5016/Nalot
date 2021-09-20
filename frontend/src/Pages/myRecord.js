@@ -13,7 +13,7 @@ function myRecord() {
 
     function clicked(e) {
         console.log(e.target.value)
-        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+'1')
+        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.target.value)
             .then(res=>{
                 console.log(res.data)
                 history.push('/nalot/myrecord_detail',
@@ -21,16 +21,16 @@ function myRecord() {
                         "key" : location.state.key,
                         "email" : location.state.email,
                         "detailed_data" : res.data,
-                        "data" : location.state.data
+                        "data" : location.state.data,
+                        "value" : e.target.value
                     }
-
                 )
             })
     }
 
     function renderData(){
         arr = location.state.data
-        return arr.map(({userClothes, weather })=>{
+        return arr.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
             return(
                 <tr>
@@ -46,7 +46,7 @@ function myRecord() {
                     <td>
                         <button
                             id="button"
-                            value={userClothes.id}
+                            value={id}
                             onClick={e=>clicked(e,"value")}
                         >상세보기</button>
                     </td>
