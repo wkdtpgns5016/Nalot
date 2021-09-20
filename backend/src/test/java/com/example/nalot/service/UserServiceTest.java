@@ -3,6 +3,7 @@ package com.example.nalot.service;
 import com.example.nalot.NalotApplication;
 import com.example.nalot.model.user.UserClothesDto;
 import com.example.nalot.model.user.UserClothesResponse;
+import com.example.nalot.model.user.UserHistoryDto;
 import com.example.nalot.model.user.UserHistoryResponse;
 import com.example.nalot.service.user.UserService;
 import org.junit.jupiter.api.Test;
@@ -70,5 +71,19 @@ public class UserServiceTest {
 
         //then
         assertThat(list).isNotNull();
+    }
+
+    @Test
+    public void selectUserHistoryInfoTest() {
+        //given
+        String userId = "test";
+        int userHistoryId = 1;
+
+        //when
+        UserHistoryDto userHistoryDto = userService.selectUserHistoryInfo(userHistoryId,userId);
+
+        //then
+        assertThat(userHistoryDto).isNotNull();
+
     }
 }

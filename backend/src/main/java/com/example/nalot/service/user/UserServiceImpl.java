@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserHistoryDto selectUserHistoryInfo(String userHistoryId, String userId) {
+    public UserHistoryDto selectUserHistoryInfo(int userHistoryId, String userId) {
         return userDao.selectUserHistoryInfo(userHistoryId,userId);
     }
 
@@ -118,6 +118,23 @@ public class UserServiceImpl implements UserService {
         }
 
         return responseList;
+    }
+
+    @Override
+    public UserHistoryResponse getUserHistoryResponseByUserHistoryId(String userId, int userHistoryId) {
+        UserHistoryDto userHistoryDto = selectUserHistoryInfo(userHistoryId,userId);
+
+        WeatherDto weather = weatherService.selectWeatherInfo(userHistoryDto.getWeatherId());
+        UserClothesResponse userClothes = getUserClothesResponseById(userHistoryDto.getUserClothesId());
+
+        UserHistoryResponse response = new UserHistoryResponse();
+        response.setId(userHistoryDto.getId());
+        response.setUserId(userHistoryDto.getUserId());
+        response.setWeather(weather);
+        response.setUserClothes(userClothes);
+        response.setHistoryDate(userHistoryDto.getHistoryDate());
+
+        return response;
     }
 
     @Override
@@ -152,7 +169,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int deleteUserHistoryInfo(String userHistoryId, String userId) {
+    public int deleteUserHistoryInfo(int userHistoryId, String userId) {
         UserHistoryDto userHistoryDto = this.selectUserHistoryInfo(userHistoryId,userId);
 
         weatherService.deleteWeatherInfo(userHistoryDto.getWeatherId());
