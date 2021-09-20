@@ -75,7 +75,7 @@ public class UserDao {
         return sqlSession.selectList("com.example.nalot.dao.UserDao.selectUserHistoryListByUserId",param);
     }
 
-    public UserHistoryDto selectUserHistoryInfo(String userHistoryId, String userId) {
+    public UserHistoryDto selectUserHistoryInfo(int userHistoryId, String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userHistoryId", userHistoryId);
         param.put("userId", userId);
@@ -88,7 +88,7 @@ public class UserDao {
         return sqlSession.insert("com.example.nalot.dao.UserDao.insertUserHistoryInfo",param);
     }
 
-    public int deleteUserHistoryInfo(String userHistoryId, String userId) {
+    public int deleteUserHistoryInfo(int userHistoryId, String userId) {
         HashMap<String, Object> param = new HashMap<>();
         param.put("userHistoryId", userHistoryId);
         param.put("userId", userId);

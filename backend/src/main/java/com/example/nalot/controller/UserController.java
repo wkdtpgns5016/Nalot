@@ -115,6 +115,11 @@ public class UserController {
         return userService.getUserHistoryResponseByUserId(userId);
     }
 
+    @GetMapping("/histories/{userId}/{userHistoryId}")
+    public UserHistoryResponse getUserHistoryResponseByUserHistoryId(@PathVariable String userId, @PathVariable int userHistoryId) {
+        return userService.getUserHistoryResponseByUserHistoryId(userId,userHistoryId);
+    }
+
     @PostMapping("/histories")
     public ResponseEntity<ResponseMessage> createResult(@RequestBody UserHistoryRequest userHistoryRequest){
         try{
@@ -129,7 +134,7 @@ public class UserController {
     }
 
     @DeleteMapping("/histories/{userId}/{userHistoryId}")
-    public ResponseEntity<ResponseMessage> removeUserHistory(@PathVariable String userId, @PathVariable String userHistoryId){
+    public ResponseEntity<ResponseMessage> removeUserHistory(@PathVariable String userId, @PathVariable int userHistoryId){
         try{
             userService.deleteUserHistoryInfo(userHistoryId,userId);
             ResponseMessage message = new ResponseMessage("Created", "삭제하였습니다.", "", "");
