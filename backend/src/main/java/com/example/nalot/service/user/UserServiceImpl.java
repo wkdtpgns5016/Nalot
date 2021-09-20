@@ -171,17 +171,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteUserHistoryInfo(int userHistoryId, String userId) {
         UserHistoryDto userHistoryDto = this.selectUserHistoryInfo(userHistoryId,userId);
-
+        int count = userDao.deleteUserHistoryInfo(userHistoryId,userId);
         weatherService.deleteWeatherInfo(userHistoryDto.getWeatherId());
         this.deleteUserClothesInfo(userHistoryDto.getUserClothesId());
-        return userDao.deleteUserHistoryInfo(userHistoryId,userId);
+        return count;
     }
 
     @Override
     public int deleteUserHistoryListByUserId(String userId) {
+        int count = userDao.deleteUserHistoryListByUserId(userId);
         weatherService.deleteWeatherListByUserId(userId);
         this.deleteUserClothesListByUserId(userId);
-        return userDao.deleteUserHistoryListByUserId(userId);
+        return count;
     }
 
 }
