@@ -3,18 +3,28 @@ import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import axios from'axios'
 
-import {useLocation} from "react-router-dom";
+import {useHistory, useLocation} from "react-router-dom";
 
 function myRecord() {
     let arr =[]
     let data;
+    const history = useHistory()
     const location = useLocation()
 
     function clicked(e) {
         console.log(e.target.value)
-        axios.post('http://localhost:8080/users/'+location.state.email+'/'+e.target.value)
+        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+'1')
             .then(res=>{
                 console.log(res.data)
+                history.push('/nalot/myrecord_detail',
+                    {
+                        "key" : location.state.key,
+                        "email" : location.state.email,
+                        "detailed_data" : res.data,
+                        "data" : location.state.data
+                    }
+
+                )
             })
     }
 
@@ -32,12 +42,6 @@ function myRecord() {
                     </td>
                     <td key={userClothes.clothes.name}>
                         {userClothes.clothes.name}
-                    </td>
-                    <td key={userClothes.color}>
-                        {userClothes.color}
-                    </td>
-                    <td key={userClothes.colorMix}>
-                        {userClothes.colorMix}
                     </td>
                     <td>
                         <button
@@ -60,8 +64,6 @@ function myRecord() {
                     <th>날짜</th>
                     <th>온도</th>
                     <th>옷</th>
-                    <th>사용자색</th>
-                    <th>추천색</th>
                 </tr>
                 {renderData()}
                 </tbody>
