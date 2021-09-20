@@ -42,6 +42,7 @@ public class RgbCode {
         else {
             hue = (int)(60 * (((redDelta-greenDelta)/delta)+4));
         }
+        hue = hue % 360;
 
         double lightness = (cMax+cMin) / 2;
 
