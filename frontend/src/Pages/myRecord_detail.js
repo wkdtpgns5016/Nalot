@@ -3,6 +3,7 @@ import React from 'react'
 import {useHistory, useLocation} from "react-router-dom";
 import Header from "../Components/Header"
 import Menu from "../Components/Menu";
+import axios from 'axios'
 
 
 function myRecord_detail(){
@@ -17,6 +18,16 @@ function myRecord_detail(){
             "email" : location.state.email,
             "data" : location.state.data
         })
+    }
+
+    const deleteClicked=()=>{
+        axios.delete('http://localhost:8080/users/histories/'+location.state.email+'/'+location.state.value)
+            .then(res=>{
+                console.log(res.data.message)
+            })
+            .catch(error=>{
+                alert(error)
+            })
     }
 
     function renderData(){
@@ -54,7 +65,9 @@ function myRecord_detail(){
                     </button>
                 </td>
                 <td>
-                    <button>
+                    <button
+                        onClick={deleteClicked}
+                    >
                         삭제
                     </button>
                 </td>
