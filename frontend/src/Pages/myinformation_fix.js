@@ -14,6 +14,8 @@ import PropTypes from 'prop-types'
 import Modal from "@material-ui/core/Modal";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
+import Header from "../Components/Header"
+import Menu from "../Components/Menu"
 
 const handleComplete = (data) => {
     let fullAddress = data.address;
@@ -177,189 +179,194 @@ function SignUp() {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    정보 수정
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="fname"
-                                label="이름"
-                                value={location.state.name}
-                                autoFocus
-                                inputProps={{maxLength:10}}
-                            />
-                        </Grid>
-                        <RadioGroup>
-                            <Grid item xs = {12} sm = {6}>
-                                <FormControlLabel
-
-                                    value="M"
-                                    control={<Radio color="primary"/>}
-                                    label="남"
-                                    labelPlacement="Start"
-                                    onChange={handleRadioChange}
+        <div>
+            <Header/>
+            <Menu/>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        정보 수정
+                    </Typography>
+                    <form className={classes.form} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="fname"
+                                    label="이름"
+                                    value={location.state.name}
+                                    autoFocus
+                                    inputProps={{maxLength:10}}
                                 />
                             </Grid>
-                            <Grid item xs = {12} sm = {6}>
-                                <FormControlLabel
-                                    value="F"
-                                    control={<Radio color="primary"/>}
-                                    label="여"
-                                    labelPlacement="Start"
-                                    onChange={handleRadioChange}
+                            <RadioGroup>
+                                <Grid item xs = {12} sm = {6}>
+                                    <FormControlLabel
+
+                                        value="M"
+                                        control={<Radio color="primary"/>}
+                                        label="남"
+                                        labelPlacement="Start"
+                                        onChange={handleRadioChange}
+                                    />
+                                </Grid>
+                                <Grid item xs = {12} sm = {6}>
+                                    <FormControlLabel
+                                        value="F"
+                                        control={<Radio color="primary"/>}
+                                        label="여"
+                                        labelPlacement="Start"
+                                        onChange={handleRadioChange}
+                                    />
+                                </Grid>
+                            </RadioGroup>
+                            <Grid item xs={12} sm ={6}>
+                                <TextField
+                                    id="date"
+                                    required
+                                    variant={"outlined"}
+                                    label="생년월일"
+                                    type="date"
+                                    defaultValue="2017-05-24"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
                                 />
                             </Grid>
-                        </RadioGroup>
-                        <Grid item xs={12} sm ={6}>
-                            <TextField
-                                id="date"
-                                required
-                                variant={"outlined"}
-                                label="생년월일"
-                                type="date"
-                                defaultValue="2017-05-24"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm = {8}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="postcode"
-                                label="우편번호"
-                                placeholder={location.state.zone_code}
-                                name="postcode"
-                                inputProps={{maxLength: 5}}
-                            />
-                        </Grid>
-                        <Button item xs={12} sm = {4}
-                                variant="outlined"
-                                color="primary"
-                                onClick={handleClickOpen}
+                            <Grid item xs={12} sm = {8}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="postcode"
+                                    label="우편번호"
+                                    placeholder={location.state.zone_code}
+                                    name="postcode"
+                                    inputProps={{maxLength: 5}}
+                                />
+                            </Grid>
+                            <Button item xs={12} sm = {4}
+                                    variant="outlined"
+                                    color="primary"
+                                    onClick={handleClickOpen}
 
+                            >
+                                우편번호찾기
+                            </Button>
+                            <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="address1"
+                                    label="기본주소"
+                                    placeholder={location.state.address_basic}
+                                    name="address1"
+                                    inputProps={{maxLength: 49}}
+                                />
+                            </Grid>
+                            <Grid item xs = {12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="address2"
+                                    label="지번주소"
+                                    placeholder={location.state.address_ground_number}
+                                    name="address2"
+                                    inputProps={{maxLength: 49}}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="address3"
+                                    label="상세주소"
+                                    placeholder={location.state.address_detail}
+                                    name="address3"
+                                    inputProps={{maxLength: 49}}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="이메일 주소"
+                                    value={location.state.id}
+                                    name="email"
+                                    inputProps={{maxLength: 44}}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="비밀번호"
+                                    type="password"
+                                    id="password"
+                                    onChange = {onPasswordHandler}
+                                    value = {Password}
+                                    inputProps={{maxLength: 49}}
+
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    error = {hasNotSameError('password2')}
+                                    helperText={
+                                        hasNotSameError('password2') ? "입력한 비밀번호와 일치하지 않습니다" : null
+                                    }
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password2"
+                                    label="비밀번호 확인"
+                                    type="password"
+                                    id="password2"
+                                    onChange = {onconfirmPasswordHandler}
+                                    value = {confirmPassword}
+                                    inputProps={{maxLength: 49}}
+                                />
+                            </Grid>
+                        </Grid>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={buttonClick}
                         >
-                            우편번호찾기
+                            수정하기
                         </Button>
-                        <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address1"
-                                label="기본주소"
-                                placeholder={location.state.address_basic}
-                                name="address1"
-                                inputProps={{maxLength: 49}}
-                            />
-                        </Grid>
-                        <Grid item xs = {12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address2"
-                                label="지번주소"
-                                placeholder={location.state.address_ground_number}
-                                name="address2"
-                                inputProps={{maxLength: 49}}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address3"
-                                label="상세주소"
-                                placeholder={location.state.address_detail}
-                                name="address3"
-                                inputProps={{maxLength: 49}}
-                            />
-                        </Grid>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                            onClick={prevClicked}
+                        >
+                            뒤로가기
+                        </Button>
+                    </form>
+                </div>
+            </Container>
+        </div>
 
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="이메일 주소"
-                                value={location.state.id}
-                                name="email"
-                                inputProps={{maxLength: 44}}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                label="비밀번호"
-                                type="password"
-                                id="password"
-                                onChange = {onPasswordHandler}
-                                value = {Password}
-                                inputProps={{maxLength: 49}}
-
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                error = {hasNotSameError('password2')}
-                                helperText={
-                                    hasNotSameError('password2') ? "입력한 비밀번호와 일치하지 않습니다" : null
-                                }
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password2"
-                                label="비밀번호 확인"
-                                type="password"
-                                id="password2"
-                                onChange = {onconfirmPasswordHandler}
-                                value = {confirmPassword}
-                                inputProps={{maxLength: 49}}
-                            />
-                        </Grid>
-                    </Grid>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={buttonClick}
-                    >
-                        수정하기
-                    </Button>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={prevClicked}
-                    >
-                        뒤로가기
-                    </Button>
-                </form>
-            </div>
-        </Container>
     );
 }
 export default SignUp;
