@@ -5,7 +5,6 @@ import Header from "../Components/Header"
 import Menu from "../Components/Menu";
 import axios from 'axios'
 
-
 function myRecord_detail(){
     const location = useLocation()
     const history = useHistory()
@@ -23,7 +22,12 @@ function myRecord_detail(){
     const deleteClicked=()=>{
         axios.delete('http://localhost:8080/users/histories/'+location.state.email+'/'+location.state.value)
             .then(res=>{
-                console.log(res.data.message)
+                alert(res.data.message)
+                history.push('/nalot/main',{
+                    "key":location.state.key,
+                    "email":location.state.email,
+
+                })
             })
             .catch(error=>{
                 alert(error)
