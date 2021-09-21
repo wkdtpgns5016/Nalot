@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/weathers")
 public class WeatherController {
     private final WeatherService weatherService;
