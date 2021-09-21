@@ -76,6 +76,9 @@ function Signin() {
                 console.log(error)
             })
     }
+    const signupclicked=()=>{
+        history.push('/nalot/signup')
+    }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -130,9 +133,9 @@ function Signin() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to ={`nalot/signup`} variant="body2">
+                            <a onClick={signupclicked} variant="body2">
                                 {"회원가입"}
-                            </Link>
+                            </a>
                         </Grid>
                     </Grid>
                 </form>

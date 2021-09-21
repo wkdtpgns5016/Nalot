@@ -10,6 +10,7 @@ import recommendation3 from "./recommendation3";
 import recommendation_location from "./recommendation_location";
 import myRecord from "./myRecord"
 import myRecord_detail from "./myRecord_detail";
+import myinformation_fix from "./myinformation_fix";
 
 function Nalot({match}){
     return(
@@ -24,6 +25,7 @@ function Nalot({match}){
             <Route path = {`${match.path}/recommendation_location`} component = {recommendation_location}/>
             <Route path = {`${match.path}/myRecord`} component = {myRecord}/>
             <Route path = {`${match.path}/myRecord_detail`} component = {myRecord_detail}/>
+            <Route path = {`${match.path}/myinformation_fix`} component = {myinformation_fix}/>
 
         </div>
     )
