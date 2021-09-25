@@ -11,10 +11,11 @@ function myRecord() {
     let data;
     const history = useHistory()
     const location = useLocation()
+    console.log('myrecord'+ location.state.email)
 
     function clicked(e) {
-        console.log(e.target.value)
-        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.target.value)
+        console.log(e.currentTarget.value)
+        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.currentTarget.value)
             .then(res=>{
                 console.log(res.data)
                 history.push('/nalot/myrecord_detail',
@@ -31,6 +32,7 @@ function myRecord() {
 
     function renderData(){
         arr = location.state.data
+        console.log(arr)
         return arr.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
             return(

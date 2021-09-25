@@ -10,7 +10,8 @@ function recommendation_location(){
     let data;
 
 
-    console.log(location.state.data)
+    //console.log(location.state.data)
+    console.log('loc'+ location.state.email)
 
     const submitLocation = () =>{
         let s = document.getElementById("location")

@@ -66,6 +66,7 @@ function myInformation(){
                 alert(error.response.data.errorMessage)
         })
     }
+    console.log('myinfo'+ location.state.email)
 
     return(
         <div>
