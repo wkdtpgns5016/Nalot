@@ -5,7 +5,6 @@ import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
-import {Checkbox, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
 function recommendation(){
     const history = useHistory();
@@ -104,7 +103,7 @@ function recommendation(){
             <Header/>
             <Menu/>
             <div>
-                현재 <h2>{location.state.loc}</h2>의 기온의 날씨는 <h2>{location.state.current}</h2>도입니다.
+                현재 <h2>{location.state.loc}</h2>의 기온은 <h2>{location.state.current}</h2>도입니다.
             </div>
             <div
                 style={{
