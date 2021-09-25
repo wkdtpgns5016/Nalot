@@ -74,8 +74,14 @@ const Menu = () =>{
     const logOut = () =>{
         console.log('logOut')
     }
+    //div 스타일 만들기
+
     return(
-    <div>
+    <div
+        style={{
+            marginRight:'10px'
+        }}
+    >
         <List className="List">
             <ListItem className="ListItem" button onClick={home}>
                 <ListItemIcon ><HomeIcon/></ListItemIcon>
