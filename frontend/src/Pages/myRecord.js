@@ -4,6 +4,7 @@ import Menu from "../Components/Menu";
 import axios from'axios'
 
 import {useHistory, useLocation} from "react-router-dom";
+import Button from "@material-ui/core/Button";
 
 function myRecord() {
     let arr =[]
@@ -33,24 +34,33 @@ function myRecord() {
         return arr.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
             return(
-                <tr>
-                    <td>
+                <div style={
+                    {
+                        backgroundColor: 'rgb(244, 244, 244)',
+                        width: '300px',
+                        height: '180px',
+                        marginLeft: '40%',
+
+                    }
+                }>
+                    <p align="right">
                         {data}
-                    </td>
-                    <td key={weather.temperature}>
-                        {weather.temperature}
-                    </td>
-                    <td key={userClothes.clothes.name}>
-                        {userClothes.clothes.name}
-                    </td>
-                    <td>
-                        <button
+                    </p>
+                    <p align="left" key={userClothes.clothes.name}>
+                        <h2>{userClothes.clothes.name}</h2>
+                    </p>
+                    <p align="right" key={weather.temperature}>
+                        {weather.temperature}도
+                    </p>
+                    <p>
+                        <Button
                             id="button"
                             value={id}
                             onClick={e=>clicked(e,"value")}
-                        >상세보기</button>
-                    </td>
-                </tr>
+                            variant="contained"
+                        >상세보기</Button>
+                    </p>
+                </div>
             )
         })
     }
@@ -58,16 +68,11 @@ function myRecord() {
         <div>
             <Header/>
             <Menu/>
-            <table border = "1">
-                <tbody>
-                <tr>
-                    <th>날짜</th>
-                    <th>온도</th>
-                    <th>옷</th>
-                </tr>
-                {renderData()}
-                </tbody>
-            </table>
+            <div className="container-fluid">
+                <div className="row">
+                    {renderData()}
+                </div>
+            </div>
         </div>
     )
 }

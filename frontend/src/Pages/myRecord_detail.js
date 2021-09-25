@@ -4,6 +4,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import Header from "../Components/Header"
 import Menu from "../Components/Menu";
 import axios from 'axios'
+import Button from "@material-ui/core/Button";
 
 function myRecord_detail(){
     const location = useLocation()
@@ -38,17 +39,25 @@ function myRecord_detail(){
         arr = location.state.detailed_data
         data = (arr.userClothes.id).substring(0,8)
         return(
-            <tr>
-                <td>
+            <div style={
+                {
+                    backgroundColor: 'rgb(244, 244, 244)',
+                    width: '300px',
+                    height: '200px',
+                    marginLeft: '42%',
+                }
+            }
+            >
+                <p>
                     {data}
-                </td>
-                <td key={arr.weather.temperature}>
-                    {arr.weather.temperature}
-                </td>
-                <td key={arr.userClothes.clothes.name}>
+                </p>
+                <p key={arr.userClothes.clothes.name}>
                     {arr.userClothes.clothes.name}
-                </td>
-                <td>
+                </p>
+                <p key={arr.weather.temperature}>
+                    {arr.weather.temperature}
+                </p>
+                <p>
                     <button style=
                         {
                             {
@@ -58,8 +67,8 @@ function myRecord_detail(){
                     >
                         {arr.userClothes.color}
                     </button>
-                </td>
-                <td>
+                </p>
+                <p>
                     <button style={
                         {
                             background: arr.userClothes.colorMix
@@ -67,15 +76,8 @@ function myRecord_detail(){
                     }>
                     {arr.userClothes.colorMix}
                     </button>
-                </td>
-                <td>
-                    <button
-                        onClick={deleteClicked}
-                    >
-                        삭제
-                    </button>
-                </td>
-            </tr>
+                </p>
+            </div>
         )
 
     }
@@ -84,23 +86,19 @@ function myRecord_detail(){
             <Header/>
             <Menu/>
             <div>
-                <table border = "1">
-                    <tbody>
-                    <tr>
-                        <th>날짜</th>
-                        <th>온도</th>
-                        <th>옷</th>
-                        <th>사용자색</th>
-                        <th>추천색</th>
-                    </tr>
-                    {renderData()}
-                    </tbody>
-                </table>
-                <button
+                {renderData()}
+                <Button
+                    onClick={deleteClicked}
+                    variant="contained"
+                >
+                    삭제
+                </Button>
+                <Button
                     onClick={prevClicked}
+                    variant="contained"
                 >
                     뒤로
-                </button>
+                </Button>
             </div>
         </div>
     )
