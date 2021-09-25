@@ -5,6 +5,7 @@ import Menu from "../Components/Menu";
 import reactCSS from 'reactcss'
 import {SketchPicker} from 'react-color'
 import axios from 'axios'
+import Button from "@material-ui/core/Button";
 
 function recommendation2(){
     const history = useHistory();
@@ -130,13 +131,13 @@ function recommendation2(){
             styles.button.background=rgbToHex(red,green,blue)
 
             return(
-                    <button name="button" style={
+                    <Button name="button" style={
                         {
                             background: `${rgbToHex(red,green,blue)}`
                         }
                     }>
                         {rgbToHex(red,green,blue)}
-                    </button>
+                    </Button>
 
             )
         })
@@ -146,13 +147,13 @@ function recommendation2(){
         arr2 = toneontone
         return arr2.map(({red,green,blue})=>{
             return(
-                    <button name="button" style={
+                    <Button name="button" style={
                         {
                             background: `${rgbToHex(red,green,blue)}`
                         }
                     }>
                         {rgbToHex(red,green,blue)}
-                    </button>
+                    </Button>
 
             )
         })
@@ -228,16 +229,20 @@ function recommendation2(){
             <Header/>
             <Menu/>
             <div>
-                <div style={ styles.swatch } onClick={openClicked}>
-                    <div style={ styles.color } />
-                </div>
-                { displayColorPicker ? <div style={ styles.popover }>
-                    <div style={ styles.cover } onClick={closeClicked}/>
-                    <SketchPicker color={ color } onChange={ handleChange } />
-                </div> : null }
+                색 선택하기
+                <p>
+                    <div style={ styles.swatch } onClick={openClicked}>
+                        <div style={ styles.color } />
+                    </div>
+                    { displayColorPicker ? <div style={ styles.popover }>
+                        <div style={ styles.cover } onClick={closeClicked}/>
+                        <SketchPicker color={ color } onChange={ handleChange } />
+                    </div> : null }
+                </p>
+
             </div>
             <div>
-                선택한 의상 : {location.state.clothes}
+                선택한 의상 : <h2>{location.state.clothes}</h2>
             </div>
             <div>
                 톤인톤매치
@@ -254,12 +259,14 @@ function recommendation2(){
                 </div>
             </div>
             <div>
-                <button
+                <Button
                     onClick={prevClicked}
-                >이전</button>
-                <button
+                    variant="outlined"
+                >이전</Button>
+                <Button
                     onClick={nextClicked}
-                >다음</button>
+                    variant="outlined"
+                >다음</Button>
 
             </div>
         </div>

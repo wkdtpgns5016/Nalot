@@ -4,6 +4,8 @@ import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import axios from "axios";
+import Button from "@material-ui/core/Button";
+import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
 function recommendation(){
     const history = useHistory();
@@ -79,15 +81,19 @@ function recommendation(){
 
         return arr.map(({name, id})=>{
             return(
-                <label>
-                    <input
-                        type="radio"
-                        name="radio-button"
-                        value={name}
-                        id = {id}
-                    />
-                    {name}
-                </label>
+
+                <FormControlLabel
+                    name="radio-button"
+                    control={<Radio color="primary"/>}
+                    value={name}
+                    id = {id}
+                    label={name}
+                    style={{
+
+                    }}
+                />
+
+
             )
         })
 
@@ -95,21 +101,36 @@ function recommendation(){
 
     return(
 
-        <div>
+        <div
+
+        >
             <Header/>
             <Menu/>
             <div>
-                현재 {location.state.loc}의 기온의 날씨는 {location.state.current}도입니다.
+                현재 <h2>{location.state.loc}</h2>의 기온의 날씨는 <h2>{location.state.current}</h2>도입니다.
             </div>
-            <div>
+            <div
+                style={{
+
+                }}
+            >
                 추천 의상은 아래와 같습니다
-                <div>
-                    {renderData()}
+                <div
+                    style={{
+                        marginLeft:'45%'
+                    }}
+                >
+                    <RadioGroup
+                        row={true}
+                    >
+                        {renderData()}
+                    </RadioGroup>
                 </div>
             </div>
-            <button
+            <Button
                 onClick={nextClicked}
-            >다음</button>
+                variant="outlined"
+            >다음</Button>
 
         </div>
 
