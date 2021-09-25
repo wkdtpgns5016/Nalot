@@ -5,10 +5,17 @@ import axios from'axios'
 
 import {useHistory, useLocation} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import {Divider, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
+import List from "@material-ui/core/List";
+import Avatar from "@material-ui/core/Avatar";
+import Typography from "@material-ui/core/Typography";
 
 function myRecord() {
     let arr =[]
     let data;
+    let year
+    let month
+    let day
     const history = useHistory()
     const location = useLocation()
     console.log('myrecord'+ location.state.email)
@@ -35,46 +42,70 @@ function myRecord() {
         console.log(arr)
         return arr.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
+            //return 안은 반복문
             return(
                 <div style={
                     {
-                        backgroundColor: 'rgb(244, 244, 244)',
-                        width: '300px',
-                        height: '180px',
-                        marginLeft: '40%',
-
+                        marginLeft:'200px',
+                        backgroundColor:'rgb(244,244,244)',
+                        width:'600px',
+                        marginBottom:'10px',
+                        marginRight:'200px'
                     }
                 }>
-                    <p align="right">
-                        {data}
-                    </p>
-                    <p align="left" key={userClothes.clothes.name}>
-                        <h2>{userClothes.clothes.name}</h2>
-                    </p>
-                    <p align="right" key={weather.temperature}>
-                        {weather.temperature}도
-                    </p>
-                    <p>
-                        <Button
-                            id="button"
-                            value={id}
-                            onClick={e=>clicked(e,"value")}
-                            variant="contained"
-                        >상세보기</Button>
-                    </p>
+                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                        <ListItem alignItems="flex-start">
+                            <ListItemAvatar>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            </ListItemAvatar>
+                            <ListItemText
+                                primary={data}
+                                secondary={
+                                    <React.Fragment>
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            {userClothes.clothes.name}
+                                        </Typography>
+                                        {" - " + weather.temperature}도
+                                    </React.Fragment>
+
+                                }
+                            />
+                            <Button
+                                style={{maxWidth: '60px', maxHeight: '30px', minWidth: '60px', minHeight: '30px'}}
+                                id="button"
+                                value={id}
+                                onClick={e=>clicked(e,"value")}
+                                variant="outlined"
+                            >보기</Button>
+                        </ListItem>
+                    </List>
+                    <Divider
+                        style={{
+                            marginTop:"3px",
+                            marginBottom:"3px"
+                        }}
+                        variant="middle"
+                    ></Divider>
                 </div>
+
             )
         })
     }
+    //renderdata전은 반복문 아님
     return(
         <div>
             <Header/>
             <Menu/>
-            <div className="container-fluid">
-                <div className="row">
-                    {renderData()}
-                </div>
-            </div>
+            <header>
+                <h1>내기록</h1>
+            </header>
+
+            {renderData()}
         </div>
     )
 }

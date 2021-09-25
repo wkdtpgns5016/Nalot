@@ -5,6 +5,8 @@ import Header from "../Components/Header"
 import Menu from "../Components/Menu";
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
+import {Avatar, ListItem, ListItemAvatar, ListItemText, Typography} from "@material-ui/core";
+import List from "@material-ui/core/List";
 
 function myRecord_detail(){
     const location = useLocation()
@@ -41,42 +43,74 @@ function myRecord_detail(){
         return(
             <div style={
                 {
-                    backgroundColor: 'rgb(244, 244, 244)',
-                    width: '300px',
-                    height: '200px',
-                    marginLeft: '42%',
+                    marginLeft:'200px',
+                    backgroundColor:'rgb(244,244,244)',
+                    width:'600px',
+                    marginBottom:'10px',
+                    marginRight:'200px'
                 }
-            }
-            >
-                <p>
-                    {data}
-                </p>
-                <p key={arr.userClothes.clothes.name}>
-                    {arr.userClothes.clothes.name}
-                </p>
-                <p key={arr.weather.temperature}>
-                    {arr.weather.temperature}
-                </p>
-                <p>
-                    <button style=
-                        {
-                            {
-                                background: arr.userClothes.color
+            }>
+                <List sx={{width:'100%', maxWidth: 360, bgColor:'background.paper'}}>
+                    <ListItem alignItems="flex-start">
+                        <ListItemAvatar>
+                            <Avatar alt="Remy Sharp"/>
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={data}
+                            secondary={
+                                <React.Fragment>
+                                    <Typography
+                                        sx={{display:'inline'}}
+                                        component="span"
+                                        variant="body2"
+                                        color="text.primary"
+                                        >
+                                        {arr.userClothes.clothes.name}
+                                    </Typography>
+                                    {" - " + arr.weather.temperature}도
+                                </React.Fragment>
                             }
-                        }
-                    >
-                        {arr.userClothes.color}
-                    </button>
-                </p>
-                <p>
-                    <button style={
-                        {
-                            background: arr.userClothes.colorMix
-                        }
-                    }>
-                    {arr.userClothes.colorMix}
-                    </button>
-                </p>
+                            />
+                        <div
+                            style={{
+                                marginRight:"10px"
+                            }}
+                        >
+                            선택색상
+                            <p>
+                                <Button style=
+                                            {
+                                                {
+                                                    background: arr.userClothes.color,
+                                                    maxWidth: '60px', maxHeight: '30px', minWidth: '60px', minHeight: '30px'
+                                                }
+                                            }
+                                        variant="outlined"
+                                >
+
+                                </Button>
+                            </p>
+
+                        </div>
+                        <div>
+                            추천색상
+                            <p>
+                                <Button style={
+                                    {
+                                        background: arr.userClothes.colorMix,
+                                        maxWidth: '60px', maxHeight: '30px', minWidth: '60px', minHeight: '30px'
+                                    }
+
+                                }
+                                        variant="outlined"
+                                >
+
+                                </Button>
+                            </p>
+
+                        </div>
+                    </ListItem>
+                </List>
             </div>
         )
 
@@ -89,13 +123,13 @@ function myRecord_detail(){
                 {renderData()}
                 <Button
                     onClick={deleteClicked}
-                    variant="contained"
+                    variant="outlined"
                 >
                     삭제
                 </Button>
                 <Button
                     onClick={prevClicked}
-                    variant="contained"
+                    variant="outlined"
                 >
                     뒤로
                 </Button>
