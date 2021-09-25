@@ -17,7 +17,7 @@ function recommendation_location(){
                     marginLeft:'45%'
                 }}
             >
-                {kakaomap}
+                {kakaomap()}
                 <div id ="map" style={{width:"500px", height:"400px"}}/>
             </div>
         </div>
