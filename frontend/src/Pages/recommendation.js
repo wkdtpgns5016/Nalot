@@ -5,7 +5,7 @@ import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
-import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
+import {Checkbox, FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 
 function recommendation(){
     const history = useHistory();
@@ -29,10 +29,11 @@ function recommendation(){
                 clothes_number = (document.getElementsByName("radio-button")[i].id)
             }
         }
-        console.log(clothes_number)
+        console.log(clothes_number, clothes)
         if(clothes === null){
 
         }else {
+            console.log(clothes_number)
             axios.post('http://localhost:8080/colors/tone-on-tone-mixes',{
                 "hexCode" : hex
             },{
@@ -81,19 +82,15 @@ function recommendation(){
 
         return arr.map(({name, id})=>{
             return(
-
-                <FormControlLabel
-                    name="radio-button"
-                    control={<Radio color="primary"/>}
-                    value={name}
-                    id = {id}
-                    label={name}
-                    style={{
-
-                    }}
-                />
-
-
+                <label>
+                    <input
+                        type="radio"
+                        name="radio-button"
+                        value={name}
+                        id = {id}
+                    />
+                    {name}
+                </label>
             )
         })
 
@@ -116,15 +113,8 @@ function recommendation(){
             >
                 추천 의상은 아래와 같습니다
                 <div
-                    style={{
-                        marginLeft:'45%'
-                    }}
                 >
-                    <RadioGroup
-                        row={true}
-                    >
-                        {renderData()}
-                    </RadioGroup>
+                    {renderData()}
                 </div>
             </div>
             <Button

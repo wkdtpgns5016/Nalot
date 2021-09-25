@@ -43,39 +43,29 @@ function recommendation2(){
         })
     }
 
-    const nextClicked = () =>{
-        let count = document.getElementsByName("radio").length
-        for (let i =0; i<count; i++){
-            if(document.getElementsByName("radio")[i].checked===true){
-                selectedColor = (document.getElementsByName("radio")[i].value)
-            }
-        }
-        if(selectedColor === undefined){
+    const btnClicked = (event) =>{
+        console.log(event.currentTarget.value)
+        console.log(location.state)
+        history.push('/nalot/recommendation3',{
+            "key": location.state.key,
+            "email": location.state.email,
 
-        }else{
+            "current":location.state.current,
+            "data":location.state.data,
+            "clothes" : location.state.clothes,
+            "clothes_number" : location.state.clothes_number,
+            "toneintone" : toneintone,
+            "toneontone" : toneontone,
+            //추천 색
+            "selectedColor" : event.currentTarget.value,
+            //사용자 선택 색
+            "color":hex,
 
-            history.push('/nalot/recommendation3',{
-                "key": location.state.key,
-                "email": location.state.email,
-
-                "current":location.state.current,
-                "data":location.state.data,
-                "clothes" : location.state.clothes,
-                "clothes_number" : location.state.clothes_number,
-                "toneintone" : toneintone,
-                "toneontone" : toneontone,
-                //추천 색
-                "selectedColor" : selectedColor,
-                //사용자 선택 색
-                "color":hex,
-
-                "baseDate" : location.state.baseDate,
-                "baseTime" : location.state.baseTime,
+            "baseDate" : location.state.baseDate,
+            "baseTime" : location.state.baseTime,
 
 
-            })
-        }
-
+        })
     }
 
     const openClicked = () =>{
@@ -135,7 +125,10 @@ function recommendation2(){
                         {
                             background: `${rgbToHex(red,green,blue)}`
                         }
-                    }>
+                    }
+                            value={`${rgbToHex(red,green,blue)}`}
+                            onClick={btnClicked}
+                    >
                         {rgbToHex(red,green,blue)}
                     </Button>
 
@@ -151,39 +144,14 @@ function recommendation2(){
                         {
                             background: `${rgbToHex(red,green,blue)}`
                         }
-                    }>
-                        {rgbToHex(red,green,blue)}
+
+                    }
+                            value={`${rgbToHex(red,green,blue)}`}
+                            onClick={e=>btnClicked(e,"value")}
+                    >
+                        {`${rgbToHex(red,green,blue)}`}
                     </Button>
 
-            )
-        })
-    }
-
-    function renderRadio(){
-        arr = toneintone
-        return arr.map(({red,green,blue})=>{
-            return(
-                <label>
-                    <input
-                        type="radio"
-                        name="radio"
-                        value={`${rgbToHex(red,green,blue)}`}
-                        />
-                </label>
-            )
-        })
-    }
-    function renderRadio2(){
-        arr2 = toneontone
-        return arr2.map(({red,green,blue})=>{
-            return(
-                <label>
-                    <input
-                        type="radio"
-                        name="radio"
-                        value={`${rgbToHex(red,green,blue)}`}
-                    />
-                </label>
             )
         })
     }
@@ -245,29 +213,24 @@ function recommendation2(){
                 선택한 의상 : <h2>{location.state.clothes}</h2>
             </div>
             <div>
+                <Button
+
+                    variant="outlined"
+                >원하는 색을 선택하세요</Button>
+            </div>
+            <div>
                 톤인톤매치
                 {renderToneInTone()}
-                <div>
-                    {renderRadio()}
-                </div>
             </div>
             <div>
                 톤온톤매치
                 {renderToneOnTone()}
-                <div>
-                    {renderRadio2()}
-                </div>
             </div>
             <div>
                 <Button
                     onClick={prevClicked}
                     variant="outlined"
                 >이전</Button>
-                <Button
-                    onClick={nextClicked}
-                    variant="outlined"
-                >다음</Button>
-
             </div>
         </div>
     )

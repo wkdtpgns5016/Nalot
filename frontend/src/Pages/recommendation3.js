@@ -14,6 +14,7 @@ function recommendation3(){
     const location = useLocation();
 
     const submitClicked = () =>{
+        console.log(location.state)
         axios.post('http://localhost:8080/users/histories',{
             "userId" : location.state.email,
             "temperature" : location.state.current,
@@ -29,6 +30,7 @@ function recommendation3(){
             }
         }).then(res=>{
             console.log(res.data)
+            alert(res.data.message)
             history.push('/nalot/recommendation_location',{
                 "key": location.state.key,
                 "email": location.state.email,
