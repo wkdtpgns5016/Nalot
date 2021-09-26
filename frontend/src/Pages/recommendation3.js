@@ -31,7 +31,7 @@ function recommendation3(){
         }).then(res=>{
             console.log(res.data)
             alert(res.data.message)
-            history.push('/nalot/recommendation_location',{
+            history.push('/nalot/main',{
                 "key": location.state.key,
                 "email": location.state.email,
             })
