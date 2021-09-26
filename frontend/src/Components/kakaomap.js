@@ -12,7 +12,7 @@ const kakaomap = () =>{
         let container = document.getElementById('map');
         let options = {
             center: new kakao.maps.LatLng(37.56667, 126.97806),
-            level: 13
+            level: 12
         };
         let map = new kakao.maps.Map(container, options);
 
@@ -50,36 +50,80 @@ const kakaomap = () =>{
                 latlng: new kakao.maps.LatLng(36.29, 127.16)
             },
             {
-                title: '제주특별자치도',
-                latlng: new kakao.maps.LatLng(33.50, 126.51)
+                title: '경기도',
+                latlng: new kakao.maps.LatLng(37.26, 127.02)
             },
-
-
-
+            {
+                title: '강원도',
+                latlng: new kakao.maps.LatLng(37.45, 128.53)
+            },
+            {
+                title: '충청북도',
+                latlng: new kakao.maps.LatLng(36.64, 127.48)
+            },
+            {
+                title: '충청남도',
+                latlng: new kakao.maps.LatLng(36.81, 127.11)
+            },
+            {
+                title: '전라북도',
+                latlng: new kakao.maps.LatLng(35.82, 127.15)
+            },
+            {
+                title: '전라남도',
+                latlng: new kakao.maps.LatLng(34.95, 127.49)
+            },
+            {
+                title: '경상북도',
+                latlng: new kakao.maps.LatLng(36.56, 128.72)
+            },
+            {
+                title: '경상남도',
+                latlng: new kakao.maps.LatLng(35.22, 128.67)
+            },
+            {
+                title: '제주특별자치도',
+                latlng: new kakao.maps.LatLng(33.5, 126.51)
+            },
+            {
+                title: '이어도',
+                latlng: new kakao.maps.LatLng(32.12, 125.18)
+            },
         ]
 
         let imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"
+
+        console.log(location.state.weathers_data)
 
         for(let i = 0; i<positions.length; i++){
             let imageSize = new kakao.maps.Size(24,35)
 
             let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
 
+            let markercontent =
+                location.state.weathers_data[i].weatherDto.temperature +"°C"
+
+            let overlay = new kakao.maps.CustomOverlay({
+                position: positions[i].latlng,
+                content : markercontent,
+                yAnchor:1.5
+            })
             let marker = new kakao.maps.Marker({
-                map: map,
+                map:map,
                 position: positions[i].latlng,
                 title : positions[i].title,
-                image: markerImage,
-                clickable: true
+                image:markerImage,
+                clickable:true
             })
             let iwContent = positions[i].title,
                 iwRemovable= true;
 
             let infowindow = new kakao.maps.InfoWindow({
                 content: iwContent,
-                removable: iwRemovable
+                removable: iwRemovable,
 
             })
+            overlay.setMap(map)
             kakao.maps.event.addListener(marker, 'click', function(){
                 infowindow.open(map, marker)
                 axios.post('http://localhost:8080/weathers/forecasts',{
