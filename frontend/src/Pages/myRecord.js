@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import axios from'axios'
@@ -9,16 +9,30 @@ import {Divider, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core
 import List from "@material-ui/core/List";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
+import Pagination from "../Components/Pagination";
+import {paginate} from "../Components/paginate";
 
 function myRecord() {
-    let arr =[]
     let data;
-    let year
-    let month
-    let day
+    let year , month ,day
     const history = useHistory()
     const location = useLocation()
     console.log('myrecord'+ location.state.email)
+    //console.log(location.state.data.length)
+    const[logs, setlogs] = useState({
+        log_data: location.state.data,
+        pageSize : 3,
+        currentPage: 1
+    })
+
+    const count = location.state.data.length
+
+    const handlePageChange = (page) =>{
+        setlogs({...logs, currentPage:page})
+    }
+
+    const {log_data,pageSize,currentPage} = logs;
+    const pagedLogs = paginate(log_data, currentPage, pageSize)
 
     function clicked(e) {
         console.log(e.currentTarget.value)
@@ -38,10 +52,11 @@ function myRecord() {
     }
 
     function renderData(){
-        arr = location.state.data
-        console.log(arr)
-        return arr.map(({userClothes, weather, id })=>{
+        return pagedLogs.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
+            year = data.substring(0,4)+"년"
+            month = data.substring(5,6)+"월"
+            day = data.substring(6,8)+"일"
             //return 안은 반복문
             return(
                 <div style={
@@ -59,7 +74,7 @@ function myRecord() {
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                             </ListItemAvatar>
                             <ListItemText
-                                primary={data}
+                                primary={year +" " +month +" " + day}
                                 secondary={
                                     <React.Fragment>
                                         <Typography
@@ -69,8 +84,12 @@ function myRecord() {
                                             color="text.primary"
                                         >
                                             {userClothes.clothes.name}
+                                            <h3 style={{
+                                                color:'red',
+                                                textAlign:'right'
+                                            }}>{weather.temperature+"°C"}</h3>
                                         </Typography>
-                                        {" - " + weather.temperature}도
+
                                     </React.Fragment>
 
                                 }
@@ -90,12 +109,13 @@ function myRecord() {
                             marginBottom:"3px"
                         }}
                         variant="middle"
-                    ></Divider>
+                    />
                 </div>
 
             )
         })
     }
+
     //renderdata전은 반복문 아님
     return(
         <div>
@@ -104,8 +124,13 @@ function myRecord() {
             <header>
                 <h1>내기록</h1>
             </header>
-
             {renderData()}
+            <Pagination
+                itemsCount={count}
+                pageSize={logs.pageSize}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                />
         </div>
     )
 }

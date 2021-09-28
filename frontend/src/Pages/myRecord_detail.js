@@ -12,6 +12,7 @@ function myRecord_detail(){
     const location = useLocation()
     const history = useHistory()
     let data
+    let year, month, day
     let arr
 
     const prevClicked = () =>{
@@ -40,6 +41,9 @@ function myRecord_detail(){
     function renderData(){
         arr = location.state.detailed_data
         data = (arr.userClothes.id).substring(0,8)
+        year = data.substring(0,4)+"년"
+        month = data.substring(4,6)+"월"
+        day = data.substring(6,8)+"일"
         return(
             <div style={
                 {
@@ -56,7 +60,7 @@ function myRecord_detail(){
                             <Avatar alt="Remy Sharp"/>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={data}
+                            primary={year +" " +month +" " + day}
                             secondary={
                                 <React.Fragment>
                                     <Typography
@@ -67,7 +71,7 @@ function myRecord_detail(){
                                         >
                                         {arr.userClothes.clothes.name}
                                     </Typography>
-                                    {" - " + arr.weather.temperature}도
+                                    {" - " + arr.weather.temperature+"°C"}
                                 </React.Fragment>
                             }
                             />

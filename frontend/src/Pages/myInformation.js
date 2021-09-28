@@ -30,8 +30,31 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
+    root: {
+        '& label.Mui-focused': {
+            color: '#5de8cc',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#5de8cc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+
+            },
+            '&:hover fieldset': {
+                borderColor: '#5de8cc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#5de8cc',
+            },
+        },
+    },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: '#5de8cc',
+        '&:hover': {
+            backgroundColor: '#25bc9e',
+        }
     },
 }));
 
@@ -94,6 +117,7 @@ function myInformation(){
                                 value={location.state.name}
                                 autoFocus
                                 inputProps={{maxLength:10}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12} sm ={6}>
@@ -107,6 +131,7 @@ function myInformation(){
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -120,6 +145,7 @@ function myInformation(){
                                 value={location.state.gender}
                                 autoFocus
                                 inputProps={{maxLength:10}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12} sm = {8}>
@@ -132,6 +158,7 @@ function myInformation(){
                                 value={location.state.zone_code}
                                 name="postcode"
                                 inputProps={{maxLength: 5}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -144,6 +171,7 @@ function myInformation(){
                                 value={location.state.address_basic}
                                 name="address1"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs = {12}>
@@ -156,6 +184,7 @@ function myInformation(){
                                 value={location.state.address_ground_number}
                                 name="address2"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -168,6 +197,7 @@ function myInformation(){
                                 value={location.state.address_detail}
                                 name="address3"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
 
@@ -181,6 +211,7 @@ function myInformation(){
                                 value={location.state.id}
                                 name="email"
                                 inputProps={{maxLength: 44}}
+                                className={classes.root}
                             />
                         </Grid>
                     </Grid>

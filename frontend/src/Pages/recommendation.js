@@ -18,6 +18,18 @@ function recommendation(){
     let toneontone
     let clothes_number = null;
 
+    const prevClicked = () =>{
+        history.push('/nalot/recommendation_location',{
+            "key": location.state.key,
+            "email":location.state.email,
+            "current":location.state.temperature,
+            "loc" : location.state.loc,
+            "data" : location.state.data,
+            "baseDate" : location.state.baseDate,
+            "baseTime" : location.state.baseTime,
+            "weathers_data" : location.state.weathers_data
+        })
+    }
 
     const nextClicked = () =>{
         let count = document.getElementsByName("radio-button").length
@@ -118,6 +130,10 @@ function recommendation(){
                     {renderData()}
                 </div>
             </div>
+            <Button
+                onClick={prevClicked}
+                variant="outlined"
+                >이전</Button>
             <Button
                 onClick={nextClicked}
                 variant="outlined"

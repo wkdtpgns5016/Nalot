@@ -65,7 +65,31 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: '#5de8cc',
+        '&:hover': {
+            backgroundColor: '#25bc9e',
+        }
     },
+    root: {
+        '& label.Mui-focused': {
+            color: '#5de8cc',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#5de8cc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+
+            },
+            '&:hover fieldset': {
+                borderColor: '#5de8cc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#5de8cc',
+            },
+        },
+    },
+
 }));
 
 function SimpleDialog(props) {
@@ -181,6 +205,7 @@ function SignUp() {
                                 label="이름"
                                 autoFocus
                                 inputProps={{maxLength:10}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
@@ -192,6 +217,7 @@ function SignUp() {
                                 label="성"
                                 name="lname"
                                 inputProps={{maxLength:3}}
+                                className={classes.root}
                             />
                         </Grid>
                         <RadioGroup>
@@ -226,6 +252,7 @@ function SignUp() {
                                 InputLabelProps={{
                                     shrink: true,
                                 }}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12} sm = {8}>
@@ -237,6 +264,7 @@ function SignUp() {
                                 label="우편번호"
                                 name="postcode"
                                 inputProps={{maxLength: 5}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Button item xs={12} sm = {4}
@@ -257,6 +285,7 @@ function SignUp() {
                                 label="기본주소"
                                 name="address1"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs = {12}>
@@ -268,6 +297,7 @@ function SignUp() {
                                 label="지번주소"
                                 name="address2"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                                 />
                         </Grid>
                         <Grid item xs={12}>
@@ -279,6 +309,7 @@ function SignUp() {
                                 label="상세주소"
                                 name="address3"
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
                         
@@ -291,6 +322,7 @@ function SignUp() {
                                 label="이메일 주소"
                                 name="email"
                                 inputProps={{maxLength: 44}}
+                                className={classes.root}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -305,6 +337,7 @@ function SignUp() {
                                 onChange = {onPasswordHandler}
                                 value = {Password}
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
 
                             />
                         </Grid>
@@ -324,6 +357,7 @@ function SignUp() {
                                 onChange = {onconfirmPasswordHandler}
                                 value = {confirmPassword}
                                 inputProps={{maxLength: 49}}
+                                className={classes.root}
                             />
                         </Grid>
                     </Grid>
