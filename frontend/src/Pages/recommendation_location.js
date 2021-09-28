@@ -2,6 +2,7 @@ import React from 'react'
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import kakaomap from "../Components/kakaomap";
+import Location from "../Components/Location";
 
 function recommendation_location(){
 
@@ -9,9 +10,7 @@ function recommendation_location(){
         <div>
             <Header/>
             <Menu/>
-            <div>
-                <h2>지역 설정</h2>
-            </div>
+            <Location/>
             <div
                 style={{
                     marginLeft:'45%'
