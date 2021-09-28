@@ -3,6 +3,7 @@ import React from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
+import Clothes from "../Components/Clothes"
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 
@@ -102,6 +103,7 @@ function recommendation(){
         >
             <Header/>
             <Menu/>
+            <Clothes/>
             <div>
                 현재 <h2>{location.state.loc}</h2>의 기온은 <h2>{location.state.current}</h2>도입니다.
             </div>

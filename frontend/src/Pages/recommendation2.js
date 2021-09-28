@@ -6,6 +6,7 @@ import reactCSS from 'reactcss'
 import {SketchPicker} from 'react-color'
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
+import Color from "../Components/Color";
 
 function recommendation2(){
     const history = useHistory();
@@ -196,6 +197,7 @@ function recommendation2(){
         <div>
             <Header/>
             <Menu/>
+            <Color/>
             <div>
                 색 선택하기
                 <p>

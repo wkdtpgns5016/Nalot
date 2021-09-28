@@ -6,6 +6,7 @@ import Menu from "../Components/Menu";
 
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
+import Result from "../Components/Result";
 
 
 function recommendation3(){
@@ -55,6 +56,7 @@ function recommendation3(){
         <div>
             <Header/>
             <Menu/>
+            <Result/>
             <div>
                 선택한 의상 : <h2>{location.state.clothes}</h2>
             </div>
