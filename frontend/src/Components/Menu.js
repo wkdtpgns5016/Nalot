@@ -7,7 +7,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import AccessibilityIcon from "@material-ui/icons/Accessibility";
-import WbSunnyIcon from "@material-ui/icons/WbSunny";
 import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import axios from 'axios'
@@ -72,10 +71,6 @@ const Menu = () =>{
 
     }
 
-    const weatherNow = () =>{
-        console.log('weatherNow')
-    }
-
     const logOut = () =>{
         console.log('logOut')
     }
@@ -103,10 +98,6 @@ const Menu = () =>{
             <ListItem className="ListItem" button onClick={recommendation}>
                 <ListItemIcon><AccessibilityIcon /></ListItemIcon>
                 <ListItemText primary={'의상 추천'} />
-            </ListItem>
-            <ListItem className="ListItem" button onClick={weatherNow}>
-                <ListItemIcon><WbSunnyIcon /></ListItemIcon>
-                <ListItemText primary={'현재 날씨'} />
             </ListItem>
             <ListItem className="ListItem" button onClick={logOut}>
                 <ListItemIcon><ExitToAppIcon /></ListItemIcon>

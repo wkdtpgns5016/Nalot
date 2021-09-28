@@ -158,7 +158,8 @@ const kakaomap = () =>{
                             "loc" : marker.getTitle(),
                             "data" : data,
                             "baseDate" : response.data.baseDate,
-                            "baseTime" : response.data.baseTime
+                            "baseTime" : response.data.baseTime,
+                            "weathers_data" : location.state.weathers_data
 
                         })
                     })

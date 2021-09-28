@@ -12,7 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 
-import {Link, useHistory} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -29,14 +29,46 @@ const useStyles = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(1),
     },
+    root: {
+        '& label.Mui-focused': {
+            color: '#5de8cc',
+        },
+        '& .MuiInput-underline:after': {
+            borderBottomColor: '#5de8cc',
+        },
+        '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+
+            },
+            '&:hover fieldset': {
+                borderColor: '#5de8cc',
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#5de8cc',
+            },
+        },
+    },
+
     submit: {
         margin: theme.spacing(3, 0, 2),
+        backgroundColor: '#5de8cc',
+        '&:hover': {
+            backgroundColor: '#25bc9e',
+        }
     },
 }));
 
 function Signin() {
     const classes = useStyles();
     const history = useHistory();
+
+    const handleKeyPress = (e) =>{
+        if(e.key === "Enter"){
+            submitClicked()
+        }
+    }
+
+
     const submitClicked = () =>{
         let email = (document.getElementById('email').value)
         let password = (document.getElementById('password').value)
@@ -101,6 +133,7 @@ function Signin() {
                         name="email"
                         autoComplete="email"
                         autoFocus
+                        className={classes.root}
                     />
                     <TextField
                         variant="outlined"
@@ -112,6 +145,8 @@ function Signin() {
                         type="password"
                         id="password"
                         autoComplete="current-password"
+                        onKeyPress={handleKeyPress}
+                        className={classes.root}
                     />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
@@ -127,11 +162,6 @@ function Signin() {
                         로그인
                     </Button>
                     <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
                         <Grid item>
                             <a onClick={signupclicked} variant="body2">
                                 {"회원가입"}
