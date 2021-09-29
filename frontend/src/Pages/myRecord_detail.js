@@ -23,15 +23,21 @@ function myRecord_detail(){
         })
     }
 
+
     const deleteClicked=()=>{
         axios.delete('http://localhost:8080/users/histories/'+location.state.email+'/'+location.state.value)
             .then(res=>{
                 alert(res.data.message)
-                history.push('/nalot/main',{
-                    "key":location.state.key,
-                    "email":location.state.email,
+                axios.get('http://localhost:8080/users/histories/'+location.state.email)
+                    .then(response=>{
+                        console.log(response.data)
+                        history.push('/nalot/myrecord',{
+                            "key": location.state.key,
+                            "email": location.state.email,
+                            "data":response.data
 
-                })
+                        })
+                    })
             })
             .catch(error=>{
                 alert(error)
