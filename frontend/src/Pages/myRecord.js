@@ -35,17 +35,18 @@ function myRecord() {
     const pagedLogs = paginate(log_data, currentPage, pageSize)
 
     function clicked(e) {
-        console.log(e.currentTarget.value)
-        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.currentTarget.value)
+        const id = e.currentTarget.id
+        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.currentTarget.id)
             .then(res=>{
                 console.log(res.data)
+                console.log(id)
                 history.push('/nalot/myrecord_detail',
                     {
                         "key" : location.state.key,
                         "email" : location.state.email,
                         "detailed_data" : res.data,
                         "data" : location.state.data,
-                        "value" : e.target.value
+                        "value" : id
                     }
                 )
             })
@@ -96,9 +97,9 @@ function myRecord() {
                             />
                             <Button
                                 style={{maxWidth: '60px', maxHeight: '30px', minWidth: '60px', minHeight: '30px'}}
-                                id="button"
-                                value={id}
-                                onClick={e=>clicked(e,"value")}
+                                id={id}
+
+                                onClick={e=>clicked(e,"id")}
                                 variant="outlined"
                             >보기</Button>
                         </ListItem>
