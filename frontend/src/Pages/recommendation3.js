@@ -3,7 +3,6 @@ import React from 'react'
 import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header";
 import Menu from "../Components/Menu";
-
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
 import Result from "../Components/Result";
@@ -56,48 +55,56 @@ function recommendation3(){
         <div>
             <Header/>
             <Menu/>
+            <h1>의상 추천</h1>
             <Result/>
-            <div>
-                선택한 의상 : <h2>{location.state.clothes}</h2>
-            </div>
-            <div>
-                선택한 색상
-                <p>
-                    <Button name = "button1" style={
-                        {
-                            background: location.state.color
-                        }
-                    }>
-                        {location.state.color}
-                    </Button>
-                </p>
+            <div
+                style={{
+                    margin:'30px'
+                }}
+            >
+                <div>
+                    선택한 의상 : <h2>{location.state.clothes}</h2>
+                </div>
+                <div>
+                    선택한 색상
+                    <p>
+                        <Button name = "button1" style={
+                            {
+                                background: location.state.color
+                            }
+                        }>
+                            {location.state.color}
+                        </Button>
+                    </p>
 
-            </div>
-            <div>
-                매치된 추천 색상
-                <p>
-                    <Button name = "button" style={
-                        {
-                            background: location.state.selectedColor
-                        }
-                    }>
-                        {location.state.selectedColor}
-                    </Button>
-                </p>
+                </div>
+                <div>
+                    매치된 추천 색상
+                    <p>
+                        <Button name = "button" style={
+                            {
+                                background: location.state.selectedColor
+                            }
+                        }>
+                            {location.state.selectedColor}
+                        </Button>
+                    </p>
 
+                </div>
+                <div>
+                    <Button
+                        onClick={prevClicked}
+                        variant="outlined"
+                    >이전</Button>
+                    <Button
+                        onClick={submitClicked}
+                        variant="outlined"
+                    >
+                        저장
+                    </Button>
+                </div>
             </div>
-            <div>
-                <Button
-                    onClick={prevClicked}
-                    variant="outlined"
-                >이전</Button>
-                <Button
-                    onClick={submitClicked}
-                    variant="outlined"
-                >
-                    저장
-                </Button>
-            </div>
+
         </div>
     )
 }

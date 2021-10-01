@@ -29,12 +29,6 @@ function recommendation2(){
     let arr=[]
     let arr2=[]
 
-    let red = 253
-    let green =226
-    let blue = 237
-
-    let selectedColor
-
     const prevClicked = () =>{
         history.push('/nalot/recommendation',{
             "key": location.state.key,
@@ -119,12 +113,11 @@ function recommendation2(){
 
         return arr.map(({red,green,blue})=>{
 
-            styles.button.background=rgbToHex(red,green,blue)
-
             return(
                     <Button name="button" style={
                         {
-                            background: `${rgbToHex(red,green,blue)}`
+                            background: `${rgbToHex(red,green,blue)}`,
+                            width: '100px',
                         }
                     }
                             value={`${rgbToHex(red,green,blue)}`}
@@ -143,7 +136,8 @@ function recommendation2(){
             return(
                     <Button name="button" style={
                         {
-                            background: `${rgbToHex(red,green,blue)}`
+                            background: `${rgbToHex(red,green,blue)}`,
+                            width: '100px',
                         }
 
                     }
@@ -184,12 +178,6 @@ function recommendation2(){
                 bottom: '0px',
                 left: '0px',
             },
-            button:{
-                background: `${rgbToHex(red,green,blue)}`
-            },
-            button2:{
-                background:`${rgbToHex(red,green,blue)}`
-            }
         },
     });
     return(
@@ -197,6 +185,7 @@ function recommendation2(){
         <div>
             <Header/>
             <Menu/>
+            <h1>의상 추천</h1>
             <Color/>
             <div>
                 <h1>버튼을 눌러 색 선택하기</h1>
@@ -221,6 +210,7 @@ function recommendation2(){
                 톤인톤매치
                 {renderToneInTone()}
             </div>
+            <p/>
             <div>
                 톤온톤매치
                 {renderToneOnTone()}

@@ -3,16 +3,16 @@ import {Box, Paper, styled} from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 
 const Result = () =>{
-    const Item = styled(Paper)(({theme})=>({
+    const Item2 = styled(Paper)(({theme})=>({
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',
         color: 'black',
-        backgroundColor:'#32e67e'
+        backgroundColor:'#2ecc71'
 
     }))
 
-    const Item2 = styled(Paper)(({theme})=>({
+    const Item = styled(Paper)(({theme})=>({
         ...theme.typography.body2,
         padding: theme.spacing(1),
         textAlign: 'center',

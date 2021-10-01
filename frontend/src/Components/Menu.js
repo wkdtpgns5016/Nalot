@@ -72,14 +72,16 @@ const Menu = () =>{
     }
 
     const logOut = () =>{
-        console.log('logOut')
+        axios.defaults.headers.common['Authorization'] = ""
+        history.push('/nalot')
     }
-    //div 스타일 만들기
 
     return(
     <div
         style={{
-            marginRight:'10px'
+            marginRight:'10px',
+            height:window.outerHeight,
+            position:'absolute'
         }}
     >
         <List className="List">

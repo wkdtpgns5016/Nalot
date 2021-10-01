@@ -10,9 +10,10 @@ function recommendation_location(){
         <div>
             <Header/>
             <Menu/>
+            <h1>의상 추천</h1>
             <Location/>
             <div>
-                <h1>지도위 마커를 클릭해 지역을 선택하세요</h1>
+                <h2>지도위 마커를 클릭해 지역을 선택하세요</h2>
             </div>
             <div
                 style={{
