@@ -199,7 +199,7 @@ function recommendation2(){
             <Menu/>
             <Color/>
             <div>
-                색 선택하기
+                <h1>버튼을 눌러 색 선택하기</h1>
                 <p>
                     <div style={ styles.swatch } onClick={openClicked}>
                         <div style={ styles.color } />
@@ -215,10 +215,7 @@ function recommendation2(){
                 선택한 의상 : <h2>{location.state.clothes}</h2>
             </div>
             <div>
-                <Button
-
-                    variant="outlined"
-                >원하는 색을 선택하세요</Button>
+                <h1>원하는 색의 버튼을 누르세요</h1>
             </div>
             <div>
                 톤인톤매치

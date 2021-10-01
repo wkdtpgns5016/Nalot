@@ -129,6 +129,7 @@ function myRecord_detail(){
         <div>
             <Header/>
             <Menu/>
+            <h1>상세기록</h1>
             <div>
                 {renderData()}
                 <Button

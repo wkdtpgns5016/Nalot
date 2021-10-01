@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,6 @@ import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import DaumPostcode from 'react-daum-postcode'
-import Modal from "@material-ui/core/Modal";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
@@ -20,16 +19,10 @@ const postCodeStyle = {
     position: "absolute",
     top: "10%",
     width: "600px",
-    height: "600px",
+    height: "400px",
     padding: "7px",
-    marginLeft:"50%"
+    zIndex:"1"
 };
-const dialogStyle={
-    width:'600px',
-    height:'600px',
-    backgroundColor: 'white'
-};
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -72,30 +65,17 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 
+
 }));
 
 function SignUp() {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
-    const [selectedValue, setSelectedValue] = React.useState(0);
     const [Password, setPassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("")
     const [Gender, setGender] = useState("")
 
-    function SimpleDialog(props) {
-        const { onClose, selectedValue, open } = props;
-        const handleClose = () => {
-            onClose(selectedValue);
-        };
-        return (
-            <Modal style={dialogStyle} onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-                <DaumPostcode style={postCodeStyle} onComplete={handleComplete} autoClose />
-            </Modal>
-        );
-    }
-
     const handleComplete = (data) => {
-        let fullAddress = data.address;
         let extraAddress = '';
 
         if (data.bname !== '') {
@@ -104,11 +84,11 @@ function SignUp() {
         if (data.buildingName !== '') {
             extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
         }
-        fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
 
         document.getElementById('postcode').value = data.zonecode;
         document.getElementById('address1').value = data.address;
         document.getElementById('address2').value = data.jibunAddress;
+        setOpen(false)
 
     }
 
@@ -129,10 +109,6 @@ function SignUp() {
 
     const handleClickOpen = () =>{
         setOpen(true)
-    }
-    const handleClose = (value) =>{
-        setOpen(false)
-        setSelectedValue(value);
     }
 
     const buttonClick=()=>{
@@ -267,7 +243,13 @@ function SignUp() {
                         >
                             우편번호찾기
                         </Button>
-                        <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+                        {
+                            open ?
+                                <DaumPostcode style={postCodeStyle} onComplete={handleComplete} autoClose
+                                open={open}
+                                />
+                                :null
+                        }
                         <Grid item xs={12}>
                             <TextField
                                 variant="outlined"
