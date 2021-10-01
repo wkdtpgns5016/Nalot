@@ -66,28 +66,28 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         '& label.Mui-focused': {
-            color: '#5de8cc',
+            color: '#2ecc71',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#5de8cc',
+            borderBottomColor: '#2ecc71',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
 
             },
             '&:hover fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
         },
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#5de8cc',
+        backgroundColor: '#2ecc71',
         '&:hover': {
-            backgroundColor: '#25bc9e',
+            backgroundColor: '#1f9451',
         }
     },
 }));
@@ -271,7 +271,7 @@ function SignUp() {
                                     required
                                     fullWidth
                                     id="postcode"
-                                    label="우편번호"
+                                    //label="우편번호"
                                     placeholder={location.state.zone_code}
                                     name="postcode"
                                     inputProps={{maxLength: 5}}
@@ -293,7 +293,7 @@ function SignUp() {
                                     required
                                     fullWidth
                                     id="address1"
-                                    label="기본주소"
+                                    //label="기본주소"
                                     placeholder={location.state.address_basic}
                                     name="address1"
                                     inputProps={{maxLength: 49}}
@@ -306,7 +306,7 @@ function SignUp() {
                                     required
                                     fullWidth
                                     id="address2"
-                                    label="지번주소"
+                                    //label="지번주소"
                                     placeholder={location.state.address_ground_number}
                                     name="address2"
                                     inputProps={{maxLength: 49}}
@@ -319,7 +319,7 @@ function SignUp() {
                                     required
                                     fullWidth
                                     id="address3"
-                                    label="상세주소"
+                                    //label="상세주소"
                                     placeholder={location.state.address_detail}
                                     name="address3"
                                     inputProps={{maxLength: 49}}

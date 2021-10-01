@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,28 +11,9 @@ import Container from '@material-ui/core/Container';
 import {Link} from "react-router-dom"
 import axios from 'axios'
 import DaumPostcode from 'react-daum-postcode'
-import PropTypes from 'prop-types'
 import Modal from "@material-ui/core/Modal";
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-
-const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = '';
-
-    if (data.bname !== '') {
-        extraAddress += data.bname;
-    }
-    if (data.buildingName !== '') {
-        extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-    }
-    fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
-
-    document.getElementById('postcode').value = data.zonecode;
-    document.getElementById('address1').value = data.address;
-    document.getElementById('address2').value = data.jibunAddress;
-
-}
 
 const postCodeStyle = {
     display: "block",
@@ -41,6 +22,7 @@ const postCodeStyle = {
     width: "600px",
     height: "600px",
     padding: "7px",
+    marginLeft:"50%"
 };
 const dialogStyle={
     width:'600px',
@@ -65,50 +47,33 @@ const useStyles = makeStyles((theme) => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#5de8cc',
+        backgroundColor: '#2ecc71',
         '&:hover': {
-            backgroundColor: '#25bc9e',
+            backgroundColor: '#1f9451',
         }
     },
     root: {
         '& label.Mui-focused': {
-            color: '#5de8cc',
+            color: '#2ecc71',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#5de8cc',
+            borderBottomColor: '#2ecc71',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
 
             },
             '&:hover fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
         },
     },
 
 }));
 
-function SimpleDialog(props) {
-    const { onClose, selectedValue, open } = props;
-    const handleClose = () => {
-        onClose(selectedValue);
-    };
-
-    return (
-        <Modal style={dialogStyle} onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
-            <DaumPostcode style={postCodeStyle} onComplete={handleComplete} />
-        </Modal>
-    );
-}
-SimpleDialog.propTypes = {
-    onClose: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    selectedValue: PropTypes.string.isRequired,
-};
 function SignUp() {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
@@ -116,6 +81,36 @@ function SignUp() {
     const [Password, setPassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("")
     const [Gender, setGender] = useState("")
+
+    function SimpleDialog(props) {
+        const { onClose, selectedValue, open } = props;
+        const handleClose = () => {
+            onClose(selectedValue);
+        };
+        return (
+            <Modal style={dialogStyle} onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+                <DaumPostcode style={postCodeStyle} onComplete={handleComplete} autoClose />
+            </Modal>
+        );
+    }
+
+    const handleComplete = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = '';
+
+        if (data.bname !== '') {
+            extraAddress += data.bname;
+        }
+        if (data.buildingName !== '') {
+            extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+        }
+        fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+
+        document.getElementById('postcode').value = data.zonecode;
+        document.getElementById('address1').value = data.address;
+        document.getElementById('address2').value = data.jibunAddress;
+
+    }
 
     const onPasswordHandler = (event)=>{
         setPassword(event.currentTarget.value)
@@ -131,7 +126,7 @@ function SignUp() {
     const handleRadioChange = (event) =>{
         setGender(event.currentTarget.value)
     }
-    
+
     const handleClickOpen = () =>{
         setOpen(true)
     }
@@ -223,7 +218,6 @@ function SignUp() {
                         <RadioGroup>
                             <Grid item xs = {12} sm = {6}>
                                 <FormControlLabel
-
                                     value="M"
                                     control={<Radio color="primary"/>}
                                     label="남"
@@ -261,7 +255,7 @@ function SignUp() {
                                 required
                                 fullWidth
                                 id="postcode"
-                                label="우편번호"
+                                placeholder="우편번호"
                                 name="postcode"
                                 inputProps={{maxLength: 5}}
                                 className={classes.root}
@@ -269,9 +263,7 @@ function SignUp() {
                         </Grid>
                         <Button item xs={12} sm = {4}
                             variant="outlined"
-                            color="primary"
                             onClick={handleClickOpen}
-
                         >
                             우편번호찾기
                         </Button>
@@ -282,7 +274,7 @@ function SignUp() {
                                 required
                                 fullWidth
                                 id="address1"
-                                label="기본주소"
+                                placeholder="기본주소"
                                 name="address1"
                                 inputProps={{maxLength: 49}}
                                 className={classes.root}
@@ -294,7 +286,7 @@ function SignUp() {
                                 required
                                 fullWidth
                                 id="address2"
-                                label="지번주소"
+                                placeholder="지번주소"
                                 name="address2"
                                 inputProps={{maxLength: 49}}
                                 className={classes.root}
