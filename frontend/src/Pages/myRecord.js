@@ -62,11 +62,12 @@ function myRecord() {
             return(
                 <div style={
                     {
-                        marginLeft:'200px',
                         backgroundColor:'rgb(244,244,244)',
                         width:'600px',
                         marginBottom:'10px',
-                        marginRight:'200px'
+                        marginRight:'200px',
+                        marginLeft:'35%'
+
                     }
                 }>
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
@@ -85,10 +86,10 @@ function myRecord() {
                                             color="text.primary"
                                         >
                                             {userClothes.clothes.name}
-                                            <h3 style={{
+                                            <h1 style={{
                                                 color:'red',
                                                 textAlign:'right'
-                                            }}>{weather.temperature+"°C"}</h3>
+                                            }}>{weather.temperature+"°C"}</h1>
                                         </Typography>
 
                                     </React.Fragment>

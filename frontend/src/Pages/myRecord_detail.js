@@ -53,7 +53,7 @@ function myRecord_detail(){
         return(
             <div style={
                 {
-                    marginLeft:'200px',
+                    marginLeft:'35%',
                     backgroundColor:'rgb(244,244,244)',
                     width:'600px',
                     marginBottom:'10px',

@@ -115,29 +115,36 @@ function recommendation(){
         >
             <Header/>
             <Menu/>
+            <h1>의상 추천</h1>
             <Clothes/>
-            <div>
-                현재 <h2>{location.state.loc}</h2>의 기온은 <h2>{location.state.current}</h2>도입니다.
-            </div>
             <div
                 style={{
-
+                    margin:'30px'
                 }}
             >
-                추천 의상은 아래와 같습니다
-                <div
-                >
-                    {renderData()}
+                <div>
+                    현재 <h2>{location.state.loc}</h2>의 기온은 <h2>{location.state.current}</h2>도입니다.
                 </div>
-            </div>
-            <Button
-                onClick={prevClicked}
-                variant="outlined"
+                <div
+                    style={{
+
+                    }}
+                >
+                    추천 의상은 아래와 같습니다
+                    <div
+                    >
+                        {renderData()}
+                    </div>
+                </div>
+                <Button
+                    onClick={prevClicked}
+                    variant="outlined"
                 >이전</Button>
-            <Button
-                onClick={nextClicked}
-                variant="outlined"
-            >다음</Button>
+                <Button
+                    onClick={nextClicked}
+                    variant="outlined"
+                >다음</Button>
+            </div>
 
         </div>
 
