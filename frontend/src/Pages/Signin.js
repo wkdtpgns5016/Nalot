@@ -31,29 +31,29 @@ const useStyles = makeStyles((theme) => ({
     },
     root: {
         '& label.Mui-focused': {
-            color: '#5de8cc',
+            color: '#2ecc71',
         },
         '& .MuiInput-underline:after': {
-            borderBottomColor: '#5de8cc',
+            borderBottomColor: '#2ecc71',
         },
         '& .MuiOutlinedInput-root': {
             '& fieldset': {
 
             },
             '&:hover fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#5de8cc',
+                borderColor: '#2ecc71',
             },
         },
     },
 
     submit: {
         margin: theme.spacing(3, 0, 2),
-        backgroundColor: '#5de8cc',
+        backgroundColor: '#2ecc71',
         '&:hover': {
-            backgroundColor: '#25bc9e',
+            backgroundColor: '#1f9451',
         }
     },
 }));

@@ -23,7 +23,7 @@ function recommendation_location(){
            <div>
                 <Button
                     variant="outlined"
-                >지역을 선택하세요</Button>
+                >마커를 클릭하세요</Button>
             </div>
         </div>
 

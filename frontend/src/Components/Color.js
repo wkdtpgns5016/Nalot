@@ -8,7 +8,7 @@ const Color = () =>{
         padding: theme.spacing(1),
         textAlign: 'center',
         color: 'black',
-        backgroundColor:'#25bc9e'
+        backgroundColor:'#32e67e'
 
     }))
 
@@ -17,7 +17,7 @@ const Color = () =>{
         padding: theme.spacing(1),
         textAlign: 'center',
         color: 'black',
-        backgroundColor:'#5de8cc'
+        backgroundColor:'#1f9451'
 
     }))
 
