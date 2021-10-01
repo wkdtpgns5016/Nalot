@@ -122,9 +122,7 @@ function myRecord() {
         <div>
             <Header/>
             <Menu/>
-            <header>
                 <h1>내기록</h1>
-            </header>
             {renderData()}
             <Pagination
                 itemsCount={count}
