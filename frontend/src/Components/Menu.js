@@ -59,15 +59,10 @@ const Menu = () =>{
     }
 
     const recommendation = () =>{
-        //console.log(location.state.email)
-        axios.get('http://localhost:8080/weathers/forecasts')
-            .then(res=>{
-                history.push('/nalot/recommendation_location',{
-                    "key": location.state.key,
-                    "email" : location.state.email,
-                    "weathers_data" : res.data
-                })
-            })
+        history.push('/nalot/recommendation_location',{
+            "key": location.state.key,
+            "email" : location.state.email,
+        })
 
     }
 

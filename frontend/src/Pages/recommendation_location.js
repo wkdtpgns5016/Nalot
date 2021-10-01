@@ -6,6 +6,7 @@ import Location from "../Components/Location";
 
 function recommendation_location(){
 
+
     return(
         <div>
             <Header/>
@@ -16,12 +17,9 @@ function recommendation_location(){
                 <h2>지도위 마커를 클릭해 지역을 선택하세요</h2>
             </div>
             <div
-                style={{
-                    marginLeft:'40%'
-                }}
             >
                 {kakaomap()}
-                <div id ="map" style={{width:"500px", height:"400px"}}/>
+                <div id ="map" style={{width:"500px", height:"400px",marginLeft:'40%'}}/>
             </div>
 
         </div>
