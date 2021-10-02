@@ -3,6 +3,7 @@ import Header from "../Components/Header";
 import Menu from "../Components/Menu";
 import kakaomap from "../Components/kakaomap";
 import Location from "../Components/Location";
+import Footer from "../Components/Footer";
 
 function recommendation_location(){
 
@@ -19,8 +20,9 @@ function recommendation_location(){
             <div
             >
                 {kakaomap()}
-                <div id ="map" style={{width:"500px", height:"400px",marginLeft:'40%'}}/>
+                <div id ="map" style={{width:"800px", height:"600px",marginLeft:'30%'}}/>
             </div>
+            <Footer/>
 
         </div>
 

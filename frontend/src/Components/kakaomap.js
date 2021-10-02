@@ -165,8 +165,14 @@ const kakaomap = () =>{
                                     "weathers_data" : location.state.weathers_data
 
                                 })
+                            }).catch(err=>{
+                                alert(err.response.data.error)
+                                history.push('/nalot')
                             })
 
+                        }).catch(err=>{
+                            alert(err.response.data.error)
+                            history.push('/nalot')
                         })
                     })
                 }

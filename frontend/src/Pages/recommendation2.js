@@ -7,6 +7,7 @@ import {SketchPicker} from 'react-color'
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
 import Color from "../Components/Color";
+import Footer from "../Components/Footer";
 
 function recommendation2(){
     const history = useHistory();
@@ -90,6 +91,9 @@ function recommendation2(){
             }).then(res=>{
                 settoneontone(res.data)
 
+            }).catch(err=>{
+                alert(err.response.data.error)
+                history.push('/nalot')
             })
         })
     }
@@ -221,6 +225,7 @@ function recommendation2(){
                     variant="outlined"
                 >이전</Button>
             </div>
+            <Footer/>
         </div>
     )
 }

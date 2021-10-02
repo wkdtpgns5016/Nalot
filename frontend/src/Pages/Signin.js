@@ -1,16 +1,13 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
+import icon from '../Images/icon.png'
 
 import {useHistory} from "react-router-dom"
 
@@ -62,6 +59,10 @@ function Signin() {
     const classes = useStyles();
     const history = useHistory();
 
+    window.addEventListener('popstate', function(event) {
+        history.push('/nalot')
+    });
+
     const handleKeyPress = (e) =>{
         if(e.key === "Enter"){
             submitClicked()
@@ -104,8 +105,8 @@ function Signin() {
                     })
 
             })
-            .catch(error =>{
-                console.log(error)
+            .catch(err=>{
+                alert(err.response.data.error)
             })
     }
     const signupclicked=()=>{
@@ -116,9 +117,10 @@ function Signin() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
+                    <img style={{
+                        width:'50px',
+                        height:'50px'
+                    }} src={icon} alt = "icon"/>
                 <Typography component="h1" variant="h5">
                     Nalot
                 </Typography>
@@ -148,10 +150,6 @@ function Signin() {
                         onKeyPress={handleKeyPress}
                         className={classes.root}
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <Button
                         fullWidth
                         variant="contained"
@@ -172,6 +170,7 @@ function Signin() {
             </div>
 
         </Container>
+
     );
 }
 export default Signin;

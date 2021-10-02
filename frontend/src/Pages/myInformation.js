@@ -6,14 +6,12 @@ import axios from 'axios'
 
 import {useLocation, useHistory} from "react-router-dom";
 import {makeStyles} from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Avatar from "@material-ui/core/Avatar";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
+import icon from "../Images/icon.png";
+import Footer from "../Components/Footer";
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -21,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -48,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
                 borderColor: '#2ecc71',
             },
         },
+        marginRight:theme.spacing(8),
+        marginTop: theme.spacing(4),
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
@@ -90,152 +86,123 @@ function myInformation(){
         })
     }
     console.log('myinfo'+ location.state.email)
+    console.log(location.state)
 
     return(
         <div>
         <Header/>
         <Menu/>
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    회원 정보
-                </Typography>
-                <form className={classes.form} noValidate>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="fname"
-                                label="이름"
-                                value={location.state.name}
-                                autoFocus
-                                inputProps={{maxLength:10}}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm ={6}>
-                            <TextField
-                                id="date"
-                                required
-                                variant={"outlined"}
-                                label="생년월일"
-                                type="date"
-                                defaultValue="2017-05-24"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="gender"
-                                label="성별"
-                                value={location.state.gender}
-                                autoFocus
-                                inputProps={{maxLength:10}}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm = {8}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="postcode"
-                                label="우편번호"
-                                value={location.state.zone_code}
-                                name="postcode"
-                                inputProps={{maxLength: 5}}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address1"
-                                label="기본주소"
-                                value={location.state.address_basic}
-                                name="address1"
-                                inputProps={{maxLength: 49}}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs = {12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address2"
-                                label="지번주소"
-                                value={location.state.address_ground_number}
-                                name="address2"
-                                inputProps={{maxLength: 49}}
-                                className={classes.root}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="address3"
-                                label="상세주소"
-                                value={location.state.address_detail}
-                                name="address3"
-                                inputProps={{maxLength: 49}}
-                                className={classes.root}
-                            />
-                        </Grid>
 
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="이메일 주소"
-                                value={location.state.id}
-                                name="email"
-                                inputProps={{maxLength: 44}}
-                                className={classes.root}
-                            />
-                        </Grid>
+        <Container component="main" maxWidth="lg">
+            <Grid
+                container
+                spacing={3}
+                direction="row"
+                justify="center"
+                alignItems="stretch"
+            >
+                <Grid item xs={4}
+                >
+                    <Grid style={{height:"100%"}}>
+                        <div>
+                            <h1>내 정보</h1>
+                        </div>
+                        <img src={icon} alt ='logo'/>
                     </Grid>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={fixClicked}
-                    >
-                        정보수정
-                    </Button>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={deleteClicked}
-                    >
-                        회원탈퇴
-                    </Button>
-                </form>
-            </div>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                        name="firstName"
+                        variant="outlined"
+                        id="email"
+                        label="이메일"
+                        value={location.state.email}
+                        className={classes.root}
+                        style = {{width: 300}}
+                    />
+                    <TextField
+                        name="firstName"
+                        variant="outlined"
+                        id="postcode"
+                        label="우편번호"
+                        value={location.state.zone_code}
+                        className={classes.root}
+                        style = {{width: 120}}
+                    />
+                    <TextField
+                        name="firstName"
+                        variant="outlined"
+                        id="fname"
+                        label="이름"
+                        value={location.state.name}
+                        className={classes.root}
+                        style = {{width: 120}}
+                    />
+                    <TextField
+                        name="firstName"
+                        variant="outlined"
+                        id="address1"
+                        label="기본주소"
+                        value={location.state.address_basic}
+                        className={classes.root}
+                        style = {{width: 300}}
+                    />
+                    <TextField
+                        name="firstName"
+                        variant="outlined"
+                        id="gender"
+                        label="성별"
+                        value={location.state.gender}
+                        className={classes.root}
+                        style = {{width: 120}}
+                    />
+                    <TextField
+                        variant="outlined"
+                        id="address2"
+                        label="지번주소"
+                        value={location.state.address_ground_number}
+                        name="address2"
+                        className={classes.root}
+                        style = {{width: 300}}
+                    />
+                    <TextField
+                        id="date"
+                        variant={"outlined"}
+                        label="생년월일"
+                        value={location.state.birth.slice(0,10)}
+                        className={classes.root}
+                        style = {{width: 120}}
+                    />
+                    <TextField
+                        variant="outlined"
+                        id="address3"
+                        label="상세주소"
+                        value={location.state.address_detail}
+                        name="address3"
+                        className={classes.root}
+                        style = {{width: 300}}
+                    />
+                </Grid>
+
+            </Grid>
         </Container>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={fixClicked}
+            >
+                정보수정
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                onClick={deleteClicked}
+            >
+                회원탈퇴
+            </Button>
+            <Footer/>
         </div>
     )
 }

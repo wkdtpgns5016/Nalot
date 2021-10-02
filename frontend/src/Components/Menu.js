@@ -10,8 +10,16 @@ import AccessibilityIcon from "@material-ui/icons/Accessibility";
 import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import axios from 'axios'
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme)=>({
+    item :{
+        fontSize:"25px"
+    }
+}))
 
 const Menu = () =>{
+    const classes = useStyles()
     const history = useHistory();
     const location = useLocation();
 
@@ -38,10 +46,11 @@ const Menu = () =>{
                     "address_ground_number": res.data.addressGroundNumber,
                     "birth": res.data.birth,
                     "email": location.state.email
-
                 })
-            })
-
+            }).catch(err=>{
+                alert(err.response.data.error)
+                history.push('/nalot')
+        })
     }
 
     const myRecord = () =>{
@@ -54,7 +63,10 @@ const Menu = () =>{
                     "data":res.data
 
                 })
-            })
+            }).catch(err=>{
+            alert(err.response.data.error)
+            history.push('/nalot')
+        })
 
     }
 
@@ -68,6 +80,7 @@ const Menu = () =>{
 
     const logOut = () =>{
         axios.defaults.headers.common['Authorization'] = ""
+        //window.history.pushState(null, null, '/nalot')
         history.push('/nalot')
     }
 
@@ -76,29 +89,29 @@ const Menu = () =>{
         style={{
             marginRight:'10px',
             height:window.outerHeight,
-            position:'absolute'
+            position:'absolute',
         }}
     >
         <List className="List">
             <ListItem className="ListItem" button onClick={home}>
                 <ListItemIcon ><HomeIcon/></ListItemIcon>
-                <ListItemText className="ItemText" primary={'홈'}/>
+                <ListItemText classes={{primary: classes.item}} primary={'홈'}/>
             </ListItem>
             <ListItem className="ListItem" button onClick={myInformation}>
                 <ListItemIcon><AssignmentIndIcon /></ListItemIcon>
-                <ListItemText primary={'내정보'} />
+                <ListItemText classes={{primary: classes.item}} primary={'내정보'} />
             </ListItem>
             <ListItem className="ListItem" button onClick={myRecord}>
                 <ListItemIcon><InboxIcon /></ListItemIcon>
-                <ListItemText primary={'내 기록'} />
+                <ListItemText classes={{primary: classes.item}} primary={'내 기록'} />
             </ListItem>
             <ListItem className="ListItem" button onClick={recommendation}>
                 <ListItemIcon><AccessibilityIcon /></ListItemIcon>
-                <ListItemText primary={'의상 추천'} />
+                <ListItemText classes={{primary: classes.item}}primary={'의상 추천'} />
             </ListItem>
             <ListItem className="ListItem" button onClick={logOut}>
                 <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-                <ListItemText primary={'로그아웃'} />
+                <ListItemText classes={{primary: classes.item}}primary={'로그아웃'} />
             </ListItem>
         </List>
     </div>

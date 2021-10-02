@@ -5,12 +5,12 @@ import axios from'axios'
 
 import {useHistory, useLocation} from "react-router-dom";
 import Button from "@material-ui/core/Button";
-import {Divider, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
+import {Divider, ListItem, ListItemText} from "@material-ui/core";
 import List from "@material-ui/core/List";
-import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import Pagination from "../Components/Pagination";
 import {paginate} from "../Components/paginate";
+import Footer from "../Components/Footer";
 
 function myRecord() {
     let data;
@@ -56,7 +56,7 @@ function myRecord() {
         return pagedLogs.map(({userClothes, weather, id })=>{
             data = (userClothes.id).substring(0,8)
             year = data.substring(0,4)+"년"
-            month = data.substring(5,6)+"월"
+            month = data.substring(4,6)+"월"
             day = data.substring(6,8)+"일"
             //return 안은 반복문
             return(
@@ -72,9 +72,6 @@ function myRecord() {
                 }>
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                         <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
                             <ListItemText
                                 primary={year +" " +month +" " + day}
                                 secondary={
@@ -131,6 +128,7 @@ function myRecord() {
                 currentPage={currentPage}
                 onPageChange={handlePageChange}
                 />
+            <Footer/>
         </div>
     )
 }
