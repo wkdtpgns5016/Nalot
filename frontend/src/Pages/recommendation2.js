@@ -174,6 +174,7 @@ function recommendation2(){
             popover: {
                 position: 'absolute',
                 zIndex: '2',
+                marginLeft:"45%"
             },
             cover: {
                 position: 'fixed',
