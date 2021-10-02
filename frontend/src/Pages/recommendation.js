@@ -6,6 +6,7 @@ import Menu from "../Components/Menu";
 import Clothes from "../Components/Clothes"
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import Footer from "../Components/Footer";
 
 function recommendation(){
     const history = useHistory();
@@ -83,7 +84,13 @@ function recommendation(){
                             "baseDate" : location.state.baseDate,
                             "baseTime" : location.state.baseTime,
                         })
+                }).catch(err=>{
+                    alert(err.response.data.error)
+                    history.push('/nalot')
                 })
+            }).catch(err=>{
+                alert(err.response.data.error)
+                history.push('/nalot')
             })
 
         }
@@ -145,6 +152,7 @@ function recommendation(){
                     variant="outlined"
                 >다음</Button>
             </div>
+            <Footer/>
 
         </div>
 

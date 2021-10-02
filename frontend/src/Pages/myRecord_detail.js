@@ -5,8 +5,9 @@ import Header from "../Components/Header"
 import Menu from "../Components/Menu";
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
-import {Avatar, ListItem, ListItemAvatar, ListItemText, Typography} from "@material-ui/core";
+import {ListItem, ListItemText, Typography} from "@material-ui/core";
 import List from "@material-ui/core/List";
+import Footer from "../Components/Footer";
 
 function myRecord_detail(){
     const location = useLocation()
@@ -62,9 +63,6 @@ function myRecord_detail(){
             }>
                 <List sx={{width:'100%', maxWidth: 360, bgColor:'background.paper'}}>
                     <ListItem alignItems="flex-start">
-                        <ListItemAvatar>
-                            <Avatar alt="Remy Sharp"/>
-                        </ListItemAvatar>
                         <ListItemText
                             primary={year +" " +month +" " + day}
                             secondary={
@@ -145,6 +143,7 @@ function myRecord_detail(){
                     뒤로
                 </Button>
             </div>
+            <Footer/>
         </div>
     )
 }

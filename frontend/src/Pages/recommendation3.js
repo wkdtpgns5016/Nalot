@@ -6,6 +6,7 @@ import Menu from "../Components/Menu";
 import axios from 'axios'
 import Button from "@material-ui/core/Button";
 import Result from "../Components/Result";
+import Footer from "../Components/Footer";
 
 
 function recommendation3(){
@@ -35,6 +36,9 @@ function recommendation3(){
                 "key": location.state.key,
                 "email": location.state.email,
             })
+        }).catch(err=>{
+            alert(err.response.data.error)
+            history.push('/nalot')
         })
     }
     const prevClicked = () =>{
@@ -104,7 +108,7 @@ function recommendation3(){
                     </Button>
                 </div>
             </div>
-
+            <Footer/>
         </div>
     )
 }

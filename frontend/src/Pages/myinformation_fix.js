@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -14,6 +12,8 @@ import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import { useHistory, useLocation } from "react-router-dom";
 import Header from "../Components/Header"
 import Menu from "../Components/Menu"
+import icon from "../Images/icon.png";
+import Footer from "../Components/Footer";
 
 const postCodeStyle = {
     display: "block",
@@ -31,10 +31,6 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -179,18 +175,19 @@ function SignUp() {
         <div>
             <Header/>
             <Menu/>
-            <Container component="main" maxWidth="xs">
+            <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <div className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
+                    <img style={{
+                        width:'50px',
+                        height:'50px'
+                    }} src={icon} alt = "icon"/>
                     <Typography component="h1" variant="h5">
                         정보 수정
                     </Typography>
                     <form className={classes.form} noValidate>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12}>
                                 <TextField
                                     name="firstName"
                                     variant="outlined"
@@ -376,6 +373,7 @@ function SignUp() {
                     </form>
                 </div>
             </Container>
+            <Footer/>
         </div>
 
     );
