@@ -39,9 +39,6 @@ public class WeatherController {
         List<LocationDto> locationDtos = locationService.selectLocationList();
 
         for (LocationDto location : locationDtos) {
-            System.out.println(location.getLocationLevel1());
-            System.out.println(location.getGridX());
-            System.out.println(location.getGridY());
             WeatherResponse response = new WeatherResponse();
             WeatherApiResponse.Items items = weatherService.getWeatherForecast(
                     dateNow.get(0),
