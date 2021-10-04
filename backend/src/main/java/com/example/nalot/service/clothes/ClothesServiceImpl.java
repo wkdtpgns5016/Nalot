@@ -10,11 +10,7 @@ import java.util.List;
 @Service
 public class ClothesServiceImpl implements ClothesService {
     private final ClothesDao clothesDao;
-    private final WeatherService weatherService;
-    public ClothesServiceImpl(ClothesDao clothesDao, WeatherService weatherService){
-        this.clothesDao = clothesDao;
-        this.weatherService = weatherService;
-    }
+    public ClothesServiceImpl(ClothesDao clothesDao){ this.clothesDao = clothesDao; }
 
     @Override
     public List<ClothesDto> selectClothesListByCategory(String category) {
