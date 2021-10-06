@@ -94,7 +94,7 @@ function myRecord() {
                                 }
                             />
                             <Button
-                                style={{maxWidth: '60px', maxHeight: '30px', minWidth: '60px', minHeight: '30px'}}
+                                style={{maxWidth: '70px', maxHeight: '30px', minWidth: '70px', minHeight: '30px'}}
                                 id={id}
 
                                 onClick={e=>clicked(e,"id")}
