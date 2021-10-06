@@ -19,10 +19,11 @@ const postCodeStyle = {
     display: "block",
     position: "absolute",
     top: "10%",
-    width: "600px",
+    width: "400px",
     height: "600px",
     padding: "7px",
-    zIndex:"1"
+    zIndex:"1",
+
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -73,6 +74,7 @@ function SignUp() {
     const [Gender, setGender] = useState("M")
     const location = useLocation()
     const history = useHistory()
+    const [title, setTitle] = useState("우편번호찾기")
 
     const handleComplete = (data) => {
         let fullAddress = data.address;
@@ -110,7 +112,14 @@ function SignUp() {
     }
 
     const handleClickOpen = () =>{
-        setOpen(true)
+        if(open === true) {
+            setOpen(false)
+            setTitle("우편번호찾기")
+        }
+        else if (open === false) {
+            setOpen(true)
+            setTitle("우편번호찾기 창닫기")
+        }
     }
 
     const buttonClick=()=>{
@@ -251,11 +260,9 @@ function SignUp() {
                             </Grid>
                             <Button item xs={12} sm = {4}
                                     variant="outlined"
-                                    color="primary"
                                     onClick={handleClickOpen}
-
                             >
-                                우편번호찾기
+                                {title}
                             </Button>
                             {
                                 open ?

@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
 
+
 }));
 
 function SignUp() {
@@ -69,6 +70,7 @@ function SignUp() {
     const [Password, setPassword] = useState("")
     const [confirmPassword, setconfirmPassword] = useState("")
     const [Gender, setGender] = useState("")
+    const [title, setTitle] = useState("우편번호찾기")
 
     const handleComplete = (data) => {
         let extraAddress = '';
@@ -84,6 +86,7 @@ function SignUp() {
         document.getElementById('address1').value = data.address;
         document.getElementById('address2').value = data.jibunAddress;
         setOpen(false)
+
 
     }
 
@@ -103,7 +106,14 @@ function SignUp() {
     }
 
     const handleClickOpen = () =>{
-        setOpen(true)
+        if(open === true) {
+            setOpen(false)
+            setTitle("우편번호찾기")
+        }
+        else if (open === false) {
+            setOpen(true)
+            setTitle("우편번호찾기 창닫기")
+        }
     }
 
     const buttonClick=()=>{
@@ -237,12 +247,13 @@ function SignUp() {
                             variant="outlined"
                             onClick={handleClickOpen}
                         >
-                            우편번호찾기
+                            {title}
                         </Button>
+
                         {
                             open ?
                                 <DaumPostcode style={postCodeStyle} onComplete={handleComplete} autoClose
-                                open={open}
+                                              open={open}
                                 />
                                 :null
                         }
