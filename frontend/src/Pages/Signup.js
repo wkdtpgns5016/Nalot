@@ -132,7 +132,7 @@ function SignUp() {
             "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender}
             console.log(obj)
             //테스트 이기 때문에 localhost url 사용
-            axios.post('http://localhost:8080/users', {
+            axios.post('http://54.180.117.194:8080/users', {
                 "name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
                 "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender
 

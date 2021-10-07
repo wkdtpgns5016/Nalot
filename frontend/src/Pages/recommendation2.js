@@ -70,7 +70,7 @@ function recommendation2(){
 
     const closeClicked = () =>{
         setdisplayColorPicker(false)
-        axios.post('http://localhost:8080/colors/tone-on-tone-mixes',{
+        axios.post('http://54.180.117.194:8080/colors/tone-on-tone-mixes',{
             "hexCode" : hex
         },{
             headers:{
@@ -81,7 +81,7 @@ function recommendation2(){
 
             settoneintone(response.data)
 
-            axios.post('http://localhost:8080/colors/tone-in-tone-mixes',{
+            axios.post('http://54.180.117.194:8080/colors/tone-in-tone-mixes',{
                 "hexCode":hex
             },{
                 headers:{

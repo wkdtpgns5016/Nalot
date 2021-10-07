@@ -26,10 +26,10 @@ function myRecord_detail(){
 
 
     const deleteClicked=()=>{
-        axios.delete('http://localhost:8080/users/histories/'+location.state.email+'/'+location.state.value)
+        axios.delete('http://54.180.117.194:8080/users/histories/'+location.state.email+'/'+location.state.value)
             .then(res=>{
                 alert(res.data.message)
-                axios.get('http://localhost:8080/users/histories/'+location.state.email)
+                axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email)
                     .then(response=>{
                         console.log(response.data)
                         history.push('/nalot/myrecord',{

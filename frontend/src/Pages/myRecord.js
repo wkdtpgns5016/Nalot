@@ -36,7 +36,7 @@ function myRecord() {
 
     function clicked(e) {
         const id = e.currentTarget.id
-        axios.get('http://localhost:8080/users/histories/'+location.state.email+'/'+e.currentTarget.id)
+        axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email+'/'+e.currentTarget.id)
             .then(res=>{
                 console.log(res.data)
                 console.log(id)

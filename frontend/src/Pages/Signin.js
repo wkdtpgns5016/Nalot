@@ -74,7 +74,7 @@ function Signin() {
         let email = (document.getElementById('email').value)
         let password = (document.getElementById('password').value)
         //로컬머신 테스트로 localhost
-        axios.post('http://localhost:8080/users/login',{
+        axios.post('http://54.180.117.194:8080/users/login',{
             "username": email, "password": password
         },{
             headers:{
@@ -83,7 +83,7 @@ function Signin() {
             })
             .then(response=>{
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.message}`
-                axios.get('http://localhost:8080/users/'+email)
+                axios.get('http://54.180.117.194:8080/users/'+email)
                     .then(res=>{
                         //console.log(res.data)
                         console.log(email)

@@ -11,7 +11,7 @@ const kakaomap = () =>{
     let data;
 
     useEffect(()=>{
-        axios.get('http://localhost:8080/weathers/forecasts')
+        axios.get('http://54.180.117.194:8080/weathers/forecasts')
             .then(res=>{
                 setLoading(false)
                 let container = document.getElementById('map');
