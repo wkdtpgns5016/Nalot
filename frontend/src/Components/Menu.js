@@ -54,7 +54,7 @@ const Menu = () =>{
     }
 
     const myRecord = () =>{
-        axios.get('http://localhost:8080/users/histories/'+location.state.email)
+        axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email)
             .then(res=>{
                 console.log(res.data)
                 history.push('/nalot/myrecord',{

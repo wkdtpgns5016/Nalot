@@ -16,7 +16,7 @@ function recommendation3(){
 
     const submitClicked = () =>{
         console.log(location.state)
-        axios.post('http://localhost:8080/users/histories',{
+        axios.post('http://54.180.117.194:8080/users/histories',{
             "userId" : location.state.email,
             "temperature" : location.state.current,
             "clothesId" : location.state.clothes_number,

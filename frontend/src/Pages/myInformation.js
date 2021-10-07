@@ -74,7 +74,7 @@ function myInformation(){
         })
     }
     const deleteClicked=()=>{
-        axios.delete('http://localhost:8080/users/'+location.state.email)
+        axios.delete('http://54.180.117.194:8080/users/'+location.state.email)
             .then(res=>{
                 if(res.status===201){
                     alert(res.data.message)
