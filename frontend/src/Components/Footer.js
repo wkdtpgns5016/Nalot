@@ -9,7 +9,8 @@ const useStyles = makeStyles((theme)=>({
         bottom:"0",
         width:"100%",
         height:"auto",
-        backgroundColor:"lightgrey"
+        backgroundColor:"lightgrey",
+        zIndex:"1"
     }
 }))
 
