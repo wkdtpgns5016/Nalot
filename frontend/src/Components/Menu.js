@@ -33,7 +33,7 @@ const Menu = () =>{
     const myInformation = () =>{
         //console.log(location.state)
         //axios.defaults.headers.common['Authorization'] = location.state.key
-        axios.get('http://localhost:8080/users/' + location.state.email)
+        axios.get('http://54.180.117.194:8080/users/' + location.state.email)
             .then(res=>{
                 history.push('/nalot/myinformation',{
                     "key": location.state.key,
