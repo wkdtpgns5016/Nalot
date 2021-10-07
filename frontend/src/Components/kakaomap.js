@@ -129,7 +129,7 @@ const kakaomap = () =>{
                     overlay.setMap(map)
                     kakao.maps.event.addListener(marker, 'click', function(){
                         infowindow.open(map, marker)
-                        axios.post('http://localhost:8080/weathers/forecasts',{
+                        axios.post('http://54.180.117.194:8080/weathers/forecasts',{
                             "location" : marker.getTitle()
 
                         }, {
@@ -141,7 +141,7 @@ const kakaomap = () =>{
                         }).then(response=>{
                             console.log(response.data.baseDate)
 
-                            axios.post('http://localhost:8080/clothes/recommendations',{
+                            axios.post('http://54.180.117.194:8080/clothes/recommendations',{
                                 "id":null, "temperature":response.data.temperature, "userId":null,
                                 "baseDate":null, "baseTime":null
                             },{
