@@ -7,6 +7,7 @@ import Clothes from "../Components/Clothes"
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import Footer from "../Components/Footer";
+import app from "../resources/application.json"
 
 function recommendation(){
     const history = useHistory();
@@ -47,7 +48,7 @@ function recommendation(){
 
         }else {
             console.log(clothes_number)
-            axios.post('http://54.180.117.194:8080/colors/tone-on-tone-mixes',{
+            axios.post(app.ip+'/colors/tone-on-tone-mixes',{
                 "hexCode" : hex
             },{
                 headers:{
@@ -57,7 +58,7 @@ function recommendation(){
             }).then(response=>{
                 toneintone = response.data
 
-                axios.post('http://54.180.117.194:8080/colors/tone-in-tone-mixes',{
+                axios.post(app.ip+'/colors/tone-in-tone-mixes',{
                     "hexCode":hex
                 },{
                     headers:{

@@ -12,6 +12,7 @@ import DaumPostcode from 'react-daum-postcode'
 import {FormControlLabel, Radio, RadioGroup} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import icon from "../Images/icon.png";
+import app from "../resources/application.json"
 
 const postCodeStyle = {
     display: "block",
@@ -132,7 +133,7 @@ function SignUp() {
             "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender}
             console.log(obj)
             //테스트 이기 때문에 localhost url 사용
-            axios.post('http://54.180.117.194:8080/users', {
+            axios.post(app.ip+'/users', {
                 "name":lname+fname, "birth": date, "zoneCode": postcode, "addressBasic": address1,
                 "addressGroundNumber":address2, "addressDetail":address3, "id":email, "password":password, "gender":Gender
 

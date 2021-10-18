@@ -11,6 +11,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import axios from 'axios'
 import {makeStyles} from "@material-ui/core/styles";
+import app from "../resources/application.json"
 
 const useStyles = makeStyles((theme)=>({
     item :{
@@ -33,7 +34,7 @@ const Menu = () =>{
     const myInformation = () =>{
         //console.log(location.state)
         //axios.defaults.headers.common['Authorization'] = location.state.key
-        axios.get('http://54.180.117.194:8080/users/' + location.state.email)
+        axios.get(app.ip+'/users/' + location.state.email)
             .then(res=>{
                 history.push('/nalot/myinformation',{
                     "key": location.state.key,
@@ -54,7 +55,7 @@ const Menu = () =>{
     }
 
     const myRecord = () =>{
-        axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email)
+        axios.get(app.ip+'/users/histories/'+location.state.email)
             .then(res=>{
                 console.log(res.data)
                 history.push('/nalot/myrecord',{
