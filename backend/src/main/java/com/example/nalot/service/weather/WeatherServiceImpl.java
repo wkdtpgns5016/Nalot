@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -43,6 +44,11 @@ public class WeatherServiceImpl implements WeatherService {
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
+
+        TimeZone timeZone = TimeZone.getTimeZone("Asia/Seoul");
+        dateFormat.setTimeZone(timeZone);
+        hourFormat.setTimeZone(timeZone);
+        minuteFormat.setTimeZone(timeZone);
 
         int minute = Integer.parseInt(minuteFormat.format(now));
         if (minute < 30) {
