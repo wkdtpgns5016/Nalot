@@ -159,8 +159,8 @@ function recommendation2(){
     const styles = reactCSS({
         'default': {
             color: {
-                width: '36px',
-                height: '14px',
+                width: '100px',
+                height: '100px',
                 borderRadius: '2px',
                 background: `rgba(${ color.r }, ${ color.g }, ${ color.b }, ${ color.a })`,
             },
