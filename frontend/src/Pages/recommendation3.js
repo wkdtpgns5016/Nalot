@@ -7,7 +7,7 @@ import axios from 'axios'
 import Button from "@material-ui/core/Button";
 import Result from "../Components/Result";
 import Footer from "../Components/Footer";
-
+import app from "../resources/application.json"
 
 function recommendation3(){
 
@@ -16,7 +16,7 @@ function recommendation3(){
 
     const submitClicked = () =>{
         console.log(location.state)
-        axios.post('http://54.180.117.194:8080/users/histories',{
+        axios.post(app.ip+'/users/histories',{
             "userId" : location.state.email,
             "temperature" : location.state.current,
             "clothesId" : location.state.clothes_number,

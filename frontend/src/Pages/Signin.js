@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios'
 import icon from '../Images/icon.png'
+import app from "../resources/application.json"
 
 import {useHistory} from "react-router-dom"
 
@@ -74,7 +75,7 @@ function Signin() {
         let email = (document.getElementById('email').value)
         let password = (document.getElementById('password').value)
         //로컬머신 테스트로 localhost
-        axios.post('http://54.180.117.194:8080/users/login',{
+        axios.post(app.ip+'/users/login',{
             "username": email, "password": password
         },{
             headers:{
@@ -83,7 +84,7 @@ function Signin() {
             })
             .then(response=>{
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.message}`
-                axios.get('http://54.180.117.194:8080/users/'+email)
+                axios.get(app.ip+'/users/'+email)
                     .then(res=>{
                         //console.log(res.data)
                         console.log(email)

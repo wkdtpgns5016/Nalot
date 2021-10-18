@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import axios from "axios";
 import {useHistory, useLocation} from "react-router-dom";
 import {CircularProgress} from "@material-ui/core";
+import app from "../resources/application.json"
 
 const kakaomap = () =>{
     const {kakao} = window;
@@ -11,7 +12,7 @@ const kakaomap = () =>{
     let data;
 
     useEffect(()=>{
-        axios.get('http://54.180.117.194:8080/weathers/forecasts')
+        axios.get(app.ip+'/weathers/forecasts')
             .then(res=>{
                 setLoading(false)
                 let container = document.getElementById('map');
@@ -129,7 +130,7 @@ const kakaomap = () =>{
                     overlay.setMap(map)
                     kakao.maps.event.addListener(marker, 'click', function(){
                         infowindow.open(map, marker)
-                        axios.post('http://54.180.117.194:8080/weathers/forecasts',{
+                        axios.post(app.ip+'/weathers/forecasts',{
                             "location" : marker.getTitle()
 
                         }, {
@@ -141,7 +142,7 @@ const kakaomap = () =>{
                         }).then(response=>{
                             console.log(response.data.baseDate)
 
-                            axios.post('http://54.180.117.194:8080/clothes/recommendations',{
+                            axios.post(app.ip+'/clothes/recommendations',{
                                 "id":null, "temperature":response.data.temperature, "userId":null,
                                 "baseDate":null, "baseTime":null
                             },{

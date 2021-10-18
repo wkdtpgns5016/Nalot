@@ -11,6 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Pagination from "../Components/Pagination";
 import {paginate} from "../Components/paginate";
 import Footer from "../Components/Footer";
+import app from "../resources/application.json"
 
 function myRecord() {
     let data;
@@ -36,7 +37,7 @@ function myRecord() {
 
     function clicked(e) {
         const id = e.currentTarget.id
-        axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email+'/'+e.currentTarget.id)
+        axios.get(app.ip+'/users/histories/'+location.state.email+'/'+e.currentTarget.id)
             .then(res=>{
                 console.log(res.data)
                 console.log(id)

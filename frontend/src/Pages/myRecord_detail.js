@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import {ListItem, ListItemText, Typography} from "@material-ui/core";
 import List from "@material-ui/core/List";
 import Footer from "../Components/Footer";
+import app from "../resources/application.json"
 
 function myRecord_detail(){
     const location = useLocation()
@@ -26,10 +27,10 @@ function myRecord_detail(){
 
 
     const deleteClicked=()=>{
-        axios.delete('http://54.180.117.194:8080/users/histories/'+location.state.email+'/'+location.state.value)
+        axios.delete(app.ip+'/users/histories/'+location.state.email+'/'+location.state.value)
             .then(res=>{
                 alert(res.data.message)
-                axios.get('http://54.180.117.194:8080/users/histories/'+location.state.email)
+                axios.get(app.ip+'/users/histories/'+location.state.email)
                     .then(response=>{
                         console.log(response.data)
                         history.push('/nalot/myrecord',{
