@@ -138,7 +138,7 @@ function recommendation(){
 
                     }}
                 >
-                    추천 의상은 아래와 같습니다
+                    <h2>추천 의상은 아래와 같습니다</h2>
                     <div
                     >
                         {renderData()}
