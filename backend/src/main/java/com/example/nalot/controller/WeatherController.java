@@ -84,13 +84,16 @@ public class WeatherController {
         Dataset<Row> df = weatherService.getWeatherDataset();
         return weatherService.refineDataSet(df);
 
-        return df;
     }
+
     @EventListener(ApplicationReadyEvent.class)
     public Dataset<Row> getLocationDataset(){
         Dataset<Row> df = weatherService.getWeatherDataset();
-        Dataset<Row> ds = weatherService.getLocationDataset(df);
+        Dataset<Row> ds =  weatherService.refineDataSet(df);
+        Dataset<Row> ds2 = weatherService.getLocationDataset(ds);
 
-        return ds;
+        ds2.sort(ds.col("date").desc()).show();
+
+        return ds2;
     }
 }

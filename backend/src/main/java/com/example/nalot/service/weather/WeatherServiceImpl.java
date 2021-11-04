@@ -72,12 +72,6 @@ public class WeatherServiceImpl implements WeatherService {
             .config("spark.some.config.option", "some-value")
             .getOrCreate();
 
-    SparkSession spark = SparkSession
-            .builder()
-            .appName("Java Spark SQL basic example")
-            .config("spark.some.config.option", "some-value")
-            .getOrCreate();
-
     @Override
     public ArrayList<String> setDateNow() {
         ArrayList<String> dateNow = new ArrayList<>();
@@ -224,16 +218,14 @@ public class WeatherServiceImpl implements WeatherService {
     }
     @Override
     public Dataset<Row> getLocationDataset(Dataset<Row> ds){
-        List<LocationDto> list = locationDao.selectLocationList();
-        for (LocationDto location : list){
-            //System.out.println(location.getLocationLevel1());
 
-            Dataset<Row> avg = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day", "month").agg(avg("value location:91_78 Start : 20170801 "),
-                    min("value location:91_78 Start : 20170801 "), max("value location:91_78 Start : 20170801 "));
-            avg.show();
-            //Dataset<Row> min = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day").min("value location:91_78 Start : 20170801 ");
-        }
-        return null;
+
+        Dataset<Row> avg = ds.groupBy("date", "location").agg(avg("value").alias("avg"),
+                min("value").alias("min"), max("value").alias("min"));
+
+        avg.show();
+
+        return avg;
     }
 
 }
