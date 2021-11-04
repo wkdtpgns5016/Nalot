@@ -36,17 +36,11 @@ class WeatherServiceImplTest {
 
     @Test
     void getWeatherForecast() {
-        //given
-        String date = "20211004";
-        String time = "2000";
-        String nx = "60";
-        String ny = "127";
-
-        //when
-        WeatherApiResponse.Items result = weatherService.getWeatherForecast(date, time, nx, ny);
-
-        //then
-        assertThat(result).isNotNull();
+        /**
+         *
+         * 외부 문서 및 API 이용 메소드는 단위 테스트가 아닌 별도 통합 테스트를 진행
+         *
+         * */
     }
 
     @Test

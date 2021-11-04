@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,9 @@ class UserServiceImplTest {
 
     @Mock
     WeatherServiceImpl weatherService;
+
+    @Mock
+    PasswordEncoder passwordEncoder;
 
     @InjectMocks
     UserServiceImpl userService;
@@ -74,10 +78,18 @@ class UserServiceImplTest {
     @Test
     void insertUserInfo() {
         //given
-        String userId = "test1";
         UserDto user1 = new UserDto();
-        user1.setId(userId);
+        user1.setId("test3");
+        user1.setPassword("1234");
+        user1.setName("홍길동");
+        user1.setZoneCode("12345");
+        user1.setAddressDetail("AddressDetail");
+        user1.setAddressGroundNumber("AddressGroundNumber");
+        user1.setAddressBasic("AddressBasic");
+        user1.setBirth(new Timestamp(System.currentTimeMillis()));
+        user1.setGender("M");
 
+        given(passwordEncoder.encode(user1.getPassword())).willReturn("IncodeTestPassword");
         given(userDao.insertUserInfo(user1)).willReturn(1);
 
         //when
@@ -90,10 +102,19 @@ class UserServiceImplTest {
     @Test
     void updateUserInfo() {
         //given
-        String userId = "test1";
+        String userId = "test3";
         UserDto user1 = new UserDto();
         user1.setId(userId);
+        user1.setPassword("1234");
+        user1.setName("김철수");
+        user1.setZoneCode("12345");
+        user1.setAddressDetail("AddressDetail");
+        user1.setAddressGroundNumber("AddressGroundNumber");
+        user1.setAddressBasic("AddressBasic");
+        user1.setBirth(new Timestamp(System.currentTimeMillis()));
+        user1.setGender("M");
 
+        given(passwordEncoder.encode(user1.getPassword())).willReturn("IncodeTestPassword");
         given(userDao.updateUserInfo(userId, user1)).willReturn(1);
 
         //when
@@ -106,7 +127,7 @@ class UserServiceImplTest {
     @Test
     void deleteUserInfo() {
         //given
-        String userId = "test1";
+        String userId = "test3";
 
         given(userDao.deleteUserInfo(userId)).willReturn(1);
 
