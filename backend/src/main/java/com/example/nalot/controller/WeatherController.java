@@ -76,4 +76,11 @@ public class WeatherController {
 
         return df;
     }
+    @EventListener(ApplicationReadyEvent.class)
+    public Dataset<Row> getLocationDataset(){
+        Dataset<Row> df = weatherService.getWeatherDataset();
+        Dataset<Row> ds = weatherService.getLocationDataset(df);
+
+        return ds;
+    }
 }
