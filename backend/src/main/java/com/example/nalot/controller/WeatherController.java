@@ -3,7 +3,6 @@ package com.example.nalot.controller;
 import com.example.nalot.model.weather.*;
 import com.example.nalot.service.weather.LocationService;
 import com.example.nalot.service.weather.WeatherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +10,8 @@ import org.apache.spark.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.spark.sql.functions.*;
 
 
 @RestController
@@ -73,7 +74,13 @@ public class WeatherController {
     public Dataset<Row> getWeatherDataset() {
         Dataset<Row> df = weatherService.getWeatherDataset();
         df.printSchema();
-
         return df;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    //@GetMapping("/refine")
+    public Dataset<Row> refineDataSet() {
+        Dataset<Row> df = weatherService.getWeatherDataset();
+        return weatherService.refineDataSet(df);
     }
 }

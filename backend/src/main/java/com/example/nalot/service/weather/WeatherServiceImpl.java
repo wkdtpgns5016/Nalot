@@ -1,10 +1,7 @@
 package com.example.nalot.service.weather;
 
 import com.example.nalot.dao.WeatherDao;
-import com.example.nalot.model.weather.WeatherApi;
-import com.example.nalot.model.weather.WeatherApiResponse;
-import com.example.nalot.model.weather.WeatherDto;
-import com.example.nalot.model.weather.WeatherForecast;
+import com.example.nalot.model.weather.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,6 +9,8 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -47,6 +46,10 @@ import org.apache.spark.sql.Row;
 // $example off:schema_merging$
 // $example off:basic_parquet_example$
 import org.apache.spark.sql.SparkSession;
+
+import static org.apache.spark.sql.functions.col;
+import static org.apache.spark.sql.functions.expr;
+
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
@@ -194,5 +197,19 @@ public class WeatherServiceImpl implements WeatherService {
                 .load("backend/src/main/resources/data/temperature1.csv");
 
         return peopleDFCsv;
+    }
+
+
+    @Override
+    public Dataset<Row> refineDataSet(Dataset<Row> df) {
+
+        Dataset<Row> df2 = df.withColumn(" format: day",col(" format: day").cast("int"))
+                .withColumnRenamed(" format: day","day")
+                .withColumnRenamed("value location:91_78 Start : 20170801 ","value")
+                .withColumn("month",expr("month*100+day"))
+                .withColumnRenamed("month","date")
+                .drop("day");
+
+        return df2;
     }
 }
