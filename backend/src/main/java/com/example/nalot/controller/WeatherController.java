@@ -98,11 +98,28 @@ public class WeatherController {
         return ds2;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
     public Dataset<Row> refineClothesDataset(){
         Dataset<Row> df = weatherService.getClothesDataset();
         Dataset<Row> ds = weatherService.refineClothesData(df);
 
         return ds;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public Dataset<Row> joinDataSet(){
+        Dataset<Row> df = weatherService.getWeatherDataset();
+        Dataset<Row> ds =  weatherService.refineDataSet(df);
+        Dataset<Row> temp = weatherService.getLocationDataset(ds);
+        //temp.sort(ds.col("date").desc()).show();
+
+        Dataset<Row> df2 = weatherService.getClothesDataset();
+        Dataset<Row> clothes = weatherService.refineClothesData(df2);
+
+        temp.show();
+        clothes.show();
+        Dataset<Row> result = weatherService.joinDataSet(temp,clothes);
+
+        return result;
     }
 }

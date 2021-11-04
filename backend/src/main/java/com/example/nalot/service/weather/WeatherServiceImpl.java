@@ -223,7 +223,6 @@ public class WeatherServiceImpl implements WeatherService {
         Dataset<Row> avg = ds.groupBy("date", "location").agg(avg("value").alias("avg"),
                 min("value").alias("min"), max("value").alias("min"));
 
-        avg.show();
 
         return avg;
     }
@@ -246,8 +245,16 @@ public class WeatherServiceImpl implements WeatherService {
                 .withColumnRenamed("옷종류","clothes")
                 .withColumn("date", expr("regexp_replace(date,\"-\",\"\")"))
                 .withColumn("date",col("date").cast("int"));
-        df2.printSchema();
         return df2;
+    }
+
+    @Override
+    public Dataset<Row> joinDataSet(Dataset<Row> a, Dataset<Row> b) {
+        Dataset<Row> df = a.join(b,"date");
+        df.show();
+        System.out.println(df.count());
+
+        return df;
     }
 
 }
