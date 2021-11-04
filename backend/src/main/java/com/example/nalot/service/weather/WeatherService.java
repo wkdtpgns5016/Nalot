@@ -16,10 +16,5 @@ public interface WeatherService {
     public int insertWeatherInfo(WeatherDto weatherDto);
     public int deleteWeatherInfo(String weatherId);
     public int deleteWeatherListByUserId(String userId);
-    public Dataset<Row> getWeatherDataset();
-    public Dataset<Row> refineDataSet(Dataset<Row> df);
-    public Dataset<Row> getLocationDataset(Dataset<Row> ds);
-    public Dataset<Row> getClothesDataset();
-    public Dataset<Row> refineClothesData(Dataset<Row> df);
-    public Dataset<Row> joinDataSet(Dataset<Row> a, Dataset<Row> b);
+
 }
