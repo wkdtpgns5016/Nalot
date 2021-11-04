@@ -8,6 +8,9 @@ import com.example.nalot.model.weather.WeatherForecast;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -21,6 +24,29 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+// $example on:schema_merging$
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+// $example off:schema_merging$
+import java.util.Properties;
+
+// $example on:basic_parquet_example$
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.sql.Encoders;
+// $example on:schema_merging$
+// $example on:json_dataset$
+// $example on:csv_dataset$
+// $example on:text_dataset$
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+// $example off:text_dataset$
+// $example off:csv_dataset$
+// $example off:json_dataset$
+// $example off:schema_merging$
+// $example off:basic_parquet_example$
+import org.apache.spark.sql.SparkSession;
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
@@ -32,6 +58,12 @@ public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherDao weatherDao;
     public WeatherServiceImpl(WeatherDao weatherDao) { this.weatherDao = weatherDao; }
+
+    SparkSession spark = SparkSession
+            .builder()
+            .appName("Java Spark SQL basic example")
+            .config("spark.some.config.option", "some-value")
+            .getOrCreate();
 
     @Override
     public ArrayList<String> setDateNow() {
@@ -151,5 +183,16 @@ public class WeatherServiceImpl implements WeatherService {
         else if(fcst >= 100 && fcst < 1000) return '0' + Integer.toString(fcst);
         else if(fcst >= 1000 && fcst <= 2300) return Integer.toString(fcst);
         return null;
+    }
+
+    @Override
+    public Dataset<Row> getWeatherDataset() {
+        Dataset<Row> peopleDFCsv = spark.read().format("csv")
+                .option("sep", ",")
+                .option("inferSchema", "true")
+                .option("header", "true")
+                .load("backend/src/main/resources/data/temperature1.csv");
+
+        return peopleDFCsv;
     }
 }

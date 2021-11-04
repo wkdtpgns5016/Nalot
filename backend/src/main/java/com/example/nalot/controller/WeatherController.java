@@ -4,7 +4,10 @@ import com.example.nalot.model.weather.*;
 import com.example.nalot.service.weather.LocationService;
 import com.example.nalot.service.weather.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
+import org.apache.spark.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,5 +66,14 @@ public class WeatherController {
                 location.getGridY());
 
         return weatherService.setWeatherDto(items,dateNow.get(0),dateNow.get(1));
+    }
+
+    //@EventListener(ApplicationReadyEvent.class)
+    @GetMapping("/data")
+    public Dataset<Row> getWeatherDataset() {
+        Dataset<Row> df = weatherService.getWeatherDataset();
+        df.printSchema();
+
+        return df;
     }
 }

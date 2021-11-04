@@ -3,6 +3,8 @@ package com.example.nalot;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -29,4 +31,10 @@ public class HelloController {
         Map<String, Long> wordCounts = words1.countByValue();
         return wordCounts;
     }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public void test() {
+        System.out.println("ttttttttttttttt");
+    }
+
 }
