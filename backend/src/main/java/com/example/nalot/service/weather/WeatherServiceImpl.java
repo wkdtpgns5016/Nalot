@@ -6,8 +6,13 @@ import com.example.nalot.model.weather.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.sql.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.apache.spark.sql.types.DataTypes;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,10 +26,16 @@ import java.util.Date;
 import java.util.TimeZone;
 
 // $example on:schema_merging$
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 // $example off:schema_merging$
+import java.util.Properties;
 
 // $example on:basic_parquet_example$
+import org.apache.spark.api.java.function.MapFunction;
+import org.apache.spark.sql.Encoders;
 // $example on:schema_merging$
 // $example on:json_dataset$
 // $example on:csv_dataset$
@@ -54,6 +65,12 @@ public class WeatherServiceImpl implements WeatherService {
     public WeatherServiceImpl(WeatherDao weatherDao, LocationDao locationDao) { this.weatherDao = weatherDao;
         this.locationDao = locationDao;
     }
+
+    SparkSession spark = SparkSession
+            .builder()
+            .appName("Java Spark SQL basic example")
+            .config("spark.some.config.option", "some-value")
+            .getOrCreate();
 
     SparkSession spark = SparkSession
             .builder()
@@ -192,6 +209,19 @@ public class WeatherServiceImpl implements WeatherService {
         return peopleDFCsv;
     }
 
+
+    @Override
+    public Dataset<Row> refineDataSet(Dataset<Row> df) {
+
+        Dataset<Row> df2 = df.withColumn(" format: day",col(" format: day").cast("int"))
+                .withColumnRenamed(" format: day","day")
+                .withColumnRenamed("value location:91_78 Start : 20170801 ","value")
+                .withColumn("month",expr("month*100+day"))
+                .withColumnRenamed("month","date")
+                .drop("day");
+
+        return df2;
+    }
     @Override
     public Dataset<Row> getLocationDataset(Dataset<Row> ds){
         List<LocationDto> list = locationDao.selectLocationList();

@@ -17,5 +17,6 @@ public interface WeatherService {
     public int deleteWeatherInfo(String weatherId);
     public int deleteWeatherListByUserId(String userId);
     public Dataset<Row> getWeatherDataset();
+    public Dataset<Row> refineDataSet(Dataset<Row> df);
     public Dataset<Row> getLocationDataset(Dataset<Row> ds);
 }
