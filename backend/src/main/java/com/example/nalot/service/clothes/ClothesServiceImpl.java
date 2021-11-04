@@ -4,6 +4,8 @@ import com.example.nalot.dao.ClothesDao;
 import com.example.nalot.model.clothes.ClothesDto;
 import com.example.nalot.model.weather.WeatherDto;
 import com.example.nalot.service.weather.WeatherService;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
 import org.springframework.stereotype.Service;
 import java.util.List;
 

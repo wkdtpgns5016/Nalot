@@ -216,9 +216,9 @@ public class WeatherServiceImpl implements WeatherService {
 
         return df2;
     }
+
     @Override
     public Dataset<Row> getLocationDataset(Dataset<Row> ds){
-
 
         Dataset<Row> avg = ds.groupBy("date", "location").agg(avg("value").alias("avg"),
                 min("value").alias("min"), max("value").alias("min"));
@@ -226,6 +226,28 @@ public class WeatherServiceImpl implements WeatherService {
         avg.show();
 
         return avg;
+    }
+
+    @Override
+    public Dataset<Row> getClothesDataset() {
+        Dataset<Row> peopleDFCsv = spark.read().format("csv")
+                .option("sep", ",")
+                .option("inferSchema", "true")
+                .option("header", "true")
+                .load("backend/src/main/resources/data/clothes.csv");
+
+        return peopleDFCsv;
+    }
+
+    @Override
+    public Dataset<Row> refineClothesData(Dataset<Row> df) {
+        Dataset<Row> df2 = df.withColumnRenamed("날짜","date")
+                .withColumnRenamed("검색횟수","search")
+                .withColumnRenamed("옷종류","clothes")
+                .withColumn("date", expr("regexp_replace(date,\"-\",\"\")"))
+                .withColumn("date",col("date").cast("int"));
+        df2.printSchema();
+        return df2;
     }
 
 }
