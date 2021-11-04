@@ -4,6 +4,7 @@ import com.example.nalot.model.weather.*;
 import com.example.nalot.service.weather.LocationService;
 import com.example.nalot.service.weather.WeatherService;
 
+import org.apache.spark.internal.config.R;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
@@ -86,7 +87,7 @@ public class WeatherController {
 
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
     public Dataset<Row> getLocationDataset(){
         Dataset<Row> df = weatherService.getWeatherDataset();
         Dataset<Row> ds =  weatherService.refineDataSet(df);
@@ -95,5 +96,13 @@ public class WeatherController {
         ds2.sort(ds.col("date").desc()).show();
 
         return ds2;
+    }
+
+    @EventListener(ApplicationReadyEvent.class)
+    public Dataset<Row> refineClothesDataset(){
+        Dataset<Row> df = weatherService.getClothesDataset();
+        Dataset<Row> ds = weatherService.refineClothesData(df);
+
+        return ds;
     }
 }
