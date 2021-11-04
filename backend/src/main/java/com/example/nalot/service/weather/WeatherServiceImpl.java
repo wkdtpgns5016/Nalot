@@ -1,5 +1,6 @@
 package com.example.nalot.service.weather;
 
+import com.example.nalot.dao.LocationDao;
 import com.example.nalot.dao.WeatherDao;
 import com.example.nalot.model.weather.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.sql.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.spark.sql.types.DataTypes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -47,8 +49,7 @@ import org.apache.spark.sql.Row;
 // $example off:basic_parquet_example$
 import org.apache.spark.sql.SparkSession;
 
-import static org.apache.spark.sql.functions.col;
-import static org.apache.spark.sql.functions.expr;
+import static org.apache.spark.sql.functions.*;
 
 @Service
 public class WeatherServiceImpl implements WeatherService {
@@ -60,7 +61,16 @@ public class WeatherServiceImpl implements WeatherService {
     private String serviceKey;
 
     private final WeatherDao weatherDao;
-    public WeatherServiceImpl(WeatherDao weatherDao) { this.weatherDao = weatherDao; }
+    private final LocationDao locationDao;
+    public WeatherServiceImpl(WeatherDao weatherDao, LocationDao locationDao) { this.weatherDao = weatherDao;
+        this.locationDao = locationDao;
+    }
+
+    SparkSession spark = SparkSession
+            .builder()
+            .appName("Java Spark SQL basic example")
+            .config("spark.some.config.option", "some-value")
+            .getOrCreate();
 
     SparkSession spark = SparkSession
             .builder()
@@ -212,4 +222,18 @@ public class WeatherServiceImpl implements WeatherService {
 
         return df2;
     }
+    @Override
+    public Dataset<Row> getLocationDataset(Dataset<Row> ds){
+        List<LocationDto> list = locationDao.selectLocationList();
+        for (LocationDto location : list){
+            //System.out.println(location.getLocationLevel1());
+
+            Dataset<Row> avg = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day", "month").agg(avg("value location:91_78 Start : 20170801 "),
+                    min("value location:91_78 Start : 20170801 "), max("value location:91_78 Start : 20170801 "));
+            avg.show();
+            //Dataset<Row> min = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day").min("value location:91_78 Start : 20170801 ");
+        }
+        return null;
+    }
+
 }

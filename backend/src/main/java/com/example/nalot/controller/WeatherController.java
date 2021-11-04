@@ -3,6 +3,7 @@ package com.example.nalot.controller;
 import com.example.nalot.model.weather.*;
 import com.example.nalot.service.weather.LocationService;
 import com.example.nalot.service.weather.WeatherService;
+
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
@@ -77,10 +78,19 @@ public class WeatherController {
         return df;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    //@GetMapping("/refine")
+    //@EventListener(ApplicationReadyEvent.class)
+    @GetMapping("/refine")
     public Dataset<Row> refineDataSet() {
         Dataset<Row> df = weatherService.getWeatherDataset();
         return weatherService.refineDataSet(df);
+
+        return df;
+    }
+    @EventListener(ApplicationReadyEvent.class)
+    public Dataset<Row> getLocationDataset(){
+        Dataset<Row> df = weatherService.getWeatherDataset();
+        Dataset<Row> ds = weatherService.getLocationDataset(df);
+
+        return ds;
     }
 }
