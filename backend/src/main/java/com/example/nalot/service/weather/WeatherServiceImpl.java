@@ -1,16 +1,12 @@
 package com.example.nalot.service.weather;
 
+import com.example.nalot.dao.LocationDao;
 import com.example.nalot.dao.WeatherDao;
-import com.example.nalot.model.weather.WeatherApi;
-import com.example.nalot.model.weather.WeatherApiResponse;
-import com.example.nalot.model.weather.WeatherDto;
-import com.example.nalot.model.weather.WeatherForecast;
+import com.example.nalot.model.weather.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.sql.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.spark.sql.types.DataTypes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
@@ -25,16 +21,10 @@ import java.util.Date;
 import java.util.TimeZone;
 
 // $example on:schema_merging$
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 // $example off:schema_merging$
-import java.util.Properties;
 
 // $example on:basic_parquet_example$
-import org.apache.spark.api.java.function.MapFunction;
-import org.apache.spark.sql.Encoders;
 // $example on:schema_merging$
 // $example on:json_dataset$
 // $example on:csv_dataset$
@@ -47,6 +37,9 @@ import org.apache.spark.sql.Row;
 // $example off:schema_merging$
 // $example off:basic_parquet_example$
 import org.apache.spark.sql.SparkSession;
+
+import static org.apache.spark.sql.functions.*;
+
 @Service
 public class WeatherServiceImpl implements WeatherService {
 
@@ -57,7 +50,10 @@ public class WeatherServiceImpl implements WeatherService {
     private String serviceKey;
 
     private final WeatherDao weatherDao;
-    public WeatherServiceImpl(WeatherDao weatherDao) { this.weatherDao = weatherDao; }
+    private final LocationDao locationDao;
+    public WeatherServiceImpl(WeatherDao weatherDao, LocationDao locationDao) { this.weatherDao = weatherDao;
+        this.locationDao = locationDao;
+    }
 
     SparkSession spark = SparkSession
             .builder()
@@ -195,4 +191,19 @@ public class WeatherServiceImpl implements WeatherService {
 
         return peopleDFCsv;
     }
+
+    @Override
+    public Dataset<Row> getLocationDataset(Dataset<Row> ds){
+        List<LocationDto> list = locationDao.selectLocationList();
+        for (LocationDto location : list){
+            //System.out.println(location.getLocationLevel1());
+
+            Dataset<Row> avg = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day", "month").agg(avg("value location:91_78 Start : 20170801 "),
+                    min("value location:91_78 Start : 20170801 "), max("value location:91_78 Start : 20170801 "));
+            avg.show();
+            //Dataset<Row> min = ds.filter("location=='"+ location.getLocationLevel1()+"'").groupBy(" format: day").min("value location:91_78 Start : 20170801 ");
+        }
+        return null;
+    }
+
 }
