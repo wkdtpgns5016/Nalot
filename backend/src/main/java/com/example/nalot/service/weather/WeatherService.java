@@ -2,6 +2,9 @@ package com.example.nalot.service.weather;
 
 import com.example.nalot.model.weather.WeatherApiResponse;
 import com.example.nalot.model.weather.WeatherDto;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.Row;
+import org.apache.spark.sql.SparkSession;
 
 import java.util.ArrayList;
 
@@ -13,4 +16,5 @@ public interface WeatherService {
     public int insertWeatherInfo(WeatherDto weatherDto);
     public int deleteWeatherInfo(String weatherId);
     public int deleteWeatherListByUserId(String userId);
+    public Dataset<Row> getWeatherDataset();
 }
