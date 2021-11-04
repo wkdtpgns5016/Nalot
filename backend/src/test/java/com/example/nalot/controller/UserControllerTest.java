@@ -217,7 +217,7 @@ class UserControllerTest {
     void getUserHistoryResponseByUserHistoryId() throws Exception {
         //given
         String userId = "test";
-        int userHistoryId = 2;
+        int userHistoryId = 23;
         String content = objectMapper.writeValueAsString(new JwtRequest("test", "1234"));
         ResultActions actions = mockMvc.perform(post("/users/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -245,7 +245,7 @@ class UserControllerTest {
         String token = objectMapper.readTree(actions.andReturn().getResponse().getContentAsString()).get("message").asText();
 
         UserHistoryRequest request = new UserHistoryRequest();
-        request.setUserId("test");
+        request.setUserId("test2");
         request.setTemperature(26);
         request.setClothesId(2);
         request.setColor("#1245e8");
@@ -267,8 +267,8 @@ class UserControllerTest {
     @Test
     void removeUserHistory() throws Exception {
         //given
-        String userId = "test";
-        int userHistoryId = 8;
+        String userId = "test2";
+        int userHistoryId = 28;
         String content = objectMapper.writeValueAsString(new JwtRequest("test", "1234"));
         ResultActions actions = mockMvc.perform(post("/users/login")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -288,7 +288,7 @@ class UserControllerTest {
     @Test
     void removeUserHistoryByUserId() throws Exception {
         //given
-        String userId = "test";
+        String userId = "test3";
         String content = objectMapper.writeValueAsString(new JwtRequest("test", "1234"));
         ResultActions actions = mockMvc.perform(post("/users/login")
                 .contentType(MediaType.APPLICATION_JSON)
