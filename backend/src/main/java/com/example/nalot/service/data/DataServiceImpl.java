@@ -24,7 +24,8 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/temperature1.csv");
+                .load("backend/src/main/resources/data/temperature1.csv")
+                .filter(expr("hour>0"));
 
         return peopleDFCsv;
     }
@@ -38,7 +39,6 @@ public class DataServiceImpl implements DataService{
                 .withColumnRenamed("value location:91_78 Start : 20170801 ","value")
                 .withColumn("month",expr("month*100+day"))
                 .withColumnRenamed("month","date")
-                .drop("day")
                 .groupBy("date", "location").agg(avg("value").alias("avg"),
                 min("value").alias("min"), max("value").alias("max"));
 
@@ -83,8 +83,11 @@ public class DataServiceImpl implements DataService{
         return null;
     }
 
+    @Override
     public Dataset<Row> refineTrainData(Dataset<Row> result) {
 
+        result.coalesce(1).write().format("csv").option("header", "true").
+                save("backend/src/main/resources/data/data.csv");
         return null;
     }
 
