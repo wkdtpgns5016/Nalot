@@ -38,7 +38,9 @@ public class DataServiceImpl implements DataService{
                 .withColumnRenamed("value location:91_78 Start : 20170801 ","value")
                 .withColumn("month",expr("month*100+day"))
                 .withColumnRenamed("month","date")
-                .drop("day");
+                .drop("day")
+                .groupBy("date", "location").agg(avg("value").alias("avg"),
+                min("value").alias("min"), max("value").alias("max"));
 
         return df2;
     }
@@ -47,7 +49,7 @@ public class DataServiceImpl implements DataService{
     public Dataset<Row> getLocationDataset(Dataset<Row> ds){
 
         Dataset<Row> avg = ds.groupBy("date", "location").agg(avg("value").alias("avg"),
-                min("value").alias("min"), max("value").alias("min"));
+                min("value").alias("min"), max("value").alias("max"));
 
 
         return avg;
@@ -74,13 +76,16 @@ public class DataServiceImpl implements DataService{
         return df2;
     }
 
-    @Override
-    public Dataset<Row> joinDataSet(Dataset<Row> a, Dataset<Row> b) {
-        Dataset<Row> df = a.join(b,"date");
-        df.show();
-        System.out.println(df.count());
 
-        return df;
+    public Dataset<Row> getAvgSearch(Dataset<Row> a) {
+        Dataset<Row> df = a.groupBy(col("clothes")).avg("search");
+        df.show();
+        return null;
+    }
+
+    public Dataset<Row> refineTrainData(Dataset<Row> result) {
+
+        return null;
     }
 
 }
