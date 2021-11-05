@@ -5,6 +5,8 @@ import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.LocationService;
 import org.apache.spark.ml.Pipeline;
 import org.apache.spark.ml.PipelineStage;
+import org.apache.spark.ml.classification.LogisticRegression;
+import org.apache.spark.ml.classification.LogisticRegressionModel;
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator;
 import org.apache.spark.ml.feature.OneHotEncoderModel;
 import org.apache.spark.ml.feature.StringIndexer;
