@@ -1,5 +1,6 @@
 package com.example.nalot.controller;
 
+import com.example.nalot.model.data.TrendData;
 import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.LocationService;
 import org.apache.spark.ml.Pipeline;
@@ -70,120 +71,20 @@ public class DataController {
     public Dataset<Row> refineTrainData() {
         Dataset<Row> result = this.joinDataSet();
 
-        Dataset<Row> avg = result.groupBy(col("clothes")).agg(avg("search").alias("avg2"));
+        Dataset<Row> processed = dataService.refineTrainData(result);
 
-        Dataset<Row> join = result.join(avg,"clothes");
-        Dataset<Row> df5 = join.withColumn("search",col("search").cast("double")).filter("search > avg2");
+        LinearRegressionModel model = dataService.makeTrainModel(processed);
 
-        Dataset<Row> midhigh = df5.groupBy(col("clothes")).agg(avg("search").alias("midhigh"));
+        Dataset<TrendData> trend = dataService.addDataSet("20211106","서울특별시",(float) 15.0);
+        trend.show();
+       //Dataset<Row> prediction = dataService.getPrediction(model,);
 
-        Dataset<Row> df57 = join.withColumn("search",col("search").cast("double")).filter("search < avg2");
-
-        Dataset<Row> midlow = df57.groupBy(col("clothes")).agg(avg("search").alias("midlow"));
-
-        Dataset<Row> df58 = join.join(midhigh,"clothes").join(midlow,"clothes");
-
-
-        Dataset<Row> trend = df58.select(col("clothes"),col("date"),col("location"),
-                                col("avg"), col("search"),
-                                when(expr("search > midhigh"),3)
-                                .when(expr("search > avg2 AND search <= midhigh"),2)
-                                .when(expr("search > midlow  AND search <= avg2"),1)
-                                .when(expr("search < midlow"),0).cast("double").alias("trend"));
-
-
-        Dataset<Row> df52 = trend.withColumn("month",df5.col("date").substr(5,2).cast("int"))
-                .select(col("clothes"), col("date"), col("month"), col("location"), col("avg")
-                        , col("search") , col("trend")
-                        ,when(expr("month == 12 OR month == 1 OR month == 2"),"winter")
-                                .when(expr("month == 3 OR month == 4 OR month == 5"),"spring")
-                                .when(expr("month == 6 OR month == 7 OR month == 8"),"summer")
-                                .when(expr("month == 9 OR month == 10 OR month == 11"),"fall").alias("season"));
-        //x-평균 / 표준편차
-        //평균 -> 일평균의 평균
-        Dataset<Row> dayavgavg = df52.select(avg(col("avg")));
-
-        //dayavgavg.show();
-
-        //표준편차 공식 -> 일평균의 표준편차
-        Dataset<Row> stddev = df52.select(stddev(col("avg")));
-
-        //stddev.show();
-
-        //x-평균 / 표준편차 적용 -> Z정규화
-
-        //column 생성
-        Dataset<Row> zscore = df52.withColumn("dayavgavg", lit(dayavgavg.collectAsList().get(0).get(0)))
-                                .withColumn("stddev", lit(stddev.collectAsList().get(0).get(0)))
-                                .withColumn("zscore", expr("(avg-dayavgavg)/stddev"));
-        //zscore.show();
-
-        Dataset<Row> processed = zscore.withColumnRenamed("avg", "value")
-                .drop("dayavgavg", "stddev");
-
-
-        StringIndexer stringIndexer = new StringIndexer();
-        Dataset<Row> df6 = stringIndexer.setInputCol("location")
-                .setOutputCol("locationIndex")
-                .fit(processed).transform(processed);
-
-        Dataset<Row> df67 = stringIndexer.setInputCol("clothes")
-                .setOutputCol("clothesIndex")
-                .fit(df6).transform(df6);
-
-        Dataset<Row> df68 = stringIndexer.setInputCol("season")
-                .setOutputCol("seasonIndex")
-                .fit(df67).transform(df67);
-
-
-        OneHotEncoder oneHotEncoder = new OneHotEncoder();
-
-        Dataset<Row> df7 = oneHotEncoder.setInputCol("locationIndex")
-                .setOutputCol("locationVex")
-                .fit(df68).transform(df68);
-
-        Dataset<Row> df77 = oneHotEncoder.setInputCol("clothesIndex")
-                .setOutputCol("clothesVex")
-                .fit(df7).transform(df7);
-
-        Dataset<Row> df78 = oneHotEncoder.setInputCol("seasonIndex")
-                .setOutputCol("seasonVex")
-                .fit(df77).transform(df77);
-
-        VectorAssembler vectorAssembler = new VectorAssembler();
-        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex", "zscore"})
-                .setOutputCol("feature");
-
-
-
-        Pipeline pipeline =new Pipeline();
-        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(df78).transform(df78);
-
-        Dataset<Row> finalData = df8.select("trend","feature");
-
-//        finalData.show(false);
-        Dataset<Row>[] train = finalData.randomSplit(new double[]{0.7, 0.3});
-
-
-        LinearRegression linearRegression = new LinearRegression();
-        LinearRegressionModel model =  linearRegression.setMaxIter(10)
-                .setRegParam(0.3)
-                .setLabelCol("trend")
-                .setFeaturesCol("feature")
-                .fit(train[0]);
-
-        Dataset<Row> prediction = model.transform(train[1])
-            .withColumn("prediction",bround(col("prediction")));
-
-        prediction.show();
 //
+//        double pre = dataService.getAccuracy(prediction);
 //
-//        BinaryClassificationEvaluator binaryClassificationEvaluator = new BinaryClassificationEvaluator();
-//        double pre = binaryClassificationEvaluator.setRawPredictionCol("prediction")
-//                .setLabelCol("trend")
-//                .evaluate(prediction);
-//
+//        prediction.show();
 //        System.out.println(pre*100);
         return null;
     }
+
 }
