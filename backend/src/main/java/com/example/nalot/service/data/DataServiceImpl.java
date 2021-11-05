@@ -3,6 +3,7 @@ package com.example.nalot.service.data;
 import com.example.nalot.dao.LocationDao;
 import com.example.nalot.dao.TrendDao;
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.model.weather.LocationDto;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.ml.Pipeline;
@@ -290,4 +291,18 @@ public class DataServiceImpl implements DataService{
 
     @Override
     public double getStdDev() { return trendDao.getStdDev(); }
+
+    @Override
+    public List<TrendDto> selectTrendList(){ return trendDao.selectTrendList();}
+
+    @Override
+    public Dataset<TrendDto> makeDataset(){
+        //select to list
+        List<TrendDto> selectvalue = selectTrendList();
+        //list to dataset
+        Encoder<TrendDto> encoder = Encoders.bean(TrendDto.class);
+        Dataset<TrendDto> dataset = spark.createDataset(selectvalue, encoder);
+
+        return dataset;
+    }
 }

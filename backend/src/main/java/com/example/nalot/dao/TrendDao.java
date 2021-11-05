@@ -1,5 +1,6 @@
 package com.example.nalot.dao;
 
+import com.example.nalot.model.data.TrendDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +23,10 @@ public class TrendDao {
 
     public List<String> selectClothesList() {
         return sqlSession.selectList("com.example.nalot.dao.TrendDao.selectClothesList");
+    }
+
+    public List<TrendDto> selectTrendList() {
+        return sqlSession.selectList("com.example.nalot.dao.TrendDao.selectTrendList");
     }
 
 }

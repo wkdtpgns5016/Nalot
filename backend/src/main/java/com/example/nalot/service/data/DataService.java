@@ -1,9 +1,12 @@
 package com.example.nalot.service.data;
 
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.model.data.TrendDto;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
+
+import java.util.List;
 
 public interface DataService {
     public Dataset<Row> getWeatherDataset();
@@ -18,4 +21,7 @@ public interface DataService {
     public double getAccuracy(Dataset<Row> prediction);
     public double getAverage();
     public double getStdDev();
+    public List<TrendDto> selectTrendList();
+    public Dataset<TrendDto> makeDataset();
+
 }
