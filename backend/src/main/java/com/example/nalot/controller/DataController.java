@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.xml.crypto.Data;
+
 import static org.apache.spark.sql.functions.*;
 
 
@@ -67,12 +69,10 @@ public class DataController {
     @EventListener(ApplicationReadyEvent.class)
     public Dataset<Row> refineTrainData() {
         Dataset<Row> result = this.joinDataSet();
+        //
         Dataset<Row> avg = result.groupBy(col("clothes")).agg(avg("search").alias("avg2"));
 
-        Dataset<Row> avg2 = result.groupBy(col("clothes"),col("date")).agg(avg("search").alias("avg2"));
-
         Dataset<Row> join = result.join(avg,"clothes");
-
         Dataset<Row> df5 = join.withColumn("search",col("search").cast("double")).filter("search > avg2");
 
         df5.printSchema();
@@ -83,6 +83,29 @@ public class DataController {
                                 .when(expr("month == 3 OR month == 4 OR month == 5"),"spring")
                                 .when(expr("month == 6 OR month == 7 OR month == 8"),"summer")
                                 .when(expr("month == 9 OR month == 10 OR month == 11"),"fall").alias("season"));
+        //x-평균 / 표준편차
+        //평균 -> 일평균의 평균
+        Dataset<Row> dayavgavg = df52.select(avg(col("avg")));
+
+        //dayavgavg.show();
+
+        //표준편차 공식 -> 일평균의 표준편차
+        Dataset<Row> stddev = df52.select(stddev(col("avg")));
+
+        //stddev.show();
+
+        //x-평균 / 표준편차 적용 -> Z정규화
+
+        //column 생성
+        Dataset<Row> zscore = df52.withColumn("dayavgavg", lit(dayavgavg.collectAsList().get(0).get(0)))
+                                .withColumn("stddev", lit(stddev.collectAsList().get(0).get(0)))
+                                .withColumn("zscore", expr("(avg-dayavgavg)/stddev"));
+        //zscore.show();
+
+        Dataset<Row> processed = zscore.withColumnRenamed("avg", "value")
+                .drop("dayavgavg", "stddev");
+
+        processed.show();
 
 //        StringIndexer stringIndexer = new StringIndexer();
 //        Dataset<Row> df6 = stringIndexer.setInputCol("location")
