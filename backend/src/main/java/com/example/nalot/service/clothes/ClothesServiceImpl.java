@@ -60,21 +60,19 @@ public class ClothesServiceImpl implements ClothesService {
         LinearRegressionModel model = dataService.loadLinearRegressionModel();
         Dataset<TrendDto> trend = dataService.addDataSet(date,location,temperature);
         Dataset<Row> prediction = dataService.recommendTrend(model,trend);
+        prediction.show();
 
         List<ClothesDto> list = new ArrayList<>();
-
         List<Row> clothesList = prediction.select(col("trend").cast("int"), col("prediction"))
                 .orderBy(desc("prediction")).limit(5).collectAsList();
 
-        prediction.show();
         for(Row row : clothesList){
             int id = (int)row.get(0) / 10;
 
             ClothesDto clothesDto = clothesDao.selectClothesInfo(id);
             list.add(clothesDto);
-            System.out.println(clothesDto.getName());
         }
 
-        return null;
+        return list;
     }
 }
