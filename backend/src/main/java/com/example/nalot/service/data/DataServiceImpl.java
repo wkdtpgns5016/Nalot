@@ -8,8 +8,11 @@ import com.example.nalot.model.weather.LocationDto;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.ml.Pipeline;
 import org.apache.spark.ml.PipelineStage;
+import org.apache.spark.ml.classification.LogisticRegression;
+import org.apache.spark.ml.classification.LogisticRegressionModel;
 import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator;
 import org.apache.spark.ml.feature.OneHotEncoder;
+import org.apache.spark.ml.feature.PolynomialExpansion;
 import org.apache.spark.ml.feature.StringIndexer;
 import org.apache.spark.ml.feature.VectorAssembler;
 import org.apache.spark.ml.regression.LinearRegression;
@@ -92,7 +95,7 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/clothes.csv");
+                .load("backend/src/main/resources/data/data.csv");
 
         return peopleDFCsv;
     }
@@ -189,8 +192,8 @@ public class DataServiceImpl implements DataService{
         LinearRegression linearRegression = new LinearRegression();
         LinearRegressionModel model =  linearRegression.setMaxIter(30)
                 .setRegParam(0.3)
-                .setLabelCol("trend")
-                .setFeaturesCol("feature")
+                .setLabelCol("search")
+                .setFeaturesCol("polyFeature")
                 .fit(train);
 
 
@@ -241,7 +244,7 @@ public class DataServiceImpl implements DataService{
                 .option("header", "true")
                 .load("backend/src/main/resources/data/location/location.csv");
         Dataset<Row> loc = location.withColumnRenamed("locationIndex","locationIndex2");
-        Dataset<Row> result = dataset.filter(expr("trend>=10")).join(loc,"location");
+        Dataset<Row> result = dataset.filter(expr("trend>=1000")).join(loc,"location");
         Dataset<Row> finalData = result.drop("locationIndex").withColumnRenamed("locationIndex2","locationIndex");
 
         return finalData;
@@ -249,7 +252,7 @@ public class DataServiceImpl implements DataService{
 
     @Override
     public Dataset<Row> getPrediction(LinearRegressionModel model, Dataset<Row> dataset) {
-        Dataset<Row> finalData = dataset.select("trend","feature");
+        Dataset<Row> finalData = dataset.select("search","polyFeature");
         return model.transform(finalData);
     }
 
@@ -257,7 +260,7 @@ public class DataServiceImpl implements DataService{
     public double getAccuracy(Dataset<Row> prediction) {
         BinaryClassificationEvaluator binaryClassificationEvaluator = new BinaryClassificationEvaluator();
         double accuracy = binaryClassificationEvaluator.setRawPredictionCol("prediction")
-                .setLabelCol("trend")
+                .setLabelCol("search")
                 .evaluate(prediction);
 
         return accuracy;
@@ -278,7 +281,7 @@ public class DataServiceImpl implements DataService{
         int i = 1;
 
         for(String clothes : list) {
-            int j = 10 * i;
+            int j = 1000 * i;
             i++;
             TrendDto trendData = new TrendDto();
             trendData.setClothes(clothes);
@@ -286,7 +289,7 @@ public class DataServiceImpl implements DataService{
             trendData.setValue(value);
             trendData.setMonth(month);
             trendData.setZscore(zScore);
-            trendData.setTrend(j);
+            trendData.setSearch(j);
             trendData.setDate(date);
 
             if(month == 12 || month == 1 || month == 2) { trendData.setSeason("winter"); }
@@ -313,18 +316,18 @@ public class DataServiceImpl implements DataService{
     @Override
     public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendDto> trend) {
         Dataset<Row> dataset = trend.select("*");
-        Dataset<Row> locationVex = loadDataset("backend/src/main/resources/data/locationVex");
-        Dataset<Row> clothesVex = loadDataset("backend/src/main/resources/data/clothesVex");
-        Dataset<Row> seasonVex = loadDataset("backend/src/main/resources/data/seasonVex");
+        Dataset<Row> locationVex = loadDataset("backend/src/main/resources/data/locationVex2");
+        Dataset<Row> clothesVex = loadDataset("backend/src/main/resources/data/clothesVex2");
+        Dataset<Row> seasonVex = loadDataset("backend/src/main/resources/data/seasonVex2");
 
         Dataset<Row> test = dataset.join(locationVex,"location")
                 .join(clothesVex,"clothes")
                 .join(seasonVex,"season");
-        test.show();
 
         VectorAssembler vectorAssembler = new VectorAssembler();
         vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
                 .setOutputCol("feature");
+
 
         Pipeline pipeline =new Pipeline();
         Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(test).transform(test)
@@ -332,12 +335,19 @@ public class DataServiceImpl implements DataService{
 
         df8.show(false);
 
-        return this.getPrediction(model, df8.select("trend","feature"));
+        PolynomialExpansion polynomialExpansion = new PolynomialExpansion();
+        polynomialExpansion.setInputCol("feature");
+        polynomialExpansion.setOutputCol("polyFeature");
+        polynomialExpansion.setDegree(5);
+        Dataset<Row> poly = polynomialExpansion.transform(df8);
+        poly.show(false);
+
+        return this.getPrediction(model, poly.select("search","polyFeature"));
     }
 
     @Override
     public LinearRegressionModel loadLinearRegressionModel() {
-        return LinearRegressionModel.load("backend/src/main/resources/data/model");
+        return LinearRegressionModel.load("backend/src/main/resources/data/model2");
 
     }
     public List<TrendDto> selectTrendList(){ return trendDao.selectTrendList();}
