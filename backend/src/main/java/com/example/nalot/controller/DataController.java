@@ -1,6 +1,7 @@
 package com.example.nalot.controller;
 
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.service.clothes.ClothesService;
 import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.LocationService;
 import org.apache.spark.ml.Pipeline;
@@ -16,6 +17,7 @@ import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.ml.feature.OneHotEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.xml.crypto.Data;
 
+import java.io.IOException;
+
 import static org.apache.spark.sql.functions.*;
 
 
@@ -31,10 +35,12 @@ import static org.apache.spark.sql.functions.*;
 @RequestMapping("/data")
 public class DataController {
 
+    private final ClothesService clothesService;
     private final DataService dataService;
 
-    public DataController(DataService dataService) {
+    public DataController(DataService dataService, ClothesService clothesService) {
         this.dataService = dataService;
+        this.clothesService = clothesService;
     }
 
     //@EventListener(ApplicationReadyEvent.class)
@@ -70,22 +76,33 @@ public class DataController {
     }
 
     @EventListener(ApplicationReadyEvent.class)
-    public Dataset<Row> refineTrainData() {
+    public Dataset<Row> refineTrainData() throws IOException {
+
         Dataset<Row> result = this.joinDataSet();
 
         Dataset<Row> processed = dataService.refineTrainData(result);
+        Dataset<Row> finalData = dataService.extractFeature(processed);
+        Dataset<Row>[] train = finalData.randomSplit(new double[]{0.9, 0.1});
 
-        LinearRegressionModel model = dataService.makeTrainModel(processed);
-
-        Dataset<TrendData> trend = dataService.addDataSet("20211106","서울특별시",(float) 15.0);
-        trend.show();
-       //Dataset<Row> prediction = dataService.getPrediction(model,);
-
+        LinearRegressionModel model = dataService.makeTrainModel(train[0]);
 //
-//        double pre = dataService.getAccuracy(prediction);
+//        Dataset<TrendData> trend = dataService.addDataSet("20211106","서울특별시",(float) 15.0);
+//        trend.show();
 //
-//        prediction.show();
-//        System.out.println(pre*100);
+//        model.save("backend/src/main/resources/data/model");
+//
+//          //clothesService.recommendClothes("20210806","서울특별시",(float) 27.0);
+//
+        //LinearRegressionModel model2 = LinearRegressionModel.load("backend/src/main/resources/data/model");
+
+
+        Dataset<Row> prediction = dataService.getPrediction(model,train[1]);
+
+        double pre = dataService.getAccuracy(prediction);
+
+        processed.show();
+        prediction.show();
+        System.out.println(pre*100);
         return null;
     }
 
