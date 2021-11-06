@@ -143,6 +143,24 @@ public class DataServiceImpl implements DataService{
                                 .when(expr("month == 3 OR month == 4 OR month == 5"),"spring")
                                 .when(expr("month == 6 OR month == 7 OR month == 8"),"summer")
                                 .when(expr("month == 9 OR month == 10 OR month == 11"),"fall").alias("season"));
+//                        ,when(expr("location == '서울특별시'"),1.0)
+//                                .when(expr("location == '부산광역시'"),2.0)
+//                                .when(expr("location == '대구광역시'"),3.0)
+//                                .when(expr("location == '인천광역시'"),4.0)
+//                                .when(expr("location == '광주광역시'"),5.0)
+//                                .when(expr("location == '대전광역시'"),6.0)
+//                                .when(expr("location == '울산광역시'"),7.0)
+//                                .when(expr("location == '세종특별자치시'"),8.0)
+//                                .when(expr("location == '경기도'"),9.0)
+//                                .when(expr("location == '강원도'"),10.0)
+//                                .when(expr("location == '충청북도'"),11.0)
+//                                .when(expr("location == '충청남도'"),12.0)
+//                                .when(expr("location == '전라북도'"),13.0)
+//                                .when(expr("location == '전라남도'"),14.0)
+//                                .when(expr("location == '경상북도'"),15.0)
+//                                .when(expr("location == '경상남도'"),17.0)
+//                                .when(expr("location == '제주특별자치도'"),18.0)
+//                                .when(expr("location == '이어도'"),19.0).alias("locationNum"));
         //x-평균 / 표준편차
         //평균 -> 일평균의 평균
         Dataset<Row> dayavgavg = df52.select(avg(col("avg")));
@@ -166,11 +184,25 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public LinearRegressionModel makeTrainModel(Dataset<Row> processed) {
+    public LinearRegressionModel makeTrainModel(Dataset<Row> train) {
+
+        LinearRegression linearRegression = new LinearRegression();
+        LinearRegressionModel model =  linearRegression.setMaxIter(30)
+                .setRegParam(0.3)
+                .setLabelCol("trend")
+                .setFeaturesCol("feature")
+                .fit(train);
+
+
+        return model;
+    }
+
+    @Override
+    public Dataset<Row> extractFeature(Dataset<Row> dataset) {
         StringIndexer stringIndexer = new StringIndexer();
         Dataset<Row> df6 = stringIndexer.setInputCol("location")
                 .setOutputCol("locationIndex")
-                .fit(processed).transform(processed);
+                .fit(dataset).transform(dataset);
 
         Dataset<Row> df67 = stringIndexer.setInputCol("clothes")
                 .setOutputCol("clothesIndex")
@@ -195,8 +227,10 @@ public class DataServiceImpl implements DataService{
                 .setOutputCol("seasonVex")
                 .fit(df77).transform(df77);
 
+        df78.show();
+
         VectorAssembler vectorAssembler = new VectorAssembler();
-        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonIndex","month", "zscore"})
+        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
                 .setOutputCol("feature");
 
 
@@ -207,20 +241,7 @@ public class DataServiceImpl implements DataService{
 
 
         Dataset<Row> finalData = df8.select("trend","feature");
-        //.where(col("trend").isNotNull());
-//
-        Dataset<Row>[] train = finalData.randomSplit(new double[]{0.9, 0.1});
-
-
-
-        LinearRegression linearRegression = new LinearRegression();
-        LinearRegressionModel model =  linearRegression.setMaxIter(30)
-                .setRegParam(0.3)
-                .setLabelCol("trend")
-                .setFeaturesCol("feature")
-                .fit(train[0]);
-
-        return model;
+        return finalData;
     }
 
     @Override
@@ -240,8 +261,7 @@ public class DataServiceImpl implements DataService{
 
     @Override
     public Dataset<TrendData> addDataSet(String date, String location, float temperature ) {
-        int month = Integer.parseInt(date.substring(3,5));
-
+        int month = Integer.parseInt(date.substring(4,6));
         double value = (double) temperature;
         double zScore = this.calcZscore(value, this.getAverage(), this.getStdDev());
 
@@ -251,32 +271,26 @@ public class DataServiceImpl implements DataService{
 
         Encoder<TrendData> encoder = Encoders.bean(TrendData.class);
 
+        double i = 1;
+
         for(String clothes : list) {
             TrendData trendData = new TrendData();
             trendData.setClothes(clothes);
             trendData.setLocation(location);
             trendData.setValue(value);
             trendData.setMonth(month);
-            trendData.setZScore(zScore);
-            if(month == 12 || month == 1 || month == 2) {
-                trendData.setSeason("winter");
-            }
-            else if(month == 3 || month == 4 || month == 5) {
-                trendData.setSeason("spring");
+            trendData.setZscore(zScore);
+            trendData.setTrend(i++);
 
-            }
-            else if(month == 6 || month == 7 || month == 8) {
-                trendData.setSeason("summer");
-
-            }
-            else if(month == 9 || month == 10 || month == 11) {
-                trendData.setSeason("fall");
-
-            }
+            if(month == 12 || month == 1 || month == 2) { trendData.setSeason("winter"); }
+            else if(month == 3 || month == 4 || month == 5) { trendData.setSeason("spring"); }
+            else if(month == 6 || month == 7 || month == 8) { trendData.setSeason("summer"); }
+            else if(month == 9 || month == 10 || month == 11) { trendData.setSeason("fall"); }
 
             trendDataList.add(trendData);
         }
         Dataset<TrendData> dataset = spark.createDataset(trendDataList, encoder);
+        dataset.show();
         return dataset;
     }
 
@@ -291,6 +305,15 @@ public class DataServiceImpl implements DataService{
     public double getStdDev() { return trendDao.getStdDev(); }
 
     @Override
+    public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendData> trend) {
+        Dataset<Row> dataset = trend.select("*");
+        Dataset<Row> test = this.extractFeature(dataset);
+        return this.getPrediction(model, test);
+    }
+
+    @Override
+    public LinearRegressionModel loadLinearRegressionModel() {
+        return LinearRegressionModel.load("backend/src/main/resources/data/model");
     public List<TrendDto> selectTrendList(){ return trendDao.selectTrendList();}
 
     @Override
