@@ -31,10 +31,4 @@ public class HelloController {
         Map<String, Long> wordCounts = words1.countByValue();
         return wordCounts;
     }
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void test() {
-        System.out.println("ttttttttttttttt");
-    }
-
 }

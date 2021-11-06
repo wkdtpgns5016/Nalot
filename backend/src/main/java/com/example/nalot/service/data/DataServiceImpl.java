@@ -55,7 +55,7 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("src/main/resources/data/temperature1.csv")
+                .load("backend/src/main/resources/data/temperature1.csv")
                 .filter(expr("hour>0"));
 
         return peopleDFCsv;
@@ -92,7 +92,7 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("src/main/resources/data/clothes.csv");
+                .load("backend/src/main/resources/data/clothes.csv");
 
         return peopleDFCsv;
     }
@@ -212,12 +212,13 @@ public class DataServiceImpl implements DataService{
                 .setOutputCol("seasonIndex")
                 .fit(df67).transform(df67);
 
+        Dataset<Row> location = modifyLocation(df68);
 
         OneHotEncoder oneHotEncoder = new OneHotEncoder();
 
         Dataset<Row> df7 = oneHotEncoder.setInputCol("locationIndex")
                 .setOutputCol("locationVex")
-                .fit(df68).transform(df68);
+                .fit(location).transform(location);
 
         Dataset<Row> df77 = oneHotEncoder.setInputCol("clothesIndex")
                 .setOutputCol("clothesVex")
@@ -227,26 +228,37 @@ public class DataServiceImpl implements DataService{
                 .setOutputCol("seasonVex")
                 .fit(df77).transform(df77);
 
-        df78.show();
+        return df78;
+    }
 
-        VectorAssembler vectorAssembler = new VectorAssembler();
-        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
-                .setOutputCol("feature");
+    @Override public Dataset<Row> modifyLocation(Dataset<Row> dataset){
+        Dataset<Row> location = spark.read().format("csv")
+                .option("sep", ",")
+                .option("inferSchema", "true")
+                .option("header", "true")
+                .load("backend/src/main/resources/data/location/location.csv");
+        Dataset<Row> loc = location.withColumnRenamed("locationIndex","locationIndex2");
+        Dataset<Row> result = dataset.filter(expr("trend>=10")).join(loc,"location");
+        result.drop("locationIndex").withColumnRenamed("locationIndex2","locationIndex");
+        result.show();
 
-
-
-        Pipeline pipeline =new Pipeline();
-        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(df78).transform(df78)
-                .na().fill(0);
-
-
-        Dataset<Row> finalData = df8.select("trend","feature");
-        return finalData;
+        return result;
     }
 
     @Override
     public Dataset<Row> getPrediction(LinearRegressionModel model, Dataset<Row> dataset) {
-        return model.transform(dataset);
+        VectorAssembler vectorAssembler = new VectorAssembler();
+        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
+                .setOutputCol("feature");
+
+        Pipeline pipeline =new Pipeline();
+        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(dataset).transform(dataset)
+                .na().fill(0);
+
+
+        Dataset<Row> finalData = df8.select("trend","feature");
+
+        return model.transform(df8);
     }
 
     @Override
@@ -260,27 +272,31 @@ public class DataServiceImpl implements DataService{
     }
 
     @Override
-    public Dataset<TrendData> addDataSet(String date, String location, float temperature ) {
+    public Dataset<TrendDto> addDataSet(String date, String location, float temperature ) {
         int month = Integer.parseInt(date.substring(4,6));
         double value = (double) temperature;
         double zScore = this.calcZscore(value, this.getAverage(), this.getStdDev());
 
 
-        List<TrendData> trendDataList = new ArrayList<>();
+        List<TrendDto> trendDataList = trendDao.selectTrendList();
         List<String> list = trendDao.selectClothesList();
 
-        Encoder<TrendData> encoder = Encoders.bean(TrendData.class);
+        Encoder<TrendDto> encoder = Encoders.bean(TrendDto.class);
 
-        double i = 1;
+        int i = 1;
 
         for(String clothes : list) {
-            TrendData trendData = new TrendData();
+            int j = 10 * i;
+            i++;
+            TrendDto trendData = new TrendDto();
             trendData.setClothes(clothes);
             trendData.setLocation(location);
             trendData.setValue(value);
             trendData.setMonth(month);
             trendData.setZscore(zScore);
-            trendData.setTrend(i++);
+            trendData.setTrend(j);
+            trendData.setDate(date);
+
 
             if(month == 12 || month == 1 || month == 2) { trendData.setSeason("winter"); }
             else if(month == 3 || month == 4 || month == 5) { trendData.setSeason("spring"); }
@@ -289,8 +305,7 @@ public class DataServiceImpl implements DataService{
 
             trendDataList.add(trendData);
         }
-        Dataset<TrendData> dataset = spark.createDataset(trendDataList, encoder);
-        dataset.show();
+        Dataset<TrendDto> dataset = spark.createDataset(trendDataList, encoder);
         return dataset;
     }
 
@@ -305,7 +320,7 @@ public class DataServiceImpl implements DataService{
     public double getStdDev() { return trendDao.getStdDev(); }
 
     @Override
-    public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendData> trend) {
+    public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendDto> trend) {
         Dataset<Row> dataset = trend.select("*");
         Dataset<Row> test = this.extractFeature(dataset);
         return this.getPrediction(model, test);
@@ -314,6 +329,8 @@ public class DataServiceImpl implements DataService{
     @Override
     public LinearRegressionModel loadLinearRegressionModel() {
         return LinearRegressionModel.load("backend/src/main/resources/data/model");
+
+    }
     public List<TrendDto> selectTrendList(){ return trendDao.selectTrendList();}
 
     @Override

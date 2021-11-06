@@ -2,6 +2,7 @@ package com.example.nalot.controller;
 
 import com.example.nalot.model.clothes.ClothesDto;
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.model.weather.WeatherDto;
 import com.example.nalot.model.weather.WeatherRequest;
 import com.example.nalot.service.clothes.ClothesService;
@@ -30,7 +31,7 @@ public class ClothesController {
 
     @PostMapping("/recommendations2")
     public List<ClothesDto> recommendClothes(@RequestBody WeatherRequest weatherRequest){
-        Dataset<TrendData> dataset  = dataService.addDataSet(weatherRequest.getDate(),weatherRequest.getLocation(),weatherRequest.getTemperature());
+        Dataset<TrendDto> dataset  = dataService.addDataSet(weatherRequest.getDate(),weatherRequest.getLocation(),weatherRequest.getTemperature());
         return null;
     }
 }

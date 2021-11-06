@@ -3,6 +3,7 @@ package com.example.nalot.service.clothes;
 import com.example.nalot.dao.ClothesDao;
 import com.example.nalot.model.clothes.ClothesDto;
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.model.weather.WeatherDto;
 import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.WeatherService;
@@ -57,7 +58,7 @@ public class ClothesServiceImpl implements ClothesService {
     @Override
     public List<ClothesDto> recommendClothes(String date, String location, float temperature) {
         LinearRegressionModel model = dataService.loadLinearRegressionModel();
-        Dataset<TrendData> trend = dataService.addDataSet(date,location,temperature);
+        Dataset<TrendDto> trend = dataService.addDataSet(date,location,temperature);
         Dataset<Row> prediction = dataService.recommendTrend(model,trend);
 
         List<ClothesDto> list = new ArrayList<>();
@@ -65,8 +66,9 @@ public class ClothesServiceImpl implements ClothesService {
         List<Row> clothesList = prediction.select(col("trend").cast("int"), col("prediction"))
                 .orderBy(desc("prediction")).limit(5).collectAsList();
 
+        prediction.show();
         for(Row row : clothesList){
-            int id = (int)row.get(0);
+            int id = (int)row.get(0) / 10;
 
             ClothesDto clothesDto = clothesDao.selectClothesInfo(id);
             list.add(clothesDto);
