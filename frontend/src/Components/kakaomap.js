@@ -12,8 +12,6 @@ const kakaomap = () =>{
     let data;
 
     useEffect(()=>{
-        axios.get(app.ip+'/weathers/forecasts')
-            .then(res=>{
                 setLoading(false)
                 let container = document.getElementById('map');
                 let options = {
@@ -104,12 +102,9 @@ const kakaomap = () =>{
 
                     let markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize)
 
-                    let markercontent =
-                        res.data[i].weatherDto.temperature +"°C"
 
                     let overlay = new kakao.maps.CustomOverlay({
                         position: positions[i].latlng,
-                        content : markercontent,
                         yAnchor:1.5
                     })
                     let marker = new kakao.maps.Marker({
@@ -179,7 +174,6 @@ const kakaomap = () =>{
                         })
                     })
                 }
-            })
 
     }, [])
     if(loading) return <div><CircularProgress /></div>
