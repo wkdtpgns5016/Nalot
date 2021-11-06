@@ -143,9 +143,10 @@ const kakaomap = () =>{
                             console.log(response.data.baseDate)
 
                             axios.post(app.ip+'/clothes/recommendations2',{
-                                "temperature":response.data.temperature,
+                                "date":response.data.baseDate,
                                 "location":marker.getTitle(),
-                                "date":response.data.baseDate
+                                "temperature":response.data.temperature,
+
                             },{
                                 headers:{
                                     'Content-Type':'application/json',
