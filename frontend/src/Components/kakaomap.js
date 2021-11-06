@@ -142,9 +142,10 @@ const kakaomap = () =>{
                         }).then(response=>{
                             console.log(response.data.baseDate)
 
-                            axios.post(app.ip+'/clothes/recommendations',{
-                                "id":null, "temperature":response.data.temperature, "userId":null,
-                                "baseDate":null, "baseTime":null
+                            axios.post(app.ip+'/clothes/recommendations2',{
+                                "temperature":response.data.temperature,
+                                "location":marker.getTitle(),
+                                "date":response.data.baseDate
                             },{
                                 headers:{
                                     'Content-Type':'application/json',
@@ -153,7 +154,7 @@ const kakaomap = () =>{
                             }).then(res=>{
 
                                 data = res.data
-                                //console.log(res.data)
+                                console.log(res.data)
 
                                 history.push('/nalot/recommendation',{
                                     "key": location.state.key,

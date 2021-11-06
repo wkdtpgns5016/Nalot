@@ -78,8 +78,8 @@ public class DataController {
     }
 
 
-    @EventListener(ApplicationReadyEvent.class)
-//  @GetMapping("/train")
+    //@EventListener(ApplicationReadyEvent.class)
+    @GetMapping("/train")
     public Dataset<Row> refineTrainData() throws IOException {
 //        Dataset<TrendDto> data = dataService.makeDataset();
 //        Dataset<Row> result = data.select("*");
