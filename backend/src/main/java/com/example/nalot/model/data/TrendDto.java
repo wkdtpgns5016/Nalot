@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class TrendDto {
     String clothes;
-    int date;
+    String date;
     int month;
     String location;
     double value;

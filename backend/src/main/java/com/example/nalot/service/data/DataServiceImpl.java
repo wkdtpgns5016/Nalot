@@ -49,15 +49,13 @@ public class DataServiceImpl implements DataService{
             .config("spark.some.config.option", "some-value")
             .getOrCreate();
 
-
-
     @Override
     public Dataset<Row> getWeatherDataset() {
         Dataset<Row> peopleDFCsv = spark.read().format("csv")
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/temperature1.csv")
+                .load("src/main/resources/data/temperature1.csv")
                 .filter(expr("hour>0"));
 
         return peopleDFCsv;
@@ -94,7 +92,7 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/clothes.csv");
+                .load("src/main/resources/data/clothes.csv");
 
         return peopleDFCsv;
     }

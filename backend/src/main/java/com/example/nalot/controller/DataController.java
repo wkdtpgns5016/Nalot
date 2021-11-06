@@ -56,7 +56,7 @@ public class DataController {
 
     }
 
-
+    @GetMapping("/join")
     public Dataset<Row> joinDataSet(){
         Dataset<Row> df = dataService.getWeatherDataset();
         Dataset<Row> temp =  dataService.refineDataSet(df);
@@ -72,7 +72,8 @@ public class DataController {
         return result;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
+    @GetMapping("/train")
     public Dataset<Row> refineTrainData() {
         Dataset<Row> result = this.joinDataSet();
 
