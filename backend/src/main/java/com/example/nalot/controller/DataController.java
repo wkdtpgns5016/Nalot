@@ -2,6 +2,7 @@ package com.example.nalot.controller;
 
 import com.example.nalot.model.data.TrendData;
 import com.example.nalot.service.clothes.ClothesService;
+import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.LocationService;
 import org.apache.spark.ml.Pipeline;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.xml.crypto.Data;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.apache.spark.sql.functions.*;
 
@@ -59,7 +61,7 @@ public class DataController {
 
     }
 
-
+    @GetMapping("/join")
     public Dataset<Row> joinDataSet(){
         Dataset<Row> df = dataService.getWeatherDataset();
         Dataset<Row> temp =  dataService.refineDataSet(df);
@@ -75,9 +77,10 @@ public class DataController {
         return result;
     }
 
-    @EventListener(ApplicationReadyEvent.class)
-    public Dataset<Row> refineTrainData() throws IOException {
 
+    //@EventListener(ApplicationReadyEvent.class)
+    @GetMapping("/train")
+    public Dataset<Row> refineTrainData() {
         Dataset<Row> result = this.joinDataSet();
 
         Dataset<Row> processed = dataService.refineTrainData(result);

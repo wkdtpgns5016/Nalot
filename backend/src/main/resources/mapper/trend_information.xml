@@ -15,4 +15,9 @@
         select DISTINCT clothes from trend_information;
     </select>
 
+    <select id="selectTrendList" resultType="com.example.nalot.model.data.TrendDto">
+        select * from trend_information;
+    </select>
+
+
 </mapper>

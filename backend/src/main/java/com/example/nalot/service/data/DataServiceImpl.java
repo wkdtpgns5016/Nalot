@@ -3,6 +3,7 @@ package com.example.nalot.service.data;
 import com.example.nalot.dao.LocationDao;
 import com.example.nalot.dao.TrendDao;
 import com.example.nalot.model.data.TrendData;
+import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.model.weather.LocationDto;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.ml.Pipeline;
@@ -48,15 +49,13 @@ public class DataServiceImpl implements DataService{
             .config("spark.some.config.option", "some-value")
             .getOrCreate();
 
-
-
     @Override
     public Dataset<Row> getWeatherDataset() {
         Dataset<Row> peopleDFCsv = spark.read().format("csv")
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/temperature1.csv")
+                .load("src/main/resources/data/temperature1.csv")
                 .filter(expr("hour>0"));
 
         return peopleDFCsv;
@@ -93,7 +92,7 @@ public class DataServiceImpl implements DataService{
                 .option("sep", ",")
                 .option("inferSchema", "true")
                 .option("header", "true")
-                .load("backend/src/main/resources/data/clothes.csv");
+                .load("src/main/resources/data/clothes.csv");
 
         return peopleDFCsv;
     }
@@ -315,5 +314,16 @@ public class DataServiceImpl implements DataService{
     @Override
     public LinearRegressionModel loadLinearRegressionModel() {
         return LinearRegressionModel.load("backend/src/main/resources/data/model");
+    public List<TrendDto> selectTrendList(){ return trendDao.selectTrendList();}
+
+    @Override
+    public Dataset<TrendDto> makeDataset(){
+        //select to list
+        List<TrendDto> selectvalue = selectTrendList();
+        //list to dataset
+        Encoder<TrendDto> encoder = Encoders.bean(TrendDto.class);
+        Dataset<TrendDto> dataset = spark.createDataset(selectvalue, encoder);
+
+        return dataset;
     }
 }
