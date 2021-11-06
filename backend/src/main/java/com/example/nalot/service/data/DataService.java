@@ -17,6 +17,7 @@ public interface DataService {
     public Dataset<Row> refineTrainData(Dataset<Row> result);
     public LinearRegressionModel makeTrainModel(Dataset<Row> train);
     public Dataset<Row> extractFeature(Dataset<Row> dataset);
+    public Dataset<Row> extractFeatureOne(Dataset<Row> a );
     public Dataset<TrendDto> addDataSet(String date, String location, float temperature );
     public Dataset<Row> modifyLocation(Dataset<Row> dataset);
     public Dataset<Row> getPrediction(LinearRegressionModel model, Dataset<Row> dataset);
@@ -27,5 +28,5 @@ public interface DataService {
     LinearRegressionModel loadLinearRegressionModel();
     public List<TrendDto> selectTrendList();
     public Dataset<TrendDto> makeDataset();
-
+    public Dataset<Row> loadDataset(String path);
 }

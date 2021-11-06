@@ -32,12 +32,10 @@ public class ClothesController {
 
     @PostMapping("/recommendations2")
     public List<ClothesDto> recommendClothes(@RequestBody WeatherRequest weatherRequest){
-        List<ClothesDto> list = new ArrayList<>();
-        ClothesDto clothesDto = new ClothesDto();
-        clothesDto.setName("a");
-        clothesDto.setId(0);
-        clothesDto.setCategory("1");
-        list.add(clothesDto);
+        List<ClothesDto> list = clothesService.recommendClothes(
+                weatherRequest.getDate(),
+                weatherRequest.getLocation(),
+                weatherRequest.getTemperature());
 
         return list;
     }

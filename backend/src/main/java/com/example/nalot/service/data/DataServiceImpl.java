@@ -212,13 +212,16 @@ public class DataServiceImpl implements DataService{
                 .setOutputCol("seasonIndex")
                 .fit(df67).transform(df67);
 
-        Dataset<Row> location = modifyLocation(df68);
+        return df68;
+    }
 
+    @Override
+    public Dataset<Row> extractFeatureOne(Dataset<Row> a ) {
         OneHotEncoder oneHotEncoder = new OneHotEncoder();
 
         Dataset<Row> df7 = oneHotEncoder.setInputCol("locationIndex")
                 .setOutputCol("locationVex")
-                .fit(location).transform(location);
+                .fit(a).transform(a);
 
         Dataset<Row> df77 = oneHotEncoder.setInputCol("clothesIndex")
                 .setOutputCol("clothesVex")
@@ -239,26 +242,15 @@ public class DataServiceImpl implements DataService{
                 .load("backend/src/main/resources/data/location/location.csv");
         Dataset<Row> loc = location.withColumnRenamed("locationIndex","locationIndex2");
         Dataset<Row> result = dataset.filter(expr("trend>=10")).join(loc,"location");
-        result.drop("locationIndex").withColumnRenamed("locationIndex2","locationIndex");
-        result.show();
+        Dataset<Row> finalData = result.drop("locationIndex").withColumnRenamed("locationIndex2","locationIndex");
 
-        return result;
+        return finalData;
     }
 
     @Override
     public Dataset<Row> getPrediction(LinearRegressionModel model, Dataset<Row> dataset) {
-        VectorAssembler vectorAssembler = new VectorAssembler();
-        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
-                .setOutputCol("feature");
-
-        Pipeline pipeline =new Pipeline();
-        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(dataset).transform(dataset)
-                .na().fill(0);
-
-
-        Dataset<Row> finalData = df8.select("trend","feature");
-
-        return model.transform(df8);
+        Dataset<Row> finalData = dataset.select("trend","feature");
+        return model.transform(finalData);
     }
 
     @Override
@@ -278,7 +270,7 @@ public class DataServiceImpl implements DataService{
         double zScore = this.calcZscore(value, this.getAverage(), this.getStdDev());
 
 
-        List<TrendDto> trendDataList = trendDao.selectTrendList();
+        List<TrendDto> trendDataList = new ArrayList<>();
         List<String> list = trendDao.selectClothesList();
 
         Encoder<TrendDto> encoder = Encoders.bean(TrendDto.class);
@@ -296,7 +288,6 @@ public class DataServiceImpl implements DataService{
             trendData.setZscore(zScore);
             trendData.setTrend(j);
             trendData.setDate(date);
-
 
             if(month == 12 || month == 1 || month == 2) { trendData.setSeason("winter"); }
             else if(month == 3 || month == 4 || month == 5) { trendData.setSeason("spring"); }
@@ -322,8 +313,26 @@ public class DataServiceImpl implements DataService{
     @Override
     public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendDto> trend) {
         Dataset<Row> dataset = trend.select("*");
-        Dataset<Row> test = this.extractFeature(dataset);
-        return this.getPrediction(model, test);
+        Dataset<Row> locationVex = loadDataset("backend/src/main/resources/data/locationVex");
+        Dataset<Row> clothesVex = loadDataset("backend/src/main/resources/data/clothesVex");
+        Dataset<Row> seasonVex = loadDataset("backend/src/main/resources/data/seasonVex");
+
+        Dataset<Row> test = dataset.join(locationVex,"location")
+                .join(clothesVex,"clothes")
+                .join(seasonVex,"season");
+        test.show();
+
+        VectorAssembler vectorAssembler = new VectorAssembler();
+        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
+                .setOutputCol("feature");
+
+        Pipeline pipeline =new Pipeline();
+        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(test).transform(test)
+                .na().fill(0);
+
+        df8.show(false);
+
+        return this.getPrediction(model, df8.select("trend","feature"));
     }
 
     @Override
@@ -341,6 +350,12 @@ public class DataServiceImpl implements DataService{
         Encoder<TrendDto> encoder = Encoders.bean(TrendDto.class);
         Dataset<TrendDto> dataset = spark.createDataset(selectvalue, encoder);
 
+        return dataset;
+    }
+
+    @Override
+    public Dataset<Row> loadDataset(String path) {
+        Dataset<Row> dataset = spark.read().load(path);
         return dataset;
     }
 }

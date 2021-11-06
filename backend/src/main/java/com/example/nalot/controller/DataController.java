@@ -78,44 +78,42 @@ public class DataController {
     }
 
 
-    //@EventListener(ApplicationReadyEvent.class)
-    @GetMapping("/train")
+//    @EventListener(ApplicationReadyEvent.class)
+//  @GetMapping("/train")
     public Dataset<Row> refineTrainData() throws IOException {
 //        Dataset<TrendDto> data = dataService.makeDataset();
 //        Dataset<Row> result = data.select("*");
+//        result.show();
 //
-        Dataset<TrendDto> trend = dataService.addDataSet("20210106","이어도",(float) 1.0);
-        Dataset<Row> result = trend.select("*");
-        Dataset<Row> finalData = dataService.extractFeature(result);
-        finalData.show();
-//        Dataset<Row> location = finalData.select(col("location"),col("locationIndex")).distinct();
-//        location.show();
-//        location.write().format("csv").save("backend/src/main/resources/data/location");
+//        Dataset<Row> finalData = dataService.extractFeature(result);
+//        Dataset<Row> finalData1 = dataService.extractFeatureOne(finalData);
 //
+//        VectorAssembler vectorAssembler = new VectorAssembler();
+//        vectorAssembler.setInputCols(new String[]{"locationVex","clothesVex","seasonVex","month", "zscore"})
+//                .setOutputCol("feature");
 //
-//        Dataset<Row>[] train = finalData.randomSplit(new double[]{0.9, 0.1});
+//        Pipeline pipeline =new Pipeline();
+//        Dataset<Row> df8 = pipeline.setStages(new PipelineStage[]{(PipelineStage) vectorAssembler}).fit(finalData1).transform(finalData1)
+//                .na().fill(0);
 //
+//        df8.printSchema();
+
+//        dataService.loadDataset("backend/src/main/resources/data/locationVex");
+
+
+
+//        Dataset<Row>[] train = df8.select("trend","feature").randomSplit(new double[]{0.9, 0.1});
 //        LinearRegressionModel model = dataService.makeTrainModel(train[0]);
-
-//        Dataset<TrendDto> trend = dataService.addDataSet("20211106","이어도",(float) 15.0);
-//        Dataset<Row> result = dataService.extractFeature(trend.select("*"));
-//
-//        LinearRegressionModel model2 = LinearRegressionModel.load("backend/src/main/resources/data/model");
-//        Dataset<Row> prediction = dataService.getPrediction(model2,result);
-//        prediction.show();
-
-        //clothesService.recommendClothes("20210106","인천광역시",(float) 2.0);
 //        model.save("backend/src/main/resources/data/model");
-////
-////          //clothesService.recommendClothes("20210806","서울특별시",(float) 27.0);
-////
-//        //LinearRegressionModel model2 = LinearRegressionModel.load("backend/src/main/resources/data/model");
-//
 //
 //        Dataset<Row> prediction = dataService.getPrediction(model,train[1]);
-//        double pre = dataService.getAccuracy(prediction);
 //
+//        double pre = dataService.getAccuracy(prediction);
 //        System.out.println(pre*100);
+
+//
+//       clothesService.recommendClothes("20211105","서울특별시",(float)20.0 );
+
         return null;
     }
 
