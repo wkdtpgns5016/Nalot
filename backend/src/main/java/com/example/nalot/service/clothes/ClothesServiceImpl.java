@@ -66,6 +66,7 @@ public class ClothesServiceImpl implements ClothesService {
         List<Row> clothesList = prediction.select(col("trend").cast("int"), col("prediction"))
                 .orderBy(desc("prediction")).limit(5).collectAsList();
 
+        prediction.show();
         for(Row row : clothesList){
             int id = (int)row.get(0) / 10;
 
