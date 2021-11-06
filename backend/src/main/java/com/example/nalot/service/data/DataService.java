@@ -2,6 +2,7 @@ package com.example.nalot.service.data;
 
 import com.example.nalot.model.data.TrendData;
 import com.example.nalot.model.data.TrendDto;
+import org.apache.spark.ml.classification.LogisticRegressionModel;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -25,7 +26,7 @@ public interface DataService {
     public double getAverage();
     public double getStdDev();
     public Dataset<Row> recommendTrend(LinearRegressionModel model, Dataset<TrendDto> trend);
-    LinearRegressionModel loadLinearRegressionModel();
+    public LinearRegressionModel loadLinearRegressionModel();
     public List<TrendDto> selectTrendList();
     public Dataset<TrendDto> makeDataset();
     public Dataset<Row> loadDataset(String path);

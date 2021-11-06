@@ -7,6 +7,8 @@ import com.example.nalot.model.data.TrendDto;
 import com.example.nalot.model.weather.WeatherDto;
 import com.example.nalot.service.data.DataService;
 import com.example.nalot.service.weather.WeatherService;
+import org.apache.spark.ml.classification.LogisticRegressionModel;
+import org.apache.spark.ml.regression.LinearRegression;
 import org.apache.spark.ml.regression.LinearRegressionModel;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
@@ -63,15 +65,15 @@ public class ClothesServiceImpl implements ClothesService {
         prediction.show();
 
         List<ClothesDto> list = new ArrayList<>();
-        List<Row> clothesList = prediction.select(col("trend").cast("int"), col("prediction"))
+        List<Row> clothesList = prediction.select(col("search").cast("int"), col("prediction"))
                 .orderBy(desc("prediction")).limit(5).collectAsList();
 
-        prediction.show();
         for(Row row : clothesList){
-            int id = (int)row.get(0) / 10;
+            int id = (int)row.get(0) / 1000;
 
             ClothesDto clothesDto = clothesDao.selectClothesInfo(id);
             list.add(clothesDto);
+            System.out.println(clothesDto.getName());
         }
 
         return list;
